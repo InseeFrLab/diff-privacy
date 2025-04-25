@@ -12,10 +12,24 @@ def find_dp_budget(transformation, budget, s):
 
 def return_dp(method, transformation, budget):
     if method == "gauss":
+        scale = dp.binary_search_param(
+            lambda s: find_dp_budget(transformation, budget, s),
+            d_in=d_in, d_out=budget)
+      
+        print("Au seuil de 95%, étant donné le budget dépensé, le résultat est précis à plus ou moins près ",
+            dp.gaussian_scale_to_accuracy(scale, alpha=0.05))
+
         return dp.binary_search_chain(
             lambda s: find_dp_budget(transformation, budget, s),
             d_in=d_in, d_out=budget)  # epsilon-delta
     else:
+        scale = dp.binary_search_param(
+            lambda s: transformation >> dp.m.then_laplace(scale=s),
+            d_in=d_in, d_out=budget[0])
+
+        print("Au seuil de 95%, étant donné le budget dépensé, le résultat est précis à plus ou moins près ",
+            dp.laplacian_scale_to_accuracy(scale, alpha=0.05))
+
         return dp.binary_search_chain(
             lambda s: transformation >> dp.m.then_laplace(scale=s),
             d_in=d_in, d_out=budget[0],  # epsilon
