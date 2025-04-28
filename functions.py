@@ -112,7 +112,7 @@ def make_variance_with(*, target_size, var, var_bounds, prior, budget, method="g
 
 if __name__ == "__main__":
 
-    with open('data/data.csv') as input_file:
+    with open('diff-privacy/data.csv') as input_file:
         data = input_file.read()
 
     col_names = ["age", "sex", "educ", "race", "income", "married"]
