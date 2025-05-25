@@ -400,3 +400,5 @@ FodyWeavers.xsd
 *.sln.iml
 
 data.csv
+
+slides/slides_files/*
