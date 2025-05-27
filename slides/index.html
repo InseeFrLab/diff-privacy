@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.6.43">
 
   <meta name="author" content="Stuart Benoliel, Julien Jamme, Gaspard Ferey">
-  <meta name="dcterms.date" content="2025-05-25">
+  <meta name="dcterms.date" content="2025-05-27">
   <title>La confidentialité différentielle appliquée à l’Insee</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -29,71 +29,6 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-    /* CSS for syntax highlighting */
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      { color: #003b4f; background-color: #f1f3f5; }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span { color: #003b4f; } /* Normal */
-    code span.al { color: #ad0000; } /* Alert */
-    code span.an { color: #5e5e5e; } /* Annotation */
-    code span.at { color: #657422; } /* Attribute */
-    code span.bn { color: #ad0000; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #20794d; } /* Char */
-    code span.cn { color: #8f5902; } /* Constant */
-    code span.co { color: #5e5e5e; } /* Comment */
-    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
-    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
-    code span.dt { color: #ad0000; } /* DataType */
-    code span.dv { color: #ad0000; } /* DecVal */
-    code span.er { color: #ad0000; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #ad0000; } /* Float */
-    code span.fu { color: #4758ab; } /* Function */
-    code span.im { color: #00769e; } /* Import */
-    code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
-    code span.op { color: #5e5e5e; } /* Operator */
-    code span.ot { color: #003b4f; } /* Other */
-    code span.pp { color: #ad0000; } /* Preprocessor */
-    code span.sc { color: #5e5e5e; } /* SpecialChar */
-    code span.ss { color: #20794d; } /* SpecialString */
-    code span.st { color: #20794d; } /* String */
-    code span.va { color: #111111; } /* Variable */
-    code span.vs { color: #20794d; } /* VerbatimString */
-    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="slides_files/libs/revealjs/dist/theme/quarto-8f62eb61b5baf0f2495119921d4031c4.css">
   <link rel="stylesheet" href="_extensions/InseeFrLab/onyxia/logo.css">
@@ -208,93 +143,65 @@ Stuart Benoliel, Julien Jamme, Gaspard Ferey
 </div>
 </div>
 
-  <p class="date">2025-05-25</p>
-</section>
-<section id="how-to-use-this-template" class="slide level2" data-background-image="background.svg" data-background-size="contain">
-<h2>How to use this template?</h2>
-<ol type="1">
-<li>You need <a href="https://quarto.org/">Quarto</a> and great news!<br>
-Quarto is already installed in the <a href="https://datalab.sspcloud.fr/launcher/inseefrlab-helm-charts-datascience/vscode?autoLaunch=true">VSCode service</a></li>
-</ol>
-<div class="fragment">
-<ol start="2" type="1">
-<li><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href=""></a>   <span class="ex">quarto</span> use template InseeFrLab/onyxia-quarto</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-</ol>
-</div>
-<div class="fragment">
-<ol start="3" type="1">
-<li><p>Choose the format:</p>
-<ul>
-<li><code>onyxia-revealjs</code> (<a href="https://inseefrlab.github.io/onyxia-quarto/">light mode</a>)</li>
-<li><code>onyxia-dark-revealjs</code> (<a href="https://inseefrlab.github.io/onyxia-quarto/dark-mode.html">dark mode</a>)</li>
-</ul></li>
-</ol>
-</div>
-<div class="fragment">
-<ol start="4" type="1">
-<li><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href=""></a>   <span class="ex">quarto</span> render mydocument.qmd</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-</ol>
-</div>
-<div class="fragment">
-<ol start="5" type="1">
-<li>Read the <a href="https://quarto.org/docs/presentations/revealjs/">Quarto documentation on reveal.js format</a></li>
-</ol>
-</div>
+  <p class="date">2025-05-27</p>
 </section>
 <section class="slide level2">
 
-<div class="columns">
-<div class="column" style="width:40%;">
-<p>Left column</p>
-</div><div class="column" style="width:60%;">
-<p>Right column</p>
-</div></div>
+<p>class: fullscreen, hide-slide-number</p>
 </section>
-<section id="slide-title" class="slide level2" data-background-image="background.svg" data-background-size="contain">
-<h2>Slide Title</h2>
-<ul>
-<li>Green <sup>1</sup></li>
-<li>Brown</li>
-<li>Purple</li>
-</ul>
-
-<aside><div>
-<p>Some additional commentary of more peripheral interest.</p>
-</div><ol class="aside-footnotes"><li id="fn1"><p>A footnote</p></li></ol></aside></section>
 <section class="slide level2">
 
-<div class="sourceCode" id="cb3" data-code-line-numbers="6-8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb3-2"><a href=""></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb3-3"><a href=""></a></span>
-<span id="cb3-4"><a href=""></a>r <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">2</span>, <span class="fl">0.01</span>)</span>
-<span id="cb3-5"><a href=""></a>theta <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> np.pi <span class="op">*</span> r</span>
-<span id="cb3-6"><a href=""></a>fig, ax <span class="op">=</span> plt.subplots(subplot_kw<span class="op">=</span>{<span class="st">'projection'</span>: <span class="st">'polar'</span>})</span>
-<span id="cb3-7"><a href=""></a>ax.plot(theta, r)</span>
-<span id="cb3-8"><a href=""></a>ax.set_rticks([<span class="fl">0.5</span>, <span class="dv">1</span>, <span class="fl">1.5</span>, <span class="dv">2</span>])</span>
-<span id="cb3-9"><a href=""></a>ax.grid(<span class="va">True</span>)</span>
-<span id="cb3-10"><a href=""></a>plt.show()</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img data-src="images/conversion_dp.png" style="width:100.0%;height:100.0%"></p>
 </section>
 <section id="les-forces-de-la-dp" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Les forces de la DP :</h2>
 <ul>
 <li>Un cadre mathématique à la notion de confidentialité et donc des garanties statistiques</li>
+</ul>
+<div class="fragment">
+<ul>
 <li>Pas d’hypothèses particulières sur les connaissances préalables de l’attaquant</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Transparence vis à vis du public</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
 <li>Préserver au post traitement</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
 <li>Prise en compte du risque encourut lorsqu’on réitère des processus révélant de l’information</li>
 </ul>
+</div>
 </section>
 <section id="ses-faiblesses" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Ses faiblesses :</h2>
 <ul>
 <li>Difficile à mettre en place (aspect théorique important)</li>
+</ul>
+<div class="fragment">
+<ul>
 <li>Impose parfois trop de contraintes</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
 <li>Difficulté à choisir le “budget DP” qui retranscrit le dilemme utilité et protection</li>
 </ul>
+</div>
 </section>
 <section id="lidée-originel" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>L’idée originel</h2>
-<p>Nous voulons protéger un jeu de données <span class="math inline">\(D\)</span> tout en récupérant une sortie <span class="math inline">\(S\)</span> produite à partir de <span class="math inline">\(D\)</span>. Un mécanisme ou algorithme respectant la DP fera en sorte qu’il soit très peu probable de devenir si un individu <span class="math inline">\(i\)</span> particulier fait partie de <span class="math inline">\(D\)</span>.</p>
+<p>Protéger un jeu de données <span class="math inline">\(D\)</span> tout en récupérant une sortie <span class="math inline">\(S\)</span> produite à partir de <span class="math inline">\(D\)</span>.</p>
+<p>Un mécanisme ou algorithme respectant la DP fera en sorte qu’il soit très peu probable de devenir si un individu <span class="math inline">\(i\)</span> particulier fait partie de <span class="math inline">\(D\)</span>.</p>
+<div class="fragment">
 <p>Ceci impose donc que la sortie <span class="math inline">\(S\)</span> produite avec <span class="math inline">\(i\)</span> ou sans <span class="math inline">\(i\)</span> diffère peu (en moyenne si on reproduisait la même sortie).</p>
+</div>
 </section>
 <section id="les-concepts-important" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Les concepts important</h2>
@@ -304,12 +211,17 @@ Quarto is already installed in the <a href="https://datalab.sspcloud.fr/launcher
 <li>Ajout ou suppression d’un individu pour retrouver l’autre dataset</li>
 <li>Modification d’un individu de la base</li>
 </ul></li>
+</ul>
+<div class="fragment">
+<ul>
 <li>La sensibilité <span class="math inline">\(\Delta\)</span> : mesure de l’importance maximale d’un individu dans la sortie
 <ul>
 <li>Comptage : sensibilité de 1</li>
 <li>Somme / Moyenne : potentiellement infinie …</li>
+<li>Quantile : dépendante d’une fonction de score</li>
 </ul></li>
 </ul>
+</div>
 </section>
 <section id="la-pure-dp" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>La Pure DP</h2>
@@ -330,7 +242,7 @@ Quarto is already installed in the <a href="https://datalab.sspcloud.fr/launcher
 </section>
 <section id="lapproximate-dp" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>L’approximate DP</h2>
-<p>La pure DP est assez restrictive, d’où des relaxations ont émergé dans la littérature.</p>
+<p>La pure DP est assez restrictive, d’où les relaxations qui ont émergé dans la littérature.</p>
 <div class="fragment">
 <p>Un mécanisme <span class="math inline">\(M\)</span> est dit <span class="math inline">\((\varepsilon, \delta)\)</span>-DP s’il vérifie :</p>
 <span class="math display">\[\begin{equation}
@@ -341,7 +253,7 @@ Quarto is already installed in the <a href="https://datalab.sspcloud.fr/launcher
 <p>Ce relâchement autorise une faible probabilité <span class="math inline">\(\delta\)</span> pour laquelle la garantie stricte de <span class="math inline">\(\varepsilon\)</span>-DP ne s’applique pas. Le paramètre <span class="math inline">\(\delta\)</span> est donc interprété comme une probabilité d’échec de confidentialité catastrophique.</p>
 </div>
 <div class="fragment">
-<p>Mécanisme vérifiant l’<span class="math inline">\((\varepsilon, \delta)\)</span>-DP ? Le bruit Gaussien :D</p>
+<p>Mécanisme vérifiant l’<span class="math inline">\((\varepsilon, \delta)\)</span>-DP : le bruit Gaussien</p>
 </div>
 </section>
 <section class="slide level2">
@@ -352,10 +264,12 @@ Quarto is already installed in the <a href="https://datalab.sspcloud.fr/launcher
 <h2>Théorème de composition</h2>
 <p>Soit une séquence de <span class="math inline">\(k\)</span> mécanismes <span class="math inline">\(M_1, \dots, M_k\)</span>, choisis de manière adaptative, chacun vérifiant <span class="math inline">\((\varepsilon, \delta)\)</span>-DP.<br>
 Alors, leur composition est : <span class="math inline">\(\left(\sum_{i=1}^{k} \varepsilon_i, \sum_{i=1}^{k} \delta_i\right)\)</span> - DP.</p>
+<div class="fragment">
 <p>De plus, il existe également une autre formule de composition dite “avancée” qui est la suivante : pour tout <span class="math inline">\(\delta' &gt; 0\)</span>,</p>
 <span class="math display">\[\begin{equation}
 \left( k\varepsilon(e^{\varepsilon} - 1) + \varepsilon\sqrt{2k \ln(1/\delta')} \ ,\ k\delta + \delta' \right)\text{-DP}.
 \end{equation}\]</span>
+</div>
 </section>
 <section id="limites-de-cette-approche" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Limites de cette approche</h2>
@@ -380,15 +294,15 @@ Alors, leur composition est : <span class="math inline">\(\left(\sum_{i=1}^{k} \
 </section>
 <section class="slide level2">
 
-<p>La formule imposte notamment que la Privacy Loss soit subgaussien.</p>
+<p>La formule imposte notamment que la Privacy Loss soit subgaussienne (queues de distribution dominées par celle d’une gaussienne).</p>
 <div class="fragment">
 <p>Le paramètre <span class="math inline">\(\rho\)</span> mesure la concentration de la Privacy Loss autour de sa valeur espérée, permettant d’avoir une plus grande précision dans la dégradation de confidentialité en cas de composition.</p>
 </div>
 </section>
 <section id="un-récapitulatif-des-différentes-dp" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Un récapitulatif des différentes DP</h2>
-<p>Schéma récapitulatif</p>
-</section>
+
+<img data-src="images/conversion_dp.png" class="quarto-figure quarto-figure-center r-stretch" data-fig-cap="Schéma récapitulatif des conversions entre les DP"></section>
 <section id="revenons-à-la-sensibilité" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Revenons à la sensibilité</h2>
 <p>Les calculs de totaux sont problématiques car la contribution d’un individu est difficilement mesurable.</p>
@@ -412,10 +326,10 @@ Alors, leur composition est : <span class="math inline">\(\left(\sum_{i=1}^{k} \
 <p>Il reste à savoir comment choisir proprement L et U.</p>
 </div>
 </section>
-<section id="le-cas-des-comptages-un-ca-simple-pas-vraiment" class="slide level2" data-background-image="background.svg" data-background-size="contain">
-<h2>Le cas des comptages : un ca simple ? Pas vraiment …</h2>
-<p>Image tableau</p>
-</section>
+<section id="le-cas-des-comptages-un-cas-simple-pas-vraiment" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>Le cas des comptages : un cas simple ? Pas vraiment …</h2>
+
+<img data-src="images/cas_pratique_dp.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section class="slide level2">
 
 <p>Cette approche comporte des risques car à partir d’un tableau, il existe 2 façons d’estimer un total d’une ligne ou colonne et 3 pour le total du tableau.</p>
@@ -426,7 +340,7 @@ Alors, leur composition est : <span class="math inline">\(\left(\sum_{i=1}^{k} \
 <p>Ceci peut être vu à la fois comme un avantage mais aussi une contrainte :</p>
 <ul>
 <li><p>Permet d’injecter des bruits plus élevés que prévu vu qu’on peut se servir des estimations extérieures pour augmenter la précision</p></li>
-<li><p>Impose de suivre les différentes manières d’estimer un comptage si l’on ne veut pas fournir des estimations trop précises que voulut.</p></li>
+<li><p>Impose de suivre les différentes manières d’estimer un comptage si l’on ne veut pas fournir des estimations trop précises.</p></li>
 </ul>
 </div>
 </section>
@@ -436,8 +350,11 @@ Alors, leur composition est : <span class="math inline">\(\left(\sum_{i=1}^{k} \
 <span class="math display">\[\begin{equation}
     \hat{T}_{\text{comp}} = \sum_{k=1}^{n} w_k \hat{T}_k
 \end{equation}\]</span>
-<p>où les <span class="math inline">\(\hat{T}_k\)</span> sont des estimateurs non biaisés, indépendants, de variance <span class="math inline">\(\sigma_k^2\)</span>.<br>
-On cherche à minimiser la variance de <span class="math inline">\(\hat{T}_{\text{comp}}\)</span>, soit :</p>
+<p>où les <span class="math inline">\(\hat{T}_k\)</span> sont des estimateurs non biaisés, indépendants, de variance <span class="math inline">\(\sigma_k^2\)</span>.</p>
+</section>
+<section class="slide level2">
+
+<p>On cherche à minimiser la variance de <span class="math inline">\(\hat{T}_{\text{comp}}\)</span>, soit :</p>
 <span class="math display">\[\begin{equation}
     \mathrm{Var}[\hat{T}_{\text{comp}}] = \sum_{k=1}^{n} w_k^2 \sigma_k^2
 \end{equation}\]</span>
@@ -445,6 +362,9 @@ On cherche à minimiser la variance de <span class="math inline">\(\hat{T}_{\tex
 <span class="math display">\[\begin{equation}
     \sum_{k=1}^{n} w_k = 1 \quad \text{et} \quad w_k \geq 0
 \end{equation}\]</span>
+</section>
+<section class="slide level2">
+
 <p>Finalement :</p>
 <p><span class="math display">\[\begin{equation}
     \mathrm{Var}[\hat{T}_{\text{comp}}] = \sum_{k=1}^{n} w_k^2 \sigma_k^2 = \frac{1}{\sum_{j=1}^{n} 1 / \sigma_j^2}
@@ -452,8 +372,12 @@ On cherche à minimiser la variance de <span class="math inline">\(\hat{T}_{\tex
 </section>
 <section id="un-exemple" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Un exemple</h2>
-<p>cas pratique</p>
-</section>
+
+<img data-src="images/cas_pratique_estimation_composite.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="le-risque" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>Le risque</h2>
+
+<img data-src="images/cas_attaquant.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="notre-état-davancement-sur-ce-point" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Notre état d’avancement sur ce point</h2>
 <p>Aujourd’hui, un algorithme a été codé de sorte qu’à partir de la liste des tableaux croisant 3 ou 2 variables, l’algorithme renvoie les bruits nécessaires à injecter pour atteindre une précision donnée ou inversement précise si l’estimation doit être davantage bruitée.</p>
@@ -465,12 +389,15 @@ On cherche à minimiser la variance de <span class="math inline">\(\hat{T}_{\tex
 </ul>
 </div>
 </section>
+<section class="slide level2">
+
+
+<img data-src="images/bottom_up.png" class="r-stretch"></section>
 <section id="mise-en-application-de-la-dp-et-suivi-du-budget" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Mise en application de la DP et suivi du budget</h2>
-<p>application streamlit.</p>
+<p>application streamlit qui sert d’application pour présenter la DP.</p>
 
 </section>
-
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">

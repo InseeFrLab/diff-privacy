@@ -25,83 +25,24 @@ editor:
   render-on-save: true
 ---
 
-## How to use this template?
-
-1. You need [Quarto](https://quarto.org/) and great news!  
-   Quarto is already installed in the
-   [VSCode service](https://datalab.sspcloud.fr/launcher/inseefrlab-helm-charts-datascience/vscode?autoLaunch=true)
-
-. . .
-
-2. ``` bash
-   quarto use template InseeFrLab/onyxia-quarto
-   ```
-
-. . .
-
-3. Choose the format:
-
-   - `onyxia-revealjs` ([light mode](https://inseefrlab.github.io/onyxia-quarto/))
-   - `onyxia-dark-revealjs` ([dark mode](https://inseefrlab.github.io/onyxia-quarto/dark-mode.html))
-
-. . .
-
-4. ``` bash
-   quarto render mydocument.qmd
-   ```
-
-. . .
-
-5. Read the [Quarto documentation on reveal.js format](https://quarto.org/docs/presentations/revealjs/)
-
----
-
-:::: {.columns}
-
-::: {.column width="40%"}
-Left column
-:::
-
-::: {.column width="60%"}
-Right column
-:::
-
-::::
-
----
-
-## Slide Title
-
-- Green ^[A footnote]
-- Brown
-- Purple
-
-::: aside
-Some additional commentary of more peripheral interest.
-:::
-
----
-
-```{.python code-line-numbers="6-8"}
-import numpy as np
-import matplotlib.pyplot as plt
-
-r = np.arange(0, 2, 0.01)
-theta = 2 * np.pi * r
-fig, ax = plt.subplots(subplot_kw={'projection': 'polar'})
-ax.plot(theta, r)
-ax.set_rticks([0.5, 1, 1.5, 2])
-ax.grid(True)
-plt.show()
-```
-
----
-
 ## Les forces de la DP :
 
 - Un cadre mathématique à la notion de confidentialité et donc des garanties statistiques
+
+. . .
+
 - Pas d'hypothèses particulières sur les connaissances préalables de l'attaquant
+
+. . .
+
+- Transparence vis à vis du public
+
+. . .
+
 - Préserver au post traitement
+
+. . .
+
 - Prise en compte du risque encourut lorsqu'on réitère des processus révélant de l'information
 
 
@@ -110,16 +51,25 @@ plt.show()
 ## Ses faiblesses :
 
 - Difficile à mettre en place (aspect théorique important)
+
+. . .
+
 - Impose parfois trop de contraintes
+
+. . .
+
 - Difficulté à choisir le "budget DP" qui retranscrit le dilemme utilité et protection
 
 ---
 
 ## L'idée originel
 
-Nous voulons protéger un jeu de données $D$ tout en récupérant une sortie $S$ produite à partir de $D$.
+Protéger un jeu de données $D$ tout en récupérant une sortie $S$ produite à partir de $D$.
+
 Un mécanisme ou algorithme respectant la DP fera en sorte qu'il soit très peu probable de devenir si un individu $i$
 particulier fait partie de $D$.
+
+. . .
 
 Ceci impose donc que la sortie $S$ produite avec $i$ ou sans $i$ diffère peu (en moyenne si on reproduisait la même sortie).
 
@@ -131,9 +81,12 @@ Ceci impose donc que la sortie $S$ produite avec $i$ ou sans $i$ diffère peu (e
   - Ajout ou suppression d'un individu pour retrouver l'autre dataset
   - Modification d'un individu de la base
 
+. . .
+
 - La sensibilité $\Delta$ : mesure de l'importance maximale d'un individu dans la sortie
   - Comptage : sensibilité de 1
   - Somme / Moyenne : potentiellement infinie ...
+  - Quantile : dépendante d'une fonction de score
 
 ---
 
@@ -161,7 +114,7 @@ Slides courbes
 
 ## L'approximate DP
 
-La pure DP est assez restrictive, d'où des relaxations ont émergé dans la littérature.
+La pure DP est assez restrictive, d'où les relaxations qui ont émergé dans la littérature.
 
 . . .
 
@@ -178,7 +131,7 @@ Ce relâchement autorise une faible probabilité $\delta$ pour laquelle la garan
 
 . . .
 
-Mécanisme vérifiant l'$(\varepsilon, \delta)$-DP ? Le bruit Gaussien :D
+Mécanisme vérifiant l'$(\varepsilon, \delta)$-DP : le bruit Gaussien
 
 ---
 
@@ -190,6 +143,8 @@ Slides courbes
 
 Soit une séquence de $k$ mécanismes $M_1, \dots, M_k$, choisis de manière adaptative, chacun vérifiant $(\varepsilon, \delta)$-DP.  
 Alors, leur composition est : $\left(\sum_{i=1}^{k} \varepsilon_i, \sum_{i=1}^{k} \delta_i\right)$ - DP.
+
+. . .
 
 De plus, il existe également une autre formule de composition dite "avancée" qui est la suivante :
 pour tout $\delta' > 0$, 
@@ -232,7 +187,7 @@ où l'on définit la Privacy Loss comme étant
 
 ---
 
-La formule imposte notamment que la Privacy Loss soit subgaussien.
+La formule imposte notamment que la Privacy Loss soit subgaussienne (queues de distribution dominées par celle d'une gaussienne).
 
 . . .
 
@@ -242,7 +197,7 @@ Le paramètre $\rho$ mesure la concentration de la Privacy Loss autour de sa val
 
 ## Un récapitulatif des différentes DP
 
-Schéma récapitulatif
+![](images/conversion_dp.png){fig-align="center" fig-cap="Schéma récapitulatif des conversions entre les DP"}
 
 ---
 
@@ -276,9 +231,9 @@ Il reste à savoir comment choisir proprement L et U.
 
 ---
 
-## Le cas des comptages : un ca simple ? Pas vraiment ...
+## Le cas des comptages : un cas simple ? Pas vraiment ...
 
-Image tableau
+![](images/cas_pratique_dp.png){fig-align="center"}
 
 ---
 
@@ -294,7 +249,7 @@ Ceci peut être vu à la fois comme un avantage mais aussi une contrainte :
 
 - Permet d'injecter des bruits plus élevés que prévu vu qu'on peut se servir des estimations extérieures pour augmenter la précision
 
-- Impose de suivre les différentes manières d'estimer un comptage si l'on ne veut pas fournir des estimations trop précises que voulut.
+- Impose de suivre les différentes manières d'estimer un comptage si l'on ne veut pas fournir des estimations trop précises.
 
 ---
 
@@ -306,6 +261,9 @@ On définit :
 \end{equation}
 ```
 où les $\hat{T}_k$ sont des estimateurs non biaisés, indépendants, de variance $\sigma_k^2$.  
+
+---
+
 On cherche à minimiser la variance de $\hat{T}_{\text{comp}}$, soit :
 ```{=tex}
 \begin{equation}
@@ -318,6 +276,9 @@ sous la contrainte :
     \sum_{k=1}^{n} w_k = 1 \quad \text{et} \quad w_k \geq 0
 \end{equation}
 ```
+
+---
+
 Finalement :
 ```{=tex}
 \begin{equation}
@@ -328,7 +289,13 @@ Finalement :
 
 ## Un exemple
 
-cas pratique
+![](images/cas_pratique_estimation_composite.png){fig-align="center"}
+
+---
+
+## Le risque
+
+![](images/cas_attaquant.png){fig-align="center"}
 
 ---
 
@@ -346,6 +313,10 @@ Conditions d'applications :
 
 ---
 
+![](images/bottom_up.png){}
+
+---
+
 ## Mise en application de la DP et suivi du budget
 
-application streamlit.
+application streamlit qui sert d'application pour présenter la DP.
