@@ -1,141 +1,190 @@
 ---
-title: La confidentialité différentielle appliquée à l'Insee
+title: La confidentialité différentielle
 subtitle: |
-  **[A travers un outil de requêtage à destination des chargés d'études]{.orange}**
-author: Stuart Benoliel, Julien Jamme, Gaspard Ferey
+  **[Appliquée via un outil de requêtage]{.orange}**
+author: S. Benoliel, J. Jamme, G. Ferey
 date: today
 slide-number: true
-footer: |
-  **[onyxia.sh](https://www.onyxia.sh)**
-# uncomment for French presentations:
 lang: fr
-# for blind readers:
-slide-tone: false
-# for @olevitt:
 chalkboard: # press the B key to toggle chalkboard
   theme: whiteboard
-# uncomment to use the multiplex mode:
-#multiplex: true
 format:
-  # pick the light mode (onyxia-revealjs) or the dark mode (onyxia-dark-revealjs)
   onyxia-revealjs:
     output-file: index.html
-# visual editor configuration:
 editor:
   render-on-save: true
 ---
 
-## Les forces de la DP :
+## Qu'est-ce que la confidentialité différentielle (DP) ?
 
-- Un cadre mathématique à la notion de confidentialité et donc des garanties statistiques
+<br>
 
-. . .
-
-- Pas d'hypothèses particulières sur les connaissances préalables de l'attaquant
+- Approche perturbative (vs suppressive)  
 
 . . .
 
-- Transparence vis à vis du public
+- Ne fait **aucune hypothèse** sur les connaissances de l’attaquant
 
-. . .
+. . . 
 
-- Préserver au post traitement
-
-. . .
-
-- Prise en compte du risque encourut lorsqu'on réitère des processus révélant de l'information
-
+- Cadre mathématique définissant un **budget de confidentialité**
 
 ---
 
-## Ses faiblesses :
+## Le principe
 
-- Difficile à mettre en place (aspect théorique important)
+<br>
 
-. . .
-
-- Impose parfois trop de contraintes
+- But : protéger un jeu de données $D$ tout en récupérant une sortie $S$ produite à partir de $D$.
 
 . . .
 
-- Difficulté à choisir le "budget DP" qui retranscrit le dilemme utilité et protection
+- Mécanisme DP : rend **indistinguable** les sorties obtenues avec ou sans un individu $i$  
+
+. . .
+
+- Si un individu a un fort impact sur la sortie $S$ → on ajoute davantage de bruit
 
 ---
 
-## L'idée originel
+## Concepts clés
 
-Protéger un jeu de données $D$ tout en récupérant une sortie $S$ produite à partir de $D$.
-
-Un mécanisme ou algorithme respectant la DP fera en sorte qu'il soit très peu probable de devenir si un individu $i$
-particulier fait partie de $D$.
-
-. . .
-
-Ceci impose donc que la sortie $S$ produite avec $i$ ou sans $i$ diffère peu (en moyenne si on reproduisait la même sortie).
-
----
-
-## Les concepts important
-
-- L'adjacence : les dataset $D$ et $D'$ différent d'un individu :
+- **Adjacence** : $D \sim D'$, les dataset $D$ et $D'$ différent d'un individu :
   - Ajout ou suppression d'un individu pour retrouver l'autre dataset
-  - Modification d'un individu de la base
+  - Modification d'un individu du dataset
 
 . . .
 
-- La sensibilité $\Delta$ : mesure de l'importance maximale d'un individu dans la sortie
-  - Comptage : sensibilité de 1
-  - Somme / Moyenne : potentiellement infinie ...
-  - Quantile : dépendante d'une fonction de score
+- **Sensibilité** $\Delta_i f = \max_{D \sim D'} \|f(D) - f(D')\|_i$  → impact maximal d’un individu
+  - Comptage : $\Delta_i = 1$ 
+  - Somme / moyenne / quantile: dépendante de la variable d'étude
 
 ---
 
-## La Pure DP
+## La Pure DP ($\varepsilon$-DP)
 
-Un mécanisme $M$ est dit $\varepsilon$-DP si, pour toute paire de bases de données adjacentes $D$ et $D'$, et pour tout ensemble $S$ de sorties possibles de $M$, on a :
-```{=tex}
-\begin{equation}
-    \mathbb{P}(M(D) \in S) \leq e^{\varepsilon} \mathbb{P}(M(D') \in S).
-\end{equation}
-```
-. . .
+<br>
 
-Le paramètre $\varepsilon$ s’interprète comme le gain de connaissance maximal qu’un attaquant peut obtenir.
+Un mécanisme $M$ est dit $\varepsilon$-DP si pour tout $D \sim D'$ et toute sortie $S$ :
+
+$$
+\mathbb{P}(M(D) \in S) \leq e^{\varepsilon} \mathbb{P}(M(D') \in S)
+$$
 
 . . .
 
-Le mécanisme de base : ajouter un bruit venant d'une distribution de Laplace
+Interprétation :
+
+- $\varepsilon$ contrôle le **gain d'information** de l'attaquant  
+- Plus $\varepsilon$ est petit, plus la confidentialité est forte 
 
 ---
 
-Slides courbes
+## Perte de confidentialité (Privacy Loss)
+
+<br>
+
+$$
+\mathcal{L}_{D, D'}(S) = \ln\left(\frac{\mathbb{P}(M(D) \in S)}{\mathbb{P}(M(D') \in S)}\right) =
+    \ln \left(\frac{ \frac{\mathbb{P}[\mathcal{D} = D \mid A(D) = S]}{\mathbb{P}[\mathcal{D} = D' \mid A(D') = S]} } {\frac{\mathbb{P}[\mathcal{D} = D]}{\mathbb{P}[\mathcal{D} = D']} } \right) 
+$$
+
+$M$ est $\varepsilon$-DP si pour toute sortie $S$ :
+
+$$
+\left| \mathcal{L}_{D, D'}(S) \right| \leq \varepsilon
+$$
 
 ---
 
-## L'approximate DP
+## Mécanisme $\varepsilon$-DP : bruit de Laplace
 
-La pure DP est assez restrictive, d'où les relaxations qui ont émergé dans la littérature.
+<br>
 
-. . .
+::: {.columns}
+::: {.column width="50%"}
+![Densité de probabilité entre $D$ et $D'$ avec un bruit d'écart type $\sigma = \frac{\sqrt{2}}{\ln(3)}$](images/courbe_densite_laplace.png)
+:::
 
-Un mécanisme $M$ est dit $(\varepsilon, \delta)$-DP s’il vérifie :
-```{=tex}
-\begin{equation}
-    \mathbb{P}(M(D) \in S) \leq e^{\varepsilon} \mathbb{P}(M(D') \in S) + \delta
-\end{equation}
-```
-
-. . .
-
-Ce relâchement autorise une faible probabilité $\delta$ pour laquelle la garantie stricte de $\varepsilon$-DP ne s’applique pas. Le paramètre $\delta$ est donc interprété comme une probabilité d’échec de confidentialité catastrophique.
-
-. . .
-
-Mécanisme vérifiant l'$(\varepsilon, \delta)$-DP : le bruit Gaussien
+::: {.column width="50%"}
+![Perte de confidentialité comprise entre $e^{\varepsilon}$ et $e^{-\varepsilon}$](images/courbe_risque_laplace.png)
+:::
+:::
 
 ---
 
-Slides courbes
+## L'approximate DP $(\varepsilon, \delta)$
+
+Forme relaxée de la pure DP :
+
+$$
+\mathbb{P}(M(D) \in S) \leq e^{\varepsilon} \mathbb{P}(M(D') \in S) + \delta
+$$
+
+
+. . .
+
+Ce relâchement autorise une faible probabilité $\delta$ pour laquelle la garantie stricte de $\varepsilon$-DP ne s’applique pas. Le paramètre $\delta$ est souvent interprété comme une probabilité d’échec de confidentialité catastrophique.
+
+A terminer
+
+---
+
+## Mécanisme $(\varepsilon, \delta)$-DP: bruit gaussien
+
+<br>
+
+::: {.columns}
+::: {.column width="50%"}
+![Densité de probabilité entre $D$ et $D'$ avec un bruit d'écart type $\sigma = \frac{\sqrt{2}}{\ln(3)}$](images/courbe_densite_gauss.png)
+:::
+
+::: {.column width="50%"}
+![Perte de confidentialité non bornée](images/courbe_risque_gauss_1.png)
+:::
+:::
+
+---
+
+## Répéter $k$ fois un mécanisme DP ?
+
+<br>
+
+Exemple : publier plusieurs statistiques sur un même jeu de données $D$
+
+. . .
+
+<br>
+
+Répétitions → accumulation du budget 
+
+. . .
+
+<br>
+
+A quel point ? → Besoin de **composer** les garanties
+
+---
+
+## Théorème de composition
+
+Pour $k$ mécanismes $(\varepsilon, \delta)$-DP :
+
+$$
+\text{Composition : } \left(\sum \varepsilon_i, \sum \delta_i \right)\text{-DP}
+$$
+
+---
+
+## Composition avancée
+
+Pour tout $\delta' > 0$ :
+
+$$
+\left( k\varepsilon(e^{\varepsilon} - 1) + \varepsilon\sqrt{2k \ln(1/\delta')} \ ,\ k\delta + \delta' \right)\text{-DP}
+$$
+
+→ Moins pessimiste que la composition naïve
 
 ---
 
@@ -155,168 +204,249 @@ pour tout $\delta' > 0$,
 \end{equation}
 ```
 
+A revoir
+
 ---
 
 ## Limites de cette approche
 
-- On a deux paramètres à manipuler
+<br>
 
-- Le budget augmente très rapidement
-
-. . .
-
-En réalité, ces deux formules donnent une estimation de la borne supérieure du budget dépensé.
-Toutefois, dans le cas du mécanisme gaussien, cette borne est bien trop défaitiste comparé à la réalité.
-
----
-
-## Une autre relaxation de la DP. Oui encore ...
-
-Un mécanisme $M$ est dit $\rho$-$z$CDP s’il vérifie, pour toute paire de bases adjacentes $D \sim D'$ et tout $\alpha > 1$ :
-```{=tex}
-\begin{equation}
-    \mathbb{E}\left[e^{(\alpha - 1)\mathcal{L}_{D, D'}(S)}\right] \leq e^{(\alpha - 1)\rho \alpha}.
-\end{equation}
-```
-où l'on définit la Privacy Loss comme étant
-```{=tex}
-\begin{equation}
-    \mathcal{L}_{D, D'}(S) = \ln\left(\frac{\mathbb{P}(M(D) \in S)}{\mathbb{P}(M(D') \in S)}\right)
-\end{equation}
-```
-
----
-
-La formule imposte notamment que la Privacy Loss soit subgaussienne (queues de distribution dominées par celle d'une gaussienne).
+- Deux paramètres à gérer : $\varepsilon$, $\delta$  
 
 . . .
 
-Le paramètre $\rho$ mesure la concentration de la Privacy Loss autour de sa valeur espérée, permettant d'avoir une plus grande précision dans la dégradation de confidentialité en cas de composition.
+- Accumulation rapide du budget  
+
+. . .
+
+- Estimations souvent trop **pessimistes**, surtout en gaussien
 
 ---
 
-## Un récapitulatif des différentes DP
+## La $z$-CDP (Concentrated DP)
 
-![](images/conversion_dp.png){fig-align="center" fig-cap="Schéma récapitulatif des conversions entre les DP"}
+Un mécanisme est $\rho$-$z$CDP si, pour toute paire de bases adjacentes $D \sim D'$ et $\alpha > 1$ :
+
+$$
+\mathbb{E}\left[e^{(\alpha - 1)\mathcal{L}_{D, D'}(S)}\right] \leq e^{(\alpha - 1)\rho \alpha}
+$$
+
+- $\rho$ mesure la **concentration** de la privacy loss autour de son espérance  
+- Permet des **compositions plus précises**
+
+---
+
+## Formules de passage entre les DP
+
+<br>
+
+![](images/conversion_dp.png)
 
 ---
 
 ## Revenons à la sensibilité
 
-Les calculs de totaux sont problématiques car la contribution d'un individu est difficilement mesurable.
+<br>
+
+- Problème pour les **totaux** : la contribution d’un individu peut être énorme  
 
 . . .
 
-C'est par exemple le cas des niveaux de vie qui peuvent être potentiellement infinie.
-
-. . .
-
-Fixer la sensibilité à la valeur maximale de l'individu du dataset ?
+- Fixer un seuil (max du jeu de données) révèle… le max !
 
 ---
 
-Problématique car cela peut donner de l'information sur la valeur maximale dans la base, voir indiquer qu'un individu qui n'est pas présent dans la base et qui dépasse justement ce seuil, n'est effectivement pas dans la base.
+## Solution : le clipping
+
+<br>
+
+- On ramène les valeurs dans un intervalle : $[L, U]$  
+  - Ajout de biais
+  - Mais réduit la variance du bruit injecté
 
 . . .
 
-Ce point soulevé dans la littérature reste à tempérer dans notre cadre.
-
-. . . 
-
-Nous optons pour l'option du "clipping" qui ramène les valeurs des variables utilisées dans un intervalle [L, U].
-
-. . . 
-
-Il reste à savoir comment choisir proprement L et U.
+- Reste à choisir intelligemment ces bornes ...
 
 ---
 
-## Le cas des comptages : un cas simple ? Pas vraiment ...
+## Cas des comptages
+
+<br>
 
 ![](images/cas_pratique_dp.png){fig-align="center"}
 
 ---
 
-Cette approche comporte des risques car à partir d'un tableau, il existe 2 façons d'estimer un total d'une ligne ou colonne et 3 pour le total du tableau.
+## Estimation composite
 
-. . . 
+<br>
 
-Et pour $n$ tableaux ??
+Plusieurs moyens pour estimer une cellule :
 
-. . . 
+- Avantage : **réduction de variance**  
+- Inconvénient : risque d’estimations trop précises si mal gérées
 
-Ceci peut être vu à la fois comme un avantage mais aussi une contrainte :
+. . .
 
-- Permet d'injecter des bruits plus élevés que prévu vu qu'on peut se servir des estimations extérieures pour augmenter la précision
+$$
+\hat{T}_{\text{comp}} = \sum_{k=1}^{n} w_k \hat{T}_k
+$$
 
-- Impose de suivre les différentes manières d'estimer un comptage si l'on ne veut pas fournir des estimations trop précises.
-
----
-
-On définit :
-
-```{=tex}
-\begin{equation}
-    \hat{T}_{\text{comp}} = \sum_{k=1}^{n} w_k \hat{T}_k
-\end{equation}
-```
 où les $\hat{T}_k$ sont des estimateurs non biaisés, indépendants, de variance $\sigma_k^2$.  
 
 ---
 
+## Pondération optimale
+
+<br>
+
 On cherche à minimiser la variance de $\hat{T}_{\text{comp}}$, soit :
-```{=tex}
-\begin{equation}
-    \mathrm{Var}[\hat{T}_{\text{comp}}] = \sum_{k=1}^{n} w_k^2 \sigma_k^2
-\end{equation}
-```
+$$
+\mathrm{Var}[\hat{T}_{\text{comp}}] = \sum_{k=1}^{n} w_k^2 \sigma_k^2
+$$
+
 sous la contrainte :
-```{=tex}
-\begin{equation}
-    \sum_{k=1}^{n} w_k = 1 \quad \text{et} \quad w_k \geq 0
-\end{equation}
-```
+$$
+\sum w_k = 1 \quad \text{et} \quad w_k \geq 0
+$$
 
 ---
 
-Finalement :
-```{=tex}
-\begin{equation}
-    \mathrm{Var}[\hat{T}_{\text{comp}}] = \sum_{k=1}^{n} w_k^2 \sigma_k^2 = \frac{1}{\sum_{j=1}^{n} 1 / \sigma_j^2} 
-\end{equation}
+## Variance minimale :
+
+<br>
+
+$$
+\mathrm{Var}[\hat{T}_{\text{comp}}] = \sum_{k=1}^{n} w_k^2 \sigma_k^2 = \frac{1}{\sum_{j=1}^{n} 1 / \sigma_j^2} 
+$$
 
 ---
 
-## Un exemple
+## Exemple d'estimation composite
 
 ![](images/cas_pratique_estimation_composite.png){fig-align="center"}
 
 ---
 
-## Le risque
+## Utilisation en pratique
 
-![](images/cas_attaquant.png){fig-align="center"}
+<br>
 
----
+- Permet d'être **plus précis** en dépensant le même budget de confidentialité
 
-## Notre état d'avancement sur ce point
+. . .
 
-Aujourd'hui, un algorithme a été codé de sorte qu'à partir de la liste des tableaux croisant 3 ou 2 variables, l'algorithme renvoie les bruits nécessaires à injecter pour atteindre une précision donnée ou inversement précise si l'estimation doit être davantage bruitée.
+- On peut jouer sur la variance de nos requêtes pour atteindre la **précision désirée**
 
-. . . 
+. . .
 
-Conditions d'applications :
+- On a un système d'équations **linéaires** en les inverses des variances.
 
-- Connaitre les nombres de modalités des variables en avance
+. . .
 
-- Fixer des seuils à chaque niveau d'aggrégation comme étant le seuil de précision voulut ou inversement de précision maximale possible
+→ Résolution du système matriciel de taille égale au nombre de requêtes + 1 (contrainte de budget)
 
----
-
-![](images/bottom_up.png){}
 
 ---
 
-## Mise en application de la DP et suivi du budget
+## Cas des quantiles
 
-application streamlit qui sert d'application pour présenter la DP.
+<br>
+
+- Problème comme pour les **totaux** : la contribution d’un individu peut être énorme 
+
+. . .
+
+- On utilise un mécanisme plus spécifique aux sorties non numériques : le mécanisme exponentiel
+
+---
+
+## Le mécanisme exponentiel $\varepsilon$-DP
+
+<br>
+
+Étant donné un ensemble de sorties $S$ et une fonction de score $u : \mathbb{D} \times S \to \mathbb{R}$,
+
+$$
+\Pr[M_E(D, u, \varepsilon) = s] \propto \exp\left(\frac{\varepsilon u(D, s)}{2 \Delta u}\right),
+$$
+
+où la sensibilité est définie par :
+
+$$
+\Delta u = \max_{\substack{D \sim D'}} \max_{s \in S} |u(D, s) - u(D', s)|.
+$$
+
+---
+
+## Le mécanisme exponentiel appliqué au quantile
+
+<br>
+
+- On définit une liste de candidats $S = [s_1, ..., s_n]$ susceptible de correspondre à $q_\alpha$ et $\varepsilon$ choisit.
+
+. . .
+
+- On applique une fonction de score sur les candidats
+
+. . .
+
+- On tire un candidat $s$ parmi $S$ en respectant les probabilités définis vis à vis du mécanisme.
+
+---
+
+## Exemple
+
+<br>
+
+---
+
+## Forces de la DP
+
+<br>
+
+- Cadre rigoureux avec garanties formelles  
+
+. . .
+
+- Indépendance vis-à-vis de l’attaquant  
+
+. . .
+
+- Transparence du mécanisme et des choix effectués
+
+. . .
+
+- Stable au post-traitement  
+
+. . .
+
+- Prise en compte du risque en cas de répétitions de processus DP
+
+---
+
+## Faiblesses
+
+<br>
+
+- Complexité théorique importante  
+
+. . .
+
+- Choix du budget délicat  
+
+. . .
+
+- Contraintes fortes dans certains cas
+
+---
+
+## Mise en application de la DP via notre POC
+
+<br>
+
+Application Shiny
+
+---

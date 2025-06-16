@@ -6,12 +6,12 @@
 <script src="slides_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="slides_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="slides_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="slides_files/libs/quarto-html/quarto-syntax-highlighting-d4d76bf8491c20bad77d141916dc28e1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.6.43">
+<link href="slides_files/libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.31">
 
-  <meta name="author" content="Stuart Benoliel, Julien Jamme, Gaspard Ferey">
-  <meta name="dcterms.date" content="2025-05-27">
-  <title>La confidentialité différentielle appliquée à l’Insee</title>
+  <meta name="author" content="S. Benoliel, J. Jamme, G. Ferey">
+  <meta name="dcterms.date" content="2025-06-16">
+  <title>La confidentialité différentielle</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -30,7 +30,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="slides_files/libs/revealjs/dist/theme/quarto-8f62eb61b5baf0f2495119921d4031c4.css">
+  <link rel="stylesheet" href="slides_files/libs/revealjs/dist/theme/quarto-7230c0af59ab1606bc2ed49e76979e8e.css">
   <link rel="stylesheet" href="_extensions/InseeFrLab/onyxia/logo.css">
   <link href="slides_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="slides_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -132,135 +132,180 @@
     <div class="slides">
 
 <section id="title-slide" data-background-image="_extensions/InseeFrLab/onyxia/background.svg" data-background-size="contain" class="quarto-title-block center">
-  <h1 class="title">La confidentialité différentielle appliquée à l’Insee</h1>
-  <p class="subtitle"></p><p><strong><span class="orange">A travers un outil de requêtage à destination des chargés d’études</span></strong></p><p></p>
+  <h1 class="title">La confidentialité différentielle</h1>
+  <p class="subtitle"></p><p><strong><span class="orange">Appliquée via un outil de requêtage</span></strong></p><p></p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Stuart Benoliel, Julien Jamme, Gaspard Ferey 
+S. Benoliel, J. Jamme, G. Ferey 
 </div>
 </div>
 </div>
 
-  <p class="date">2025-05-27</p>
+  <p class="date">2025-06-16</p>
 </section>
-<section class="slide level2">
-
-<p>class: fullscreen, hide-slide-number</p>
-</section>
-<section class="slide level2">
-
-<p><img data-src="images/conversion_dp.png" style="width:100.0%;height:100.0%"></p>
-</section>
-<section id="les-forces-de-la-dp" class="slide level2" data-background-image="background.svg" data-background-size="contain">
-<h2>Les forces de la DP :</h2>
+<section id="quest-ce-que-la-confidentialité-différentielle-dp" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>Qu’est-ce que la confidentialité différentielle (DP) ?</h2>
+<p><br></p>
 <ul>
-<li>Un cadre mathématique à la notion de confidentialité et donc des garanties statistiques</li>
+<li>Approche perturbative (vs suppressive)</li>
 </ul>
 <div class="fragment">
 <ul>
-<li>Pas d’hypothèses particulières sur les connaissances préalables de l’attaquant</li>
+<li>Ne fait <strong>aucune hypothèse</strong> sur les connaissances de l’attaquant</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>Transparence vis à vis du public</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li>Préserver au post traitement</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li>Prise en compte du risque encourut lorsqu’on réitère des processus révélant de l’information</li>
+<li>Cadre mathématique définissant un <strong>budget de confidentialité</strong></li>
 </ul>
 </div>
 </section>
-<section id="ses-faiblesses" class="slide level2" data-background-image="background.svg" data-background-size="contain">
-<h2>Ses faiblesses :</h2>
+<section id="le-principe" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>Le principe</h2>
+<p><br></p>
 <ul>
-<li>Difficile à mettre en place (aspect théorique important)</li>
+<li>But : protéger un jeu de données <span class="math inline">\(D\)</span> tout en récupérant une sortie <span class="math inline">\(S\)</span> produite à partir de <span class="math inline">\(D\)</span>.</li>
 </ul>
 <div class="fragment">
 <ul>
-<li>Impose parfois trop de contraintes</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li>Difficulté à choisir le “budget DP” qui retranscrit le dilemme utilité et protection</li>
+<li>Mécanisme DP : rend <strong>indistinguable</strong> les sorties obtenues avec ou sans un individu <span class="math inline">\(i\)</span></li>
 </ul>
 </div>
-</section>
-<section id="lidée-originel" class="slide level2" data-background-image="background.svg" data-background-size="contain">
-<h2>L’idée originel</h2>
-<p>Protéger un jeu de données <span class="math inline">\(D\)</span> tout en récupérant une sortie <span class="math inline">\(S\)</span> produite à partir de <span class="math inline">\(D\)</span>.</p>
-<p>Un mécanisme ou algorithme respectant la DP fera en sorte qu’il soit très peu probable de devenir si un individu <span class="math inline">\(i\)</span> particulier fait partie de <span class="math inline">\(D\)</span>.</p>
 <div class="fragment">
-<p>Ceci impose donc que la sortie <span class="math inline">\(S\)</span> produite avec <span class="math inline">\(i\)</span> ou sans <span class="math inline">\(i\)</span> diffère peu (en moyenne si on reproduisait la même sortie).</p>
+<ul>
+<li>Si un individu a un fort impact sur la sortie <span class="math inline">\(S\)</span> → on ajoute davantage de bruit</li>
+</ul>
 </div>
 </section>
-<section id="les-concepts-important" class="slide level2" data-background-image="background.svg" data-background-size="contain">
-<h2>Les concepts important</h2>
+<section id="concepts-clés" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>Concepts clés</h2>
 <ul>
-<li>L’adjacence : les dataset <span class="math inline">\(D\)</span> et <span class="math inline">\(D'\)</span> différent d’un individu :
+<li><strong>Adjacence</strong> : <span class="math inline">\(D \sim D'\)</span>, les dataset <span class="math inline">\(D\)</span> et <span class="math inline">\(D'\)</span> différent d’un individu :
 <ul>
 <li>Ajout ou suppression d’un individu pour retrouver l’autre dataset</li>
-<li>Modification d’un individu de la base</li>
+<li>Modification d’un individu du dataset</li>
 </ul></li>
 </ul>
 <div class="fragment">
 <ul>
-<li>La sensibilité <span class="math inline">\(\Delta\)</span> : mesure de l’importance maximale d’un individu dans la sortie
+<li><strong>Sensibilité</strong> <span class="math inline">\(\Delta_i f = \max_{D \sim D'} \|f(D) - f(D')\|_i\)</span> → impact maximal d’un individu
 <ul>
-<li>Comptage : sensibilité de 1</li>
-<li>Somme / Moyenne : potentiellement infinie …</li>
-<li>Quantile : dépendante d’une fonction de score</li>
+<li>Comptage : <span class="math inline">\(\Delta_i = 1\)</span></li>
+<li>Somme / moyenne / quantile: dépendante de la variable d’étude</li>
 </ul></li>
 </ul>
 </div>
 </section>
-<section id="la-pure-dp" class="slide level2" data-background-image="background.svg" data-background-size="contain">
-<h2>La Pure DP</h2>
-<p>Un mécanisme <span class="math inline">\(M\)</span> est dit <span class="math inline">\(\varepsilon\)</span>-DP si, pour toute paire de bases de données adjacentes <span class="math inline">\(D\)</span> et <span class="math inline">\(D'\)</span>, et pour tout ensemble <span class="math inline">\(S\)</span> de sorties possibles de <span class="math inline">\(M\)</span>, on a :</p>
-<span class="math display">\[\begin{equation}
-    \mathbb{P}(M(D) \in S) \leq e^{\varepsilon} \mathbb{P}(M(D') \in S).
-\end{equation}\]</span>
+<section id="la-pure-dp-varepsilon-dp" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>La Pure DP (<span class="math inline">\(\varepsilon\)</span>-DP)</h2>
+<p><br></p>
+<p>Un mécanisme <span class="math inline">\(M\)</span> est dit <span class="math inline">\(\varepsilon\)</span>-DP si pour tout <span class="math inline">\(D \sim D'\)</span> et toute sortie <span class="math inline">\(S\)</span> :</p>
+<p><span class="math display">\[
+\mathbb{P}(M(D) \in S) \leq e^{\varepsilon} \mathbb{P}(M(D') \in S)
+\]</span></p>
 <div class="fragment">
-<p>Le paramètre <span class="math inline">\(\varepsilon\)</span> s’interprète comme le gain de connaissance maximal qu’un attaquant peut obtenir.</p>
-</div>
-<div class="fragment">
-<p>Le mécanisme de base : ajouter un bruit venant d’une distribution de Laplace</p>
-</div>
-</section>
-<section class="slide level2">
-
-<p>Slides courbes</p>
-</section>
-<section id="lapproximate-dp" class="slide level2" data-background-image="background.svg" data-background-size="contain">
-<h2>L’approximate DP</h2>
-<p>La pure DP est assez restrictive, d’où les relaxations qui ont émergé dans la littérature.</p>
-<div class="fragment">
-<p>Un mécanisme <span class="math inline">\(M\)</span> est dit <span class="math inline">\((\varepsilon, \delta)\)</span>-DP s’il vérifie :</p>
-<span class="math display">\[\begin{equation}
-    \mathbb{P}(M(D) \in S) \leq e^{\varepsilon} \mathbb{P}(M(D') \in S) + \delta
-\end{equation}\]</span>
-</div>
-<div class="fragment">
-<p>Ce relâchement autorise une faible probabilité <span class="math inline">\(\delta\)</span> pour laquelle la garantie stricte de <span class="math inline">\(\varepsilon\)</span>-DP ne s’applique pas. Le paramètre <span class="math inline">\(\delta\)</span> est donc interprété comme une probabilité d’échec de confidentialité catastrophique.</p>
-</div>
-<div class="fragment">
-<p>Mécanisme vérifiant l’<span class="math inline">\((\varepsilon, \delta)\)</span>-DP : le bruit Gaussien</p>
+<p>Interprétation :</p>
+<ul>
+<li><span class="math inline">\(\varepsilon\)</span> contrôle le <strong>gain d’information</strong> de l’attaquant<br>
+</li>
+<li>Plus <span class="math inline">\(\varepsilon\)</span> est petit, plus la confidentialité est forte</li>
+</ul>
 </div>
 </section>
-<section class="slide level2">
-
-<p>Slides courbes</p>
+<section id="perte-de-confidentialité-privacy-loss" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>Perte de confidentialité (Privacy Loss)</h2>
+<p><br></p>
+<p><span class="math display">\[
+\mathcal{L}_{D, D'}(S) = \ln\left(\frac{\mathbb{P}(M(D) \in S)}{\mathbb{P}(M(D') \in S)}\right) =
+    \ln \left(\frac{ \frac{\mathbb{P}[\mathcal{D} = D \mid A(D) = S]}{\mathbb{P}[\mathcal{D} = D' \mid A(D') = S]} } {\frac{\mathbb{P}[\mathcal{D} = D]}{\mathbb{P}[\mathcal{D} = D']} } \right)
+\]</span></p>
+<p><span class="math inline">\(M\)</span> est <span class="math inline">\(\varepsilon\)</span>-DP si pour toute sortie <span class="math inline">\(S\)</span> :</p>
+<p><span class="math display">\[
+\left| \mathcal{L}_{D, D'}(S) \right| \leq \varepsilon
+\]</span></p>
+</section>
+<section id="mécanisme-varepsilon-dp-bruit-de-laplace" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>Mécanisme <span class="math inline">\(\varepsilon\)</span>-DP : bruit de Laplace</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/courbe_densite_laplace.png"></p>
+<figcaption>Densité de probabilité entre <span class="math inline">\(D\)</span> et <span class="math inline">\(D'\)</span> avec un bruit d’écart type <span class="math inline">\(\sigma = \frac{\sqrt{2}}{\ln(3)}\)</span></figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/courbe_risque_laplace.png"></p>
+<figcaption>Perte de confidentialité comprise entre <span class="math inline">\(e^{\varepsilon}\)</span> et <span class="math inline">\(e^{-\varepsilon}\)</span></figcaption>
+</figure>
+</div>
+</div></div>
+</section>
+<section id="lapproximate-dp-varepsilon-delta" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>L’approximate DP <span class="math inline">\((\varepsilon, \delta)\)</span></h2>
+<p>Forme relaxée de la pure DP :</p>
+<p><span class="math display">\[
+\mathbb{P}(M(D) \in S) \leq e^{\varepsilon} \mathbb{P}(M(D') \in S) + \delta
+\]</span></p>
+<div class="fragment">
+<p>Ce relâchement autorise une faible probabilité <span class="math inline">\(\delta\)</span> pour laquelle la garantie stricte de <span class="math inline">\(\varepsilon\)</span>-DP ne s’applique pas. Le paramètre <span class="math inline">\(\delta\)</span> est souvent interprété comme une probabilité d’échec de confidentialité catastrophique.</p>
+<p>A terminer</p>
+</div>
+</section>
+<section id="mécanisme-varepsilon-delta-dp-bruit-gaussien" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>Mécanisme <span class="math inline">\((\varepsilon, \delta)\)</span>-DP: bruit gaussien</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/courbe_densite_gauss.png"></p>
+<figcaption>Densité de probabilité entre <span class="math inline">\(D\)</span> et <span class="math inline">\(D'\)</span> avec un bruit d’écart type <span class="math inline">\(\sigma = \frac{\sqrt{2}}{\ln(3)}\)</span></figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/courbe_risque_gauss_1.png"></p>
+<figcaption>Perte de confidentialité non bornée</figcaption>
+</figure>
+</div>
+</div></div>
+</section>
+<section id="répéter-k-fois-un-mécanisme-dp" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>Répéter <span class="math inline">\(k\)</span> fois un mécanisme DP ?</h2>
+<p><br></p>
+<p>Exemple : publier plusieurs statistiques sur un même jeu de données <span class="math inline">\(D\)</span></p>
+<div class="fragment">
+<p><br></p>
+<p>Répétitions → accumulation du budget</p>
+</div>
+<div class="fragment">
+<p><br></p>
+<p>A quel point ? → Besoin de <strong>composer</strong> les garanties</p>
+</div>
 </section>
 <section id="théorème-de-composition" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>Théorème de composition</h2>
+<p>Pour <span class="math inline">\(k\)</span> mécanismes <span class="math inline">\((\varepsilon, \delta)\)</span>-DP :</p>
+<p><span class="math display">\[
+\text{Composition : } \left(\sum \varepsilon_i, \sum \delta_i \right)\text{-DP}
+\]</span></p>
+</section>
+<section id="composition-avancée" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>Composition avancée</h2>
+<p>Pour tout <span class="math inline">\(\delta' &gt; 0\)</span> :</p>
+<p><span class="math display">\[
+\left( k\varepsilon(e^{\varepsilon} - 1) + \varepsilon\sqrt{2k \ln(1/\delta')} \ ,\ k\delta + \delta' \right)\text{-DP}
+\]</span></p>
+<p>→ Moins pessimiste que la composition naïve</p>
+</section>
+<section id="théorème-de-composition-1" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Théorème de composition</h2>
 <p>Soit une séquence de <span class="math inline">\(k\)</span> mécanismes <span class="math inline">\(M_1, \dots, M_k\)</span>, choisis de manière adaptative, chacun vérifiant <span class="math inline">\((\varepsilon, \delta)\)</span>-DP.<br>
 Alors, leur composition est : <span class="math inline">\(\left(\sum_{i=1}^{k} \varepsilon_i, \sum_{i=1}^{k} \delta_i\right)\)</span> - DP.</p>
@@ -269,139 +314,213 @@ Alors, leur composition est : <span class="math inline">\(\left(\sum_{i=1}^{k} \
 <span class="math display">\[\begin{equation}
 \left( k\varepsilon(e^{\varepsilon} - 1) + \varepsilon\sqrt{2k \ln(1/\delta')} \ ,\ k\delta + \delta' \right)\text{-DP}.
 \end{equation}\]</span>
+<p>A revoir</p>
 </div>
 </section>
 <section id="limites-de-cette-approche" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Limites de cette approche</h2>
+<p><br></p>
 <ul>
-<li><p>On a deux paramètres à manipuler</p></li>
-<li><p>Le budget augmente très rapidement</p></li>
+<li>Deux paramètres à gérer : <span class="math inline">\(\varepsilon\)</span>, <span class="math inline">\(\delta\)</span></li>
 </ul>
 <div class="fragment">
-<p>En réalité, ces deux formules donnent une estimation de la borne supérieure du budget dépensé. Toutefois, dans le cas du mécanisme gaussien, cette borne est bien trop défaitiste comparé à la réalité.</p>
+<ul>
+<li>Accumulation rapide du budget</li>
+</ul>
 </div>
-</section>
-<section id="une-autre-relaxation-de-la-dp.-oui-encore" class="slide level2" data-background-image="background.svg" data-background-size="contain">
-<h2>Une autre relaxation de la DP. Oui encore …</h2>
-<p>Un mécanisme <span class="math inline">\(M\)</span> est dit <span class="math inline">\(\rho\)</span>-<span class="math inline">\(z\)</span>CDP s’il vérifie, pour toute paire de bases adjacentes <span class="math inline">\(D \sim D'\)</span> et tout <span class="math inline">\(\alpha &gt; 1\)</span> :</p>
-<span class="math display">\[\begin{equation}
-    \mathbb{E}\left[e^{(\alpha - 1)\mathcal{L}_{D, D'}(S)}\right] \leq e^{(\alpha - 1)\rho \alpha}.
-\end{equation}\]</span>
-<p>où l’on définit la Privacy Loss comme étant</p>
-<span class="math display">\[\begin{equation}
-    \mathcal{L}_{D, D'}(S) = \ln\left(\frac{\mathbb{P}(M(D) \in S)}{\mathbb{P}(M(D') \in S)}\right)
-\end{equation}\]</span>
-</section>
-<section class="slide level2">
-
-<p>La formule imposte notamment que la Privacy Loss soit subgaussienne (queues de distribution dominées par celle d’une gaussienne).</p>
 <div class="fragment">
-<p>Le paramètre <span class="math inline">\(\rho\)</span> mesure la concentration de la Privacy Loss autour de sa valeur espérée, permettant d’avoir une plus grande précision dans la dégradation de confidentialité en cas de composition.</p>
+<ul>
+<li>Estimations souvent trop <strong>pessimistes</strong>, surtout en gaussien</li>
+</ul>
 </div>
 </section>
-<section id="un-récapitulatif-des-différentes-dp" class="slide level2" data-background-image="background.svg" data-background-size="contain">
-<h2>Un récapitulatif des différentes DP</h2>
+<section id="la-z-cdp-concentrated-dp" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>La <span class="math inline">\(z\)</span>-CDP (Concentrated DP)</h2>
+<p>Un mécanisme est <span class="math inline">\(\rho\)</span>-<span class="math inline">\(z\)</span>CDP si, pour toute paire de bases adjacentes <span class="math inline">\(D \sim D'\)</span> et <span class="math inline">\(\alpha &gt; 1\)</span> :</p>
+<p><span class="math display">\[
+\mathbb{E}\left[e^{(\alpha - 1)\mathcal{L}_{D, D'}(S)}\right] \leq e^{(\alpha - 1)\rho \alpha}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\rho\)</span> mesure la <strong>concentration</strong> de la privacy loss autour de son espérance<br>
+</li>
+<li>Permet des <strong>compositions plus précises</strong></li>
+</ul>
+</section>
+<section id="formules-de-passage-entre-les-dp" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>Formules de passage entre les DP</h2>
+<p><br></p>
 
-<img data-src="images/conversion_dp.png" class="quarto-figure quarto-figure-center r-stretch" data-fig-cap="Schéma récapitulatif des conversions entre les DP"></section>
+<img data-src="images/conversion_dp.png" class="r-stretch"></section>
 <section id="revenons-à-la-sensibilité" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Revenons à la sensibilité</h2>
-<p>Les calculs de totaux sont problématiques car la contribution d’un individu est difficilement mesurable.</p>
+<p><br></p>
+<ul>
+<li>Problème pour les <strong>totaux</strong> : la contribution d’un individu peut être énorme</li>
+</ul>
 <div class="fragment">
-<p>C’est par exemple le cas des niveaux de vie qui peuvent être potentiellement infinie.</p>
-</div>
-<div class="fragment">
-<p>Fixer la sensibilité à la valeur maximale de l’individu du dataset ?</p>
-</div>
-</section>
-<section class="slide level2">
-
-<p>Problématique car cela peut donner de l’information sur la valeur maximale dans la base, voir indiquer qu’un individu qui n’est pas présent dans la base et qui dépasse justement ce seuil, n’est effectivement pas dans la base.</p>
-<div class="fragment">
-<p>Ce point soulevé dans la littérature reste à tempérer dans notre cadre.</p>
-</div>
-<div class="fragment">
-<p>Nous optons pour l’option du “clipping” qui ramène les valeurs des variables utilisées dans un intervalle [L, U].</p>
-</div>
-<div class="fragment">
-<p>Il reste à savoir comment choisir proprement L et U.</p>
+<ul>
+<li>Fixer un seuil (max du jeu de données) révèle… le max !</li>
+</ul>
 </div>
 </section>
-<section id="le-cas-des-comptages-un-cas-simple-pas-vraiment" class="slide level2" data-background-image="background.svg" data-background-size="contain">
-<h2>Le cas des comptages : un cas simple ? Pas vraiment …</h2>
+<section id="solution-le-clipping" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>Solution : le clipping</h2>
+<p><br></p>
+<ul>
+<li>On ramène les valeurs dans un intervalle : <span class="math inline">\([L, U]\)</span>
+<ul>
+<li>Ajout de biais</li>
+<li>Mais réduit la variance du bruit injecté</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Reste à choisir intelligemment ces bornes …</li>
+</ul>
+</div>
+</section>
+<section id="cas-des-comptages" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>Cas des comptages</h2>
+<p><br></p>
 
 <img data-src="images/cas_pratique_dp.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section class="slide level2">
-
-<p>Cette approche comporte des risques car à partir d’un tableau, il existe 2 façons d’estimer un total d’une ligne ou colonne et 3 pour le total du tableau.</p>
-<div class="fragment">
-<p>Et pour <span class="math inline">\(n\)</span> tableaux ??</p>
-</div>
-<div class="fragment">
-<p>Ceci peut être vu à la fois comme un avantage mais aussi une contrainte :</p>
+<section id="estimation-composite" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>Estimation composite</h2>
+<p><br></p>
+<p>Plusieurs moyens pour estimer une cellule :</p>
 <ul>
-<li><p>Permet d’injecter des bruits plus élevés que prévu vu qu’on peut se servir des estimations extérieures pour augmenter la précision</p></li>
-<li><p>Impose de suivre les différentes manières d’estimer un comptage si l’on ne veut pas fournir des estimations trop précises.</p></li>
+<li>Avantage : <strong>réduction de variance</strong><br>
+</li>
+<li>Inconvénient : risque d’estimations trop précises si mal gérées</li>
 </ul>
+<div class="fragment">
+<p><span class="math display">\[
+\hat{T}_{\text{comp}} = \sum_{k=1}^{n} w_k \hat{T}_k
+\]</span></p>
+<p>où les <span class="math inline">\(\hat{T}_k\)</span> sont des estimateurs non biaisés, indépendants, de variance <span class="math inline">\(\sigma_k^2\)</span>.</p>
 </div>
 </section>
-<section class="slide level2">
-
-<p>On définit :</p>
-<span class="math display">\[\begin{equation}
-    \hat{T}_{\text{comp}} = \sum_{k=1}^{n} w_k \hat{T}_k
-\end{equation}\]</span>
-<p>où les <span class="math inline">\(\hat{T}_k\)</span> sont des estimateurs non biaisés, indépendants, de variance <span class="math inline">\(\sigma_k^2\)</span>.</p>
+<section id="pondération-optimale" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>Pondération optimale</h2>
+<p><br></p>
+<p>On cherche à minimiser la variance de <span class="math inline">\(\hat{T}_{\text{comp}}\)</span>, soit : <span class="math display">\[
+\mathrm{Var}[\hat{T}_{\text{comp}}] = \sum_{k=1}^{n} w_k^2 \sigma_k^2
+\]</span></p>
+<p>sous la contrainte : <span class="math display">\[
+\sum w_k = 1 \quad \text{et} \quad w_k \geq 0
+\]</span></p>
 </section>
-<section class="slide level2">
-
-<p>On cherche à minimiser la variance de <span class="math inline">\(\hat{T}_{\text{comp}}\)</span>, soit :</p>
-<span class="math display">\[\begin{equation}
-    \mathrm{Var}[\hat{T}_{\text{comp}}] = \sum_{k=1}^{n} w_k^2 \sigma_k^2
-\end{equation}\]</span>
-<p>sous la contrainte :</p>
-<span class="math display">\[\begin{equation}
-    \sum_{k=1}^{n} w_k = 1 \quad \text{et} \quad w_k \geq 0
-\end{equation}\]</span>
+<section id="variance-minimale" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>Variance minimale :</h2>
+<p><br></p>
+<p><span class="math display">\[
+\mathrm{Var}[\hat{T}_{\text{comp}}] = \sum_{k=1}^{n} w_k^2 \sigma_k^2 = \frac{1}{\sum_{j=1}^{n} 1 / \sigma_j^2}
+\]</span></p>
 </section>
-<section class="slide level2">
-
-<p>Finalement :</p>
-<p><span class="math display">\[\begin{equation}
-    \mathrm{Var}[\hat{T}_{\text{comp}}] = \sum_{k=1}^{n} w_k^2 \sigma_k^2 = \frac{1}{\sum_{j=1}^{n} 1 / \sigma_j^2}
-\end{equation}\]</span></p>
-</section>
-<section id="un-exemple" class="slide level2" data-background-image="background.svg" data-background-size="contain">
-<h2>Un exemple</h2>
+<section id="exemple-destimation-composite" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>Exemple d’estimation composite</h2>
 
 <img data-src="images/cas_pratique_estimation_composite.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="le-risque" class="slide level2" data-background-image="background.svg" data-background-size="contain">
-<h2>Le risque</h2>
-
-<img data-src="images/cas_attaquant.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="notre-état-davancement-sur-ce-point" class="slide level2" data-background-image="background.svg" data-background-size="contain">
-<h2>Notre état d’avancement sur ce point</h2>
-<p>Aujourd’hui, un algorithme a été codé de sorte qu’à partir de la liste des tableaux croisant 3 ou 2 variables, l’algorithme renvoie les bruits nécessaires à injecter pour atteindre une précision donnée ou inversement précise si l’estimation doit être davantage bruitée.</p>
-<div class="fragment">
-<p>Conditions d’applications :</p>
+<section id="utilisation-en-pratique" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>Utilisation en pratique</h2>
+<p><br></p>
 <ul>
-<li><p>Connaitre les nombres de modalités des variables en avance</p></li>
-<li><p>Fixer des seuils à chaque niveau d’aggrégation comme étant le seuil de précision voulut ou inversement de précision maximale possible</p></li>
+<li>Permet d’être <strong>plus précis</strong> en dépensant le même budget de confidentialité</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>On peut jouer sur la variance de nos requêtes pour atteindre la <strong>précision désirée</strong></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>On a un système d’équations <strong>linéaires</strong> en les inverses des variances.</li>
+</ul>
+</div>
+<div class="fragment">
+<p>→ Résolution du système matriciel de taille égale au nombre de requêtes + 1 (contrainte de budget)</p>
+</div>
+</section>
+<section id="cas-des-quantiles" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>Cas des quantiles</h2>
+<p><br></p>
+<ul>
+<li>Problème comme pour les <strong>totaux</strong> : la contribution d’un individu peut être énorme</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>On utilise un mécanisme plus spécifique aux sorties non numériques : le mécanisme exponentiel</li>
 </ul>
 </div>
 </section>
+<section id="le-mécanisme-exponentiel-varepsilon-dp" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>Le mécanisme exponentiel <span class="math inline">\(\varepsilon\)</span>-DP</h2>
+<p>Étant donné un ensemble de sorties <span class="math inline">\(S\)</span> et une fonction de score <span class="math inline">\(u : \mathbb{D} \times S \to \mathbb{R}\)</span>, la probabilité de choisir une sortie <span class="math inline">\(s \in \mathcal{O}\)</span> est proportionnelle à :</p>
+<p><span class="math display">\[
+\Pr[M_E(D, u, \varepsilon) = s] \propto \exp\left(\frac{\varepsilon u(D, s)}{2 \Delta u}\right),
+\]</span></p>
+<p>où la sensibilité est définie par :</p>
+<p><span class="math display">\[
+\Delta u = \max_{\substack{D \sim D'}} \max_{s \in \mathcal{S}} |u(D, s) - u(D', s)|.
+\]</span></p>
+</section>
+<section id="forces-de-la-dp" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>Forces de la DP</h2>
+<p><br></p>
+<ul>
+<li>Cadre rigoureux avec garanties formelles</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Indépendance vis-à-vis de l’attaquant</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Transparence du mécanisme et des choix effectués</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Stable au post-traitement</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Prise en compte du risque en cas de répétitions de processus DP</li>
+</ul>
+</div>
+</section>
+<section id="faiblesses" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>Faiblesses</h2>
+<p><br></p>
+<ul>
+<li>Complexité théorique importante</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Choix du budget délicat</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Contraintes fortes dans certains cas</li>
+</ul>
+</div>
+</section>
+<section id="mise-en-application-de-la-dp-via-notre-poc" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>Mise en application de la DP via notre POC</h2>
+<p><br></p>
+<p>Application Shiny</p>
+</section>
 <section class="slide level2">
 
-
-<img data-src="images/bottom_up.png" class="r-stretch"></section>
-<section id="mise-en-application-de-la-dp-et-suivi-du-budget" class="slide level2" data-background-image="background.svg" data-background-size="contain">
-<h2>Mise en application de la DP et suivi du budget</h2>
-<p>application streamlit qui sert d’application pour présenter la DP.</p>
 
 </section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
-<p><strong><a href="https://www.onyxia.sh">onyxia.sh</a></strong></p>
+
 </div>
 </div></div>
 
@@ -616,190 +735,172 @@ Alors, leur composition est : <span class="math inline">\(\left(\sum_{i=1}^{k} \
       });
     </script>
     <script id="quarto-html-after-body" type="application/javascript">
-    window.document.addEventListener("DOMContentLoaded", function (event) {
-      const toggleBodyColorMode = (bsSheetEl) => {
-        const mode = bsSheetEl.getAttribute("data-mode");
-        const bodyEl = window.document.querySelector("body");
-        if (mode === "dark") {
-          bodyEl.classList.add("quarto-dark");
-          bodyEl.classList.remove("quarto-light");
-        } else {
-          bodyEl.classList.add("quarto-light");
-          bodyEl.classList.remove("quarto-dark");
-        }
-      }
-      const toggleBodyColorPrimary = () => {
-        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-        if (bsSheetEl) {
-          toggleBodyColorMode(bsSheetEl);
-        }
-      }
-      toggleBodyColorPrimary();  
-      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
-      tabsets.forEach(function(tabset) {
-        const tabby = new Tabby('#' + tabset.id);
-      });
-      const isCodeAnnotation = (el) => {
-        for (const clz of el.classList) {
-          if (clz.startsWith('code-annotation-')) {                     
-            return true;
-          }
-        }
-        return false;
-      }
-      const onCopySuccess = function(e) {
-        // button target
-        const button = e.trigger;
-        // don't keep focus
-        button.blur();
-        // flash "checked"
-        button.classList.add('code-copy-button-checked');
-        var currentTitle = button.getAttribute("title");
-        button.setAttribute("title", "Copié");
-        let tooltip;
-        if (window.bootstrap) {
-          button.setAttribute("data-bs-toggle", "tooltip");
-          button.setAttribute("data-bs-placement", "left");
-          button.setAttribute("data-bs-title", "Copié");
-          tooltip = new bootstrap.Tooltip(button, 
-            { trigger: "manual", 
-              customClass: "code-copy-button-tooltip",
-              offset: [0, -8]});
-          tooltip.show();    
-        }
-        setTimeout(function() {
-          if (tooltip) {
-            tooltip.hide();
-            button.removeAttribute("data-bs-title");
-            button.removeAttribute("data-bs-toggle");
-            button.removeAttribute("data-bs-placement");
-          }
-          button.setAttribute("title", currentTitle);
-          button.classList.remove('code-copy-button-checked');
-        }, 1000);
-        // clear code selection
-        e.clearSelection();
-      }
-      const getTextToCopy = function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
             }
           }
-          return codeEl.innerText;
-      }
-      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-        text: getTextToCopy
-      });
-      clipboard.on('success', onCopySuccess);
-      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-          text: getTextToCopy,
-          container: window.document.getElementById('quarto-embedded-source-code-modal')
-        });
-        clipboardModal.on('success', onCopySuccess);
-      }
-        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-        var mailtoRegex = new RegExp(/^mailto:/);
-          var filterRegex = new RegExp('/' + window.location.host + '/');
-        var isInternal = (href) => {
-            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          return false;
         }
-        // Inspect non-navigation links and adorn them if external
-     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-        for (var i=0; i<links.length; i++) {
-          const link = links[i];
-          if (!isInternal(link.href)) {
-            // undo the damage that might have been done by quarto-nav.js in the case of
-            // links that we want to consider external
-            if (link.dataset.originalHref !== undefined) {
-              link.href = link.dataset.originalHref;
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copié");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copié");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
             }
-          }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
         }
-      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-        const config = {
-          allowHTML: true,
-          maxWidth: 500,
-          delay: 100,
-          arrow: false,
-          appendTo: function(el) {
-              return el.closest('section.slide') || el.parentElement;
-          },
-          interactive: true,
-          interactiveBorder: 10,
-          theme: 'light-border',
-          placement: 'bottom-start',
-        };
-        if (contentFn) {
-          config.content = contentFn;
-        }
-        if (onTriggerFn) {
-          config.onTrigger = onTriggerFn;
-        }
-        if (onUntriggerFn) {
-          config.onUntrigger = onUntriggerFn;
-        }
-          config['offset'] = [0,0];
-          config['maxWidth'] = 700;
-        window.tippy(el, config); 
-      }
-      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-      for (var i=0; i<noterefs.length; i++) {
-        const ref = noterefs[i];
-        tippyHover(ref, function() {
-          // use id or data attribute instead here
-          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-          try { href = new URL(href).hash; } catch {}
-          const id = href.replace(/^#\/?/, "");
-          const note = window.document.getElementById(id);
-          if (note) {
-            return note.innerHTML;
-          } else {
-            return "";
-          }
-        });
-      }
-      const findCites = (el) => {
-        const parentEl = el.parentElement;
-        if (parentEl) {
-          const cites = parentEl.dataset.cites;
-          if (cites) {
-            return {
-              el,
-              cites: cites.split(' ')
-            };
-          } else {
-            return findCites(el.parentElement)
-          }
-        } else {
-          return undefined;
-        }
-      };
-      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-      for (var i=0; i<bibliorefs.length; i++) {
-        const ref = bibliorefs[i];
-        const citeInfo = findCites(ref);
-        if (citeInfo) {
-          tippyHover(citeInfo.el, function() {
-            var popup = window.document.createElement('div');
-            citeInfo.cites.forEach(function(cite) {
-              var citeDiv = window.document.createElement('div');
-              citeDiv.classList.add('hanging-indent');
-              citeDiv.classList.add('csl-entry');
-              var biblioDiv = window.document.getElementById('ref-' + cite);
-              if (biblioDiv) {
-                citeDiv.innerHTML = biblioDiv.innerHTML;
+        const getTextToCopy = function(trigger) {
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
               }
-              popup.appendChild(citeDiv);
-            });
-            return popup.innerHTML;
+            }
+            return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
           });
         }
-      }
-    });
-    </script>
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
     
 
 </body></html>

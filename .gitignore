@@ -402,3 +402,4 @@ FodyWeavers.xsd
 data.csv
 
 slides/slides_files/*
+slides/*.html
