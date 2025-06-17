@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.7.31">
 
   <meta name="author" content="S. Benoliel, J. Jamme, G. Ferey">
-  <meta name="dcterms.date" content="2025-06-16">
+  <meta name="dcterms.date" content="2025-06-17">
   <title>La confidentialité différentielle</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -143,7 +143,7 @@ S. Benoliel, J. Jamme, G. Ferey
 </div>
 </div>
 
-  <p class="date">2025-06-16</p>
+  <p class="date">2025-06-17</p>
 </section>
 <section id="quest-ce-que-la-confidentialité-différentielle-dp" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Qu’est-ce que la confidentialité différentielle (DP) ?</h2>
@@ -218,12 +218,12 @@ S. Benoliel, J. Jamme, G. Ferey
 <h2>Perte de confidentialité (Privacy Loss)</h2>
 <p><br></p>
 <p><span class="math display">\[
-\mathcal{L}_{D, D'}(S) = \ln\left(\frac{\mathbb{P}(M(D) \in S)}{\mathbb{P}(M(D') \in S)}\right) =
-    \ln \left(\frac{ \frac{\mathbb{P}[\mathcal{D} = D \mid A(D) = S]}{\mathbb{P}[\mathcal{D} = D' \mid A(D') = S]} } {\frac{\mathbb{P}[\mathcal{D} = D]}{\mathbb{P}[\mathcal{D} = D']} } \right)
-\]</span></p>
-<p><span class="math inline">\(M\)</span> est <span class="math inline">\(\varepsilon\)</span>-DP si pour toute sortie <span class="math inline">\(S\)</span> :</p>
+\mathcal{L}_{D, D'}(s) = \ln\left(\frac{\mathbb{P}(M(D) = s)}{\mathbb{P}(M(D') = s)}\right) =
+    \ln \left(\frac{ \frac{\mathbb{P}[\mathcal{D} = D \mid A(D) = s]}{\mathbb{P}[\mathcal{D} = D' \mid A(D') = s]} } {\frac{\mathbb{P}[\mathcal{D} = D]}{\mathbb{P}[\mathcal{D} = D']} } \right)
+\]</span> Il s’agit de la variable aléatoire dont l’aléatoire provient de <span class="math inline">\(M(D)\)</span>.</p>
+<p><span class="math inline">\(M\)</span> est <span class="math inline">\(\varepsilon\)</span>-DP si pour toute sortie <span class="math inline">\(s\)</span> :</p>
 <p><span class="math display">\[
-\left| \mathcal{L}_{D, D'}(S) \right| \leq \varepsilon
+\left| \mathcal{L}_{D, D'}(s) \right| \leq \varepsilon
 \]</span></p>
 </section>
 <section id="mécanisme-varepsilon-dp-bruit-de-laplace" class="slide level2" data-background-image="background.svg" data-background-size="contain">
@@ -253,8 +253,19 @@ S. Benoliel, J. Jamme, G. Ferey
 \mathbb{P}(M(D) \in S) \leq e^{\varepsilon} \mathbb{P}(M(D') \in S) + \delta
 \]</span></p>
 <div class="fragment">
-<p>Ce relâchement autorise une faible probabilité <span class="math inline">\(\delta\)</span> pour laquelle la garantie stricte de <span class="math inline">\(\varepsilon\)</span>-DP ne s’applique pas. Le paramètre <span class="math inline">\(\delta\)</span> est souvent interprété comme une probabilité d’échec de confidentialité catastrophique.</p>
-<p>A terminer</p>
+<ul>
+<li>Le paramètre <span class="math inline">\(\delta\)</span> est souvent interprété comme une probabilité d’échec de confidentialité catastrophique : <span class="math display">\[
+\mathbb{P}(\mathcal{L}_{D, D'} &gt; \varepsilon) \leq  \delta
+\]</span></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Mais en réalité l’<span class="math inline">\((\varepsilon, \delta)\)</span> équivaut à :</li>
+</ul>
+<p><span class="math display">\[
+\mathbb{P}(\mathcal{L}_{D, D'} &gt; \varepsilon) - e^{\varepsilon}\mathbb{P}(-\mathcal{L}_{D', D} &gt; \varepsilon)\leq  \delta
+\]</span></p>
 </div>
 </section>
 <section id="mécanisme-varepsilon-delta-dp-bruit-gaussien" class="slide level2" data-background-image="background.svg" data-background-size="contain">
@@ -292,29 +303,15 @@ S. Benoliel, J. Jamme, G. Ferey
 </section>
 <section id="théorème-de-composition" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Théorème de composition</h2>
-<p>Pour <span class="math inline">\(k\)</span> mécanismes <span class="math inline">\((\varepsilon, \delta)\)</span>-DP :</p>
-<p><span class="math display">\[
-\text{Composition : } \left(\sum \varepsilon_i, \sum \delta_i \right)\text{-DP}
-\]</span></p>
-</section>
-<section id="composition-avancée" class="slide level2" data-background-image="background.svg" data-background-size="contain">
-<h2>Composition avancée</h2>
-<p>Pour tout <span class="math inline">\(\delta' &gt; 0\)</span> :</p>
-<p><span class="math display">\[
-\left( k\varepsilon(e^{\varepsilon} - 1) + \varepsilon\sqrt{2k \ln(1/\delta')} \ ,\ k\delta + \delta' \right)\text{-DP}
-\]</span></p>
-<p>→ Moins pessimiste que la composition naïve</p>
-</section>
-<section id="théorème-de-composition-1" class="slide level2" data-background-image="background.svg" data-background-size="contain">
-<h2>Théorème de composition</h2>
+<p><br></p>
 <p>Soit une séquence de <span class="math inline">\(k\)</span> mécanismes <span class="math inline">\(M_1, \dots, M_k\)</span>, choisis de manière adaptative, chacun vérifiant <span class="math inline">\((\varepsilon, \delta)\)</span>-DP.<br>
 Alors, leur composition est : <span class="math inline">\(\left(\sum_{i=1}^{k} \varepsilon_i, \sum_{i=1}^{k} \delta_i\right)\)</span> - DP.</p>
 <div class="fragment">
-<p>De plus, il existe également une autre formule de composition dite “avancée” qui est la suivante : pour tout <span class="math inline">\(\delta' &gt; 0\)</span>,</p>
-<span class="math display">\[\begin{equation}
+<p><br></p>
+<p>De plus, il existe également une autre formule de composition dite “avancée” : pour tout <span class="math inline">\(\delta' &gt; 0\)</span>,</p>
+<p><span class="math display">\[
 \left( k\varepsilon(e^{\varepsilon} - 1) + \varepsilon\sqrt{2k \ln(1/\delta')} \ ,\ k\delta + \delta' \right)\text{-DP}.
-\end{equation}\]</span>
-<p>A revoir</p>
+\]</span></p>
 </div>
 </section>
 <section id="limites-de-cette-approche" class="slide level2" data-background-image="background.svg" data-background-size="contain">
@@ -338,12 +335,12 @@ Alors, leur composition est : <span class="math inline">\(\left(\sum_{i=1}^{k} \
 <h2>La <span class="math inline">\(z\)</span>-CDP (Concentrated DP)</h2>
 <p>Un mécanisme est <span class="math inline">\(\rho\)</span>-<span class="math inline">\(z\)</span>CDP si, pour toute paire de bases adjacentes <span class="math inline">\(D \sim D'\)</span> et <span class="math inline">\(\alpha &gt; 1\)</span> :</p>
 <p><span class="math display">\[
-\mathbb{E}\left[e^{(\alpha - 1)\mathcal{L}_{D, D'}(S)}\right] \leq e^{(\alpha - 1)\rho \alpha}
+\mathbb{E}\left[e^{(\alpha - 1)\mathcal{L}_{D, D'}}\right] \leq e^{(\alpha - 1)\rho \alpha}
 \]</span></p>
 <ul>
 <li><span class="math inline">\(\rho\)</span> mesure la <strong>concentration</strong> de la privacy loss autour de son espérance<br>
 </li>
-<li>Permet des <strong>compositions plus précises</strong></li>
+<li>Permet des <strong>compositions plus précises</strong> → Composition adaptative en <span class="math inline">\(k\rho\)</span></li>
 </ul>
 </section>
 <section id="formules-de-passage-entre-les-dp" class="slide level2" data-background-image="background.svg" data-background-size="contain">
@@ -351,6 +348,15 @@ Alors, leur composition est : <span class="math inline">\(\left(\sum_{i=1}^{k} \
 <p><br></p>
 
 <img data-src="images/conversion_dp.png" class="r-stretch"></section>
+<section id="propriété-générale" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>Propriété générale</h2>
+<p><br></p>
+<ul>
+<li><p>Si un mécanisme <span class="math inline">\(M\)</span> vérifie une des formes de DP, alors <span class="math inline">\(f(M)\)</span> également → stable au <strong>post-processing</strong> (arrondi, ect)</p></li>
+<li><p>Soient <span class="math inline">\(k\)</span> mécanismes <span class="math inline">\(M_1, \dots, M_k\)</span>, chacun satisfaisant <span class="math inline">\(\varepsilon_i\)</span>-DP, et une partition disjointe des données <span class="math inline">\(D_1, D_2, \dots, D_k\)</span>.<br>
+La composition parallèle définie par : <span class="math inline">\(M(D) = (M_1(D_1), M_2(D_2), \dots, M_k(D_k))\)</span> satisfait alors <span class="math inline">\(\left(\max_{i} \varepsilon_i\right)\)</span>-DP.</p></li>
+</ul>
+</section>
 <section id="revenons-à-la-sensibilité" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Revenons à la sensibilité</h2>
 <p><br></p>

@@ -85,14 +85,15 @@ Interprétation :
 <br>
 
 $$
-\mathcal{L}_{D, D'}(S) = \ln\left(\frac{\mathbb{P}(M(D) \in S)}{\mathbb{P}(M(D') \in S)}\right) =
-    \ln \left(\frac{ \frac{\mathbb{P}[\mathcal{D} = D \mid A(D) = S]}{\mathbb{P}[\mathcal{D} = D' \mid A(D') = S]} } {\frac{\mathbb{P}[\mathcal{D} = D]}{\mathbb{P}[\mathcal{D} = D']} } \right) 
+\mathcal{L}_{D, D'}(s) = \ln\left(\frac{\mathbb{P}(M(D) = s)}{\mathbb{P}(M(D') = s)}\right) =
+    \ln \left(\frac{ \frac{\mathbb{P}[\mathcal{D} = D \mid A(D) = s]}{\mathbb{P}[\mathcal{D} = D' \mid A(D') = s]} } {\frac{\mathbb{P}[\mathcal{D} = D]}{\mathbb{P}[\mathcal{D} = D']} } \right) 
 $$
+Il s'agit de la variable aléatoire dont l'aléatoire provient de $M(D)$.
 
-$M$ est $\varepsilon$-DP si pour toute sortie $S$ :
+$M$ est $\varepsilon$-DP si pour toute sortie $s$ :
 
 $$
-\left| \mathcal{L}_{D, D'}(S) \right| \leq \varepsilon
+\left| \mathcal{L}_{D, D'}(s) \right| \leq \varepsilon
 $$
 
 ---
@@ -121,12 +122,20 @@ $$
 \mathbb{P}(M(D) \in S) \leq e^{\varepsilon} \mathbb{P}(M(D') \in S) + \delta
 $$
 
+. . .
+
+- Le paramètre $\delta$ est souvent interprété comme une probabilité d’échec de confidentialité catastrophique :
+$$
+\mathbb{P}(\mathcal{L}_{D, D'} > \varepsilon) \leq  \delta
+$$
 
 . . .
 
-Ce relâchement autorise une faible probabilité $\delta$ pour laquelle la garantie stricte de $\varepsilon$-DP ne s’applique pas. Le paramètre $\delta$ est souvent interprété comme une probabilité d’échec de confidentialité catastrophique.
+- Mais en réalité l'$(\varepsilon, \delta)$ équivaut à :
 
-A terminer
+$$
+\mathbb{P}(\mathcal{L}_{D, D'} > \varepsilon) - e^{\varepsilon}\mathbb{P}(-\mathcal{L}_{D', D} > \varepsilon)\leq  \delta
+$$
 
 ---
 
@@ -168,43 +177,21 @@ A quel point ? → Besoin de **composer** les garanties
 
 ## Théorème de composition
 
-Pour $k$ mécanismes $(\varepsilon, \delta)$-DP :
-
-$$
-\text{Composition : } \left(\sum \varepsilon_i, \sum \delta_i \right)\text{-DP}
-$$
-
----
-
-## Composition avancée
-
-Pour tout $\delta' > 0$ :
-
-$$
-\left( k\varepsilon(e^{\varepsilon} - 1) + \varepsilon\sqrt{2k \ln(1/\delta')} \ ,\ k\delta + \delta' \right)\text{-DP}
-$$
-
-→ Moins pessimiste que la composition naïve
-
----
-
-## Théorème de composition
+<br>
 
 Soit une séquence de $k$ mécanismes $M_1, \dots, M_k$, choisis de manière adaptative, chacun vérifiant $(\varepsilon, \delta)$-DP.  
 Alors, leur composition est : $\left(\sum_{i=1}^{k} \varepsilon_i, \sum_{i=1}^{k} \delta_i\right)$ - DP.
 
 . . .
 
-De plus, il existe également une autre formule de composition dite "avancée" qui est la suivante :
-pour tout $\delta' > 0$, 
+<br>
 
-```{=tex}
-\begin{equation}
+De plus, il existe également une autre formule de composition dite "avancée" : pour tout $\delta' > 0$, 
+
+$$
 \left( k\varepsilon(e^{\varepsilon} - 1) + \varepsilon\sqrt{2k \ln(1/\delta')} \ ,\ k\delta + \delta' \right)\text{-DP}.
-\end{equation}
-```
+$$
 
-A revoir
 
 ---
 
@@ -229,11 +216,11 @@ A revoir
 Un mécanisme est $\rho$-$z$CDP si, pour toute paire de bases adjacentes $D \sim D'$ et $\alpha > 1$ :
 
 $$
-\mathbb{E}\left[e^{(\alpha - 1)\mathcal{L}_{D, D'}(S)}\right] \leq e^{(\alpha - 1)\rho \alpha}
+\mathbb{E}\left[e^{(\alpha - 1)\mathcal{L}_{D, D'}}\right] \leq e^{(\alpha - 1)\rho \alpha}
 $$
 
 - $\rho$ mesure la **concentration** de la privacy loss autour de son espérance  
-- Permet des **compositions plus précises**
+- Permet des **compositions plus précises** → Composition adaptative en $k\rho$
 
 ---
 
@@ -251,7 +238,8 @@ $$
 
 - Si un mécanisme $M$ vérifie une des formes de DP, alors $f(M)$ également → stable au **post-processing** (arrondi, ect)
 
-- En cas d'application sur des cellules disjointes
+- Soient $k$ mécanismes $M_1, \dots, M_k$, chacun satisfaisant $\varepsilon_i$-DP, et une partition disjointe des données $D_1, D_2, \dots, D_k$.  
+La composition parallèle définie par : $M(D) = (M_1(D_1), M_2(D_2), \dots, M_k(D_k))$ satisfait alors $\left(\max_{i} \varepsilon_i\right)$-DP.
 
 ---
 
