@@ -314,6 +314,10 @@ Alors, leur composition est : <span class="math inline">\(\left(\sum_{i=1}^{k} \
 \]</span></p>
 </div>
 </section>
+<section class="slide level2">
+
+
+<img data-src="images/composition_avancee_gauss.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="limites-de-cette-approche" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Limites de cette approche</h2>
 <p><br></p>
@@ -327,13 +331,13 @@ Alors, leur composition est : <span class="math inline">\(\left(\sum_{i=1}^{k} \
 </div>
 <div class="fragment">
 <ul>
-<li>Estimations souvent trop <strong>pessimistes</strong>, surtout en gaussien</li>
+<li>Estimation du budget de confidentialité dépensé trop <strong>pessimiste</strong>, par exemple pour le bruit gaussien</li>
 </ul>
 </div>
 </section>
 <section id="la-z-cdp-concentrated-dp" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>La <span class="math inline">\(z\)</span>-CDP (Concentrated DP)</h2>
-<p>Un mécanisme est <span class="math inline">\(\rho\)</span>-<span class="math inline">\(z\)</span>CDP si, pour toute paire de bases adjacentes <span class="math inline">\(D \sim D'\)</span> et <span class="math inline">\(\alpha &gt; 1\)</span> :</p>
+<p>Un mécanisme est <span class="math inline">\(\rho\)</span>-<span class="math inline">\(z\)</span>CDP si, pour toute paire de bases adjacentes <span class="math inline">\(D \sim D'\)</span> et pour tout <span class="math inline">\(\alpha &gt; 1\)</span> :</p>
 <p><span class="math display">\[
 \mathbb{E}\left[e^{(\alpha - 1)\mathcal{L}_{D, D'}}\right] \leq e^{(\alpha - 1)\rho \alpha}
 \]</span></p>
@@ -341,6 +345,18 @@ Alors, leur composition est : <span class="math inline">\(\left(\sum_{i=1}^{k} \
 <li><span class="math inline">\(\rho\)</span> mesure la <strong>concentration</strong> de la privacy loss autour de son espérance<br>
 </li>
 <li>Permet des <strong>compositions plus précises</strong> → Composition adaptative en <span class="math inline">\(k\rho\)</span></li>
+</ul>
+</section>
+<section id="la-z-cdp-concentrated-dp-1" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>La <span class="math inline">\(z\)</span>-CDP (Concentrated DP)</h2>
+<p>Un mécanisme est <span class="math inline">\(\rho\)</span>-<span class="math inline">\(z\)</span>CDP si, pour toute paire de bases adjacentes <span class="math inline">\(D \sim D'\)</span> et pour tout <span class="math inline">\(\alpha &gt; 1\)</span> :</p>
+<p><span class="math display">\[
+\mathbb{E}\left[e^{(\alpha - 1)\mathcal{L}_{D, D'}}\right] \leq e^{(\alpha - 1)\rho \alpha}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\alpha = 2\)</span> correspond à une majoration de la moyenne arithmétique de <span class="math inline">\(e^{\mathcal{L}_{D, D'}}\)</span></li>
+<li><span class="math inline">\(\alpha = 3\)</span> à la moyenne quadratique, ect</li>
+<li>Plus <span class="math inline">\(\alpha\)</span> augmente, plus on rajoute du poids aux événements les plus <strong>mauvais</strong></li>
 </ul>
 </section>
 <section id="formules-de-passage-entre-les-dp" class="slide level2" data-background-image="background.svg" data-background-size="contain">
@@ -352,10 +368,14 @@ Alors, leur composition est : <span class="math inline">\(\left(\sum_{i=1}^{k} \
 <h2>Propriété générale</h2>
 <p><br></p>
 <ul>
-<li><p>Si un mécanisme <span class="math inline">\(M\)</span> vérifie une des formes de DP, alors <span class="math inline">\(f(M)\)</span> également → stable au <strong>post-processing</strong> (arrondi, ect)</p></li>
-<li><p>Soient <span class="math inline">\(k\)</span> mécanismes <span class="math inline">\(M_1, \dots, M_k\)</span>, chacun satisfaisant <span class="math inline">\(\varepsilon_i\)</span>-DP, et une partition disjointe des données <span class="math inline">\(D_1, D_2, \dots, D_k\)</span>.<br>
-La composition parallèle définie par : <span class="math inline">\(M(D) = (M_1(D_1), M_2(D_2), \dots, M_k(D_k))\)</span> satisfait alors <span class="math inline">\(\left(\max_{i} \varepsilon_i\right)\)</span>-DP.</p></li>
+<li>Si un mécanisme <span class="math inline">\(M\)</span> vérifie une des formes de DP, alors <span class="math inline">\(f(M)\)</span> également → stable au <strong>post-processing</strong> (arrondi, ect)</li>
 </ul>
+<div class="fragment">
+<ul>
+<li>Soient <span class="math inline">\(k\)</span> mécanismes <span class="math inline">\(M_1, \dots, M_k\)</span>, <span class="math inline">\(\varepsilon_i\)</span>-DP, et une partition <strong>disjointe</strong> des données <span class="math inline">\(D_1, \dots, D_k\)</span>.<br>
+La composition parallèle définie par : <span class="math inline">\(M(D) = (M_1(D_1), \dots, M_k(D_k))\)</span> satisfait alors <span class="math inline">\(\left(\max_{i} \varepsilon_i\right)\)</span>-DP.</li>
+</ul>
+</div>
 </section>
 <section id="revenons-à-la-sensibilité" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Revenons à la sensibilité</h2>
@@ -365,7 +385,7 @@ La composition parallèle définie par : <span class="math inline">\(M(D) = (M_1
 </ul>
 <div class="fragment">
 <ul>
-<li>Fixer un seuil (max du jeu de données) révèle… le max !</li>
+<li>Fixer un seuil (max du jeu de données) peut révèler… le max ! → La sensibilité n’est pas protégé par la DP et peut être inféré à partir de quelques requêtes (en théorie …)</li>
 </ul>
 </div>
 </section>
@@ -382,6 +402,11 @@ La composition parallèle définie par : <span class="math inline">\(M(D) = (M_1
 <div class="fragment">
 <ul>
 <li>Reste à choisir intelligemment ces bornes …</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>D’autres solutions sont évoquées dans la littérature : <strong>Propose Test Release</strong>, <strong>Sample and Aggregate</strong>, ect</li>
 </ul>
 </div>
 </section>
@@ -485,7 +510,7 @@ La composition parallèle définie par : <span class="math inline">\(M(D) = (M_1
 <h2>Application au quantile</h2>
 <p><br></p>
 <ul>
-<li>On définit une liste de candidats <span class="math inline">\(S = [s_1, ..., s_n]\)</span> susceptible de correspondre à <span class="math inline">\(q_\alpha\)</span> et <span class="math inline">\(\varepsilon\)</span>.</li>
+<li>On définit une liste de candidats <span class="math inline">\(S = [s_1, ..., s_n]\)</span> susceptibles de correspondre à <span class="math inline">\(q_\alpha\)</span> et <span class="math inline">\(\varepsilon\)</span>.</li>
 </ul>
 <div class="fragment">
 <ul>

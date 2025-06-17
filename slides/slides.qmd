@@ -192,6 +192,9 @@ $$
 \left( k\varepsilon(e^{\varepsilon} - 1) + \varepsilon\sqrt{2k \ln(1/\delta')} \ ,\ k\delta + \delta' \right)\text{-DP}.
 $$
 
+---
+
+![](images/composition_avancee_gauss.png){fig-align="center"}
 
 ---
 
@@ -207,13 +210,13 @@ $$
 
 . . .
 
-- Estimations souvent trop **pessimistes**, surtout en gaussien
+- Estimation du budget de confidentialité dépensé trop **pessimiste**, par exemple pour le bruit gaussien
 
 ---
 
 ## La $z$-CDP (Concentrated DP)
 
-Un mécanisme est $\rho$-$z$CDP si, pour toute paire de bases adjacentes $D \sim D'$ et $\alpha > 1$ :
+Un mécanisme est $\rho$-$z$CDP si, pour toute paire de bases adjacentes $D \sim D'$ et pour tout $\alpha > 1$ :
 
 $$
 \mathbb{E}\left[e^{(\alpha - 1)\mathcal{L}_{D, D'}}\right] \leq e^{(\alpha - 1)\rho \alpha}
@@ -221,6 +224,20 @@ $$
 
 - $\rho$ mesure la **concentration** de la privacy loss autour de son espérance  
 - Permet des **compositions plus précises** → Composition adaptative en $k\rho$
+
+---
+
+## La $z$-CDP (Concentrated DP)
+
+Un mécanisme est $\rho$-$z$CDP si, pour toute paire de bases adjacentes $D \sim D'$ et pour tout $\alpha > 1$ :
+
+$$
+\mathbb{E}\left[e^{(\alpha - 1)\mathcal{L}_{D, D'}}\right] \leq e^{(\alpha - 1)\rho \alpha}
+$$
+
+- $\alpha = 2$ correspond à une majoration de la moyenne arithmétique de $e^{\mathcal{L}_{D, D'}}$
+- $\alpha = 3$ à la moyenne quadratique, ect
+- Plus $\alpha$ augmente, plus on rajoute du poids aux événements les plus **mauvais**
 
 ---
 
@@ -238,8 +255,10 @@ $$
 
 - Si un mécanisme $M$ vérifie une des formes de DP, alors $f(M)$ également → stable au **post-processing** (arrondi, ect)
 
-- Soient $k$ mécanismes $M_1, \dots, M_k$, chacun satisfaisant $\varepsilon_i$-DP, et une partition disjointe des données $D_1, D_2, \dots, D_k$.  
-La composition parallèle définie par : $M(D) = (M_1(D_1), M_2(D_2), \dots, M_k(D_k))$ satisfait alors $\left(\max_{i} \varepsilon_i\right)$-DP.
+. . .
+
+- Soient $k$ mécanismes $M_1, \dots, M_k$, $\varepsilon_i$-DP, et une partition **disjointe** des données $D_1, \dots, D_k$.  
+La composition parallèle définie par : $M(D) = (M_1(D_1), \dots, M_k(D_k))$ satisfait alors $\left(\max_{i} \varepsilon_i\right)$-DP.
 
 ---
 
@@ -252,7 +271,8 @@ La composition parallèle définie par : $M(D) = (M_1(D_1), M_2(D_2), \dots, M_k
 
 . . .
 
-- Fixer un seuil (max du jeu de données) révèle… le max !
+- Fixer un seuil (max du jeu de données) peut révèler… le max !
+  → La sensibilité n'est pas protégé par la DP et peut être inféré à partir de quelques requêtes (en théorie ...)
 
 ---
 
@@ -267,6 +287,10 @@ La composition parallèle définie par : $M(D) = (M_1(D_1), M_2(D_2), \dots, M_k
 . . .
 
 - Reste à choisir intelligemment ces bornes ...
+
+. . .
+
+- D'autres solutions sont évoquées dans la littérature : **Propose Test Release**, **Sample and Aggregate**, ect
 
 
 # Cas des comptages
@@ -388,7 +412,7 @@ $$
 
 <br>
 
-- On définit une liste de candidats $S = [s_1, ..., s_n]$ susceptible de correspondre à $q_\alpha$ et $\varepsilon$.
+- On définit une liste de candidats $S = [s_1, ..., s_n]$ susceptibles de correspondre à $q_\alpha$ et $\varepsilon$.
 
 . . .
 
