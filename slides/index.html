@@ -149,7 +149,7 @@ S. Benoliel, J. Jamme, G. Ferey
 <h2>Qu’est-ce que la confidentialité différentielle (DP) ?</h2>
 <p><br></p>
 <ul>
-<li>Approche perturbative (vs suppressive)</li>
+<li>Approche perturbatrice (vs suppressive)</li>
 </ul>
 <div class="fragment">
 <ul>
@@ -166,11 +166,11 @@ S. Benoliel, J. Jamme, G. Ferey
 <h2>Le principe</h2>
 <p><br></p>
 <ul>
-<li>But : protéger un jeu de données <span class="math inline">\(D\)</span> tout en récupérant une sortie <span class="math inline">\(S\)</span> produite à partir de <span class="math inline">\(D\)</span>.</li>
+<li>But : protéger un jeu de données <span class="math inline">\(D\)</span> tout en récupérant une sortie <span class="math inline">\(S\)</span> produite à partir de <span class="math inline">\(D\)</span></li>
 </ul>
 <div class="fragment">
 <ul>
-<li>Mécanisme DP : rend <strong>indistinguable</strong> les sorties obtenues avec ou sans un individu <span class="math inline">\(i\)</span></li>
+<li>Mécanisme DP : rendre quasi <strong>indistinguable</strong> les sorties obtenues avec ou sans un individu <span class="math inline">\(i\)</span></li>
 </ul>
 </div>
 <div class="fragment">
@@ -198,6 +198,13 @@ S. Benoliel, J. Jamme, G. Ferey
 </ul>
 </div>
 </section>
+<section id="concepts-clés-1" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>Concepts clés</h2>
+<p><br></p>
+<ul>
+<li><strong>Mécanisme</strong> : algorithme appliqué sur <span class="math inline">\(D\)</span> qui renvoie un résultat aléatoire. La propriété DP est associée à l’aglorithme</li>
+</ul>
+</section>
 <section id="la-pure-dp-varepsilon-dp" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>La Pure DP (<span class="math inline">\(\varepsilon\)</span>-DP)</h2>
 <p><br></p>
@@ -218,9 +225,8 @@ S. Benoliel, J. Jamme, G. Ferey
 <h2>Perte de confidentialité (Privacy Loss)</h2>
 <p><br></p>
 <p><span class="math display">\[
-\mathcal{L}_{D, D'}(s) = \ln\left(\frac{\mathbb{P}(M(D) = s)}{\mathbb{P}(M(D') = s)}\right) =
-    \ln \left(\frac{ \frac{\mathbb{P}[\mathcal{D} = D \mid A(D) = s]}{\mathbb{P}[\mathcal{D} = D' \mid A(D') = s]} } {\frac{\mathbb{P}[\mathcal{D} = D]}{\mathbb{P}[\mathcal{D} = D']} } \right)
-\]</span> Il s’agit de la variable aléatoire dont l’aléatoire provient de <span class="math inline">\(M(D)\)</span>.</p>
+\mathcal{L}_{D, D'}(s) = \ln\left(\frac{\mathbb{P}(M(D) = s)}{\mathbb{P}(M(D') = s)}\right)
+\]</span> Il s’agit de la variable aléatoire dont l’aléatoire provient de <span class="math inline">\(M(D)\)</span></p>
 <p><span class="math inline">\(M\)</span> est <span class="math inline">\(\varepsilon\)</span>-DP si pour toute sortie <span class="math inline">\(s\)</span> :</p>
 <p><span class="math display">\[
 \left| \mathcal{L}_{D, D'}(s) \right| \leq \varepsilon
@@ -246,30 +252,8 @@ S. Benoliel, J. Jamme, G. Ferey
 </div>
 </div></div>
 </section>
-<section id="lapproximate-dp-varepsilon-delta" class="slide level2" data-background-image="background.svg" data-background-size="contain">
-<h2>L’approximate DP <span class="math inline">\((\varepsilon, \delta)\)</span></h2>
-<p>Forme relaxée de la pure DP :</p>
-<p><span class="math display">\[
-\mathbb{P}(M(D) \in S) \leq e^{\varepsilon} \mathbb{P}(M(D') \in S) + \delta
-\]</span></p>
-<div class="fragment">
-<ul>
-<li>Le paramètre <span class="math inline">\(\delta\)</span> est souvent interprété comme une probabilité d’échec de confidentialité catastrophique : <span class="math display">\[
-\mathbb{P}(\mathcal{L}_{D, D'} &gt; \varepsilon) \leq  \delta
-\]</span></li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li>Mais en réalité l’<span class="math inline">\((\varepsilon, \delta)\)</span> équivaut à :</li>
-</ul>
-<p><span class="math display">\[
-\mathbb{P}(\mathcal{L}_{D, D'} &gt; \varepsilon) - e^{\varepsilon}\mathbb{P}(-\mathcal{L}_{D', D} &gt; \varepsilon)\leq  \delta
-\]</span></p>
-</div>
-</section>
 <section id="mécanisme-varepsilon-delta-dp-bruit-gaussien" class="slide level2" data-background-image="background.svg" data-background-size="contain">
-<h2>Mécanisme <span class="math inline">\((\varepsilon, \delta)\)</span>-DP: bruit gaussien</h2>
+<h2>Mécanisme <span class="math inline">\((\varepsilon, \delta)\)</span>-DP : bruit gaussien</h2>
 <p><br></p>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -288,6 +272,19 @@ S. Benoliel, J. Jamme, G. Ferey
 </div>
 </div></div>
 </section>
+<section id="lapproximate-dp-varepsilon-delta" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>L’approximate DP <span class="math inline">\((\varepsilon, \delta)\)</span></h2>
+<p>Forme relaxée de la pure DP :</p>
+<p><span class="math display">\[
+\mathbb{P}(M(D) \in S) \leq e^{\varepsilon} \mathbb{P}(M(D') \in S) + \delta
+\]</span></p>
+<div class="fragment">
+<p><br></p>
+<p>Le paramètre <span class="math inline">\(\delta\)</span> est souvent interprété comme une <strong>probabilité d’échec de confidentialité catastrophique</strong> : <span class="math display">\[
+\mathbb{P}(\mathcal{L}_{D, D'} &gt; \varepsilon) \leq  \delta
+\]</span></p>
+</div>
+</section>
 <section id="répéter-k-fois-un-mécanisme-dp" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Répéter <span class="math inline">\(k\)</span> fois un mécanisme DP ?</h2>
 <p><br></p>
@@ -304,11 +301,11 @@ S. Benoliel, J. Jamme, G. Ferey
 <section id="théorème-de-composition" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Théorème de composition</h2>
 <p><br></p>
-<p>Soit une séquence de <span class="math inline">\(k\)</span> mécanismes <span class="math inline">\(M_1, \dots, M_k\)</span>, choisis de manière adaptative, chacun vérifiant <span class="math inline">\((\varepsilon, \delta)\)</span>-DP.<br>
+<p>Soit une séquence de <span class="math inline">\(k\)</span> mécanismes <span class="math inline">\(M_1, \dots, M_k\)</span>, choisis de manière <strong>adaptative</strong>, chacun vérifiant <span class="math inline">\((\varepsilon, \delta)\)</span>-DP.<br>
 Alors, leur composition est : <span class="math inline">\(\left(\sum_{i=1}^{k} \varepsilon_i, \sum_{i=1}^{k} \delta_i\right)\)</span> - DP.</p>
 <div class="fragment">
 <p><br></p>
-<p>De plus, il existe également une autre formule de composition dite “avancée” : pour tout <span class="math inline">\(\delta' &gt; 0\)</span>,</p>
+<p>De plus, il existe également une autre formule de composition dite <strong>“avancée”</strong> : pour tout <span class="math inline">\(\delta' &gt; 0\)</span>,</p>
 <p><span class="math display">\[
 \left( k\varepsilon(e^{\varepsilon} - 1) + \varepsilon\sqrt{2k \ln(1/\delta')} \ ,\ k\delta + \delta' \right)\text{-DP}.
 \]</span></p>
@@ -317,7 +314,7 @@ Alors, leur composition est : <span class="math inline">\(\left(\sum_{i=1}^{k} \
 <section class="slide level2">
 
 
-<img data-src="images/composition_avancee_gauss.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<img data-src="slides_files/figure-revealjs/cell-2-output-1.png" class="r-stretch"></section>
 <section id="limites-de-cette-approche" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Limites de cette approche</h2>
 <p><br></p>
@@ -342,23 +339,14 @@ Alors, leur composition est : <span class="math inline">\(\left(\sum_{i=1}^{k} \
 \mathbb{E}\left[e^{(\alpha - 1)\mathcal{L}_{D, D'}}\right] \leq e^{(\alpha - 1)\rho \alpha}
 \]</span></p>
 <ul>
-<li><span class="math inline">\(\rho\)</span> mesure la <strong>concentration</strong> de la privacy loss autour de son espérance<br>
-</li>
+<li><span class="math inline">\(\rho\)</span> mesure la <strong>concentration</strong> de la privacy loss autour de son espérance</li>
 <li>Permet des <strong>compositions plus précises</strong> → Composition adaptative en <span class="math inline">\(k\rho\)</span></li>
 </ul>
 </section>
-<section id="la-z-cdp-concentrated-dp-1" class="slide level2" data-background-image="background.svg" data-background-size="contain">
-<h2>La <span class="math inline">\(z\)</span>-CDP (Concentrated DP)</h2>
-<p>Un mécanisme est <span class="math inline">\(\rho\)</span>-<span class="math inline">\(z\)</span>CDP si, pour toute paire de bases adjacentes <span class="math inline">\(D \sim D'\)</span> et pour tout <span class="math inline">\(\alpha &gt; 1\)</span> :</p>
-<p><span class="math display">\[
-\mathbb{E}\left[e^{(\alpha - 1)\mathcal{L}_{D, D'}}\right] \leq e^{(\alpha - 1)\rho \alpha}
-\]</span></p>
-<ul>
-<li><span class="math inline">\(\alpha = 2\)</span> correspond à une majoration de la moyenne arithmétique de <span class="math inline">\(e^{\mathcal{L}_{D, D'}}\)</span></li>
-<li><span class="math inline">\(\alpha = 3\)</span> à la moyenne quadratique, ect</li>
-<li>Plus <span class="math inline">\(\alpha\)</span> augmente, plus on rajoute du poids aux événements les plus <strong>mauvais</strong></li>
-</ul>
-</section>
+<section class="slide level2">
+
+
+<img data-src="slides_files/figure-revealjs/cell-3-output-1.png" class="r-stretch"></section>
 <section id="formules-de-passage-entre-les-dp" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Formules de passage entre les DP</h2>
 <p><br></p>
@@ -373,7 +361,7 @@ Alors, leur composition est : <span class="math inline">\(\left(\sum_{i=1}^{k} \
 <div class="fragment">
 <ul>
 <li>Soient <span class="math inline">\(k\)</span> mécanismes <span class="math inline">\(M_1, \dots, M_k\)</span>, <span class="math inline">\(\varepsilon_i\)</span>-DP, et une partition <strong>disjointe</strong> des données <span class="math inline">\(D_1, \dots, D_k\)</span>.<br>
-La composition parallèle définie par : <span class="math inline">\(M(D) = (M_1(D_1), \dots, M_k(D_k))\)</span> satisfait alors <span class="math inline">\(\left(\max_{i} \varepsilon_i\right)\)</span>-DP.</li>
+La composition parallèle définie par : <span class="math inline">\(M(D) = (M_1(D_1), \dots, M_k(D_k))\)</span> satisfait alors <span class="math inline">\(\left(\max_{i} \varepsilon_i\right)\)</span>-DP</li>
 </ul>
 </div>
 </section>
@@ -385,12 +373,17 @@ La composition parallèle définie par : <span class="math inline">\(M(D) = (M_1
 </ul>
 <div class="fragment">
 <ul>
-<li>Fixer un seuil (max du jeu de données) peut révèler… le max ! → La sensibilité n’est pas protégé par la DP et peut être inféré à partir de quelques requêtes (en théorie …)</li>
+<li>Fixer un seuil (max du jeu de données) peut révéler … le max ! → La sensibilité n’est pas protégé par la DP et peut être inféré à partir de quelques requêtes</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>A mitiger dans notre cadre</li>
 </ul>
 </div>
 </section>
-<section id="solution-le-clipping" class="slide level2" data-background-image="background.svg" data-background-size="contain">
-<h2>Solution : le clipping</h2>
+<section id="solution-borner-les-valeurs-dans-un-intervalle-donné" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>Solution : borner les valeurs dans un intervalle donné</h2>
 <p><br></p>
 <ul>
 <li>On ramène les valeurs dans un intervalle : <span class="math inline">\([L, U]\)</span>
@@ -527,7 +520,7 @@ La composition parallèle définie par : <span class="math inline">\(M(D) = (M_1
 <h2>Exemple</h2>
 <p><br></p>
 
-<img data-src="slides_files/figure-revealjs/cell-2-output-1.png" class="r-stretch"><ul>
+<img data-src="slides_files/figure-revealjs/cell-4-output-1.png" class="r-stretch"><ul>
 <li>Candidats = [3000, 3100, …, 6000]</li>
 </ul>
 </section>
@@ -603,6 +596,23 @@ La composition parallèle définie par : <span class="math inline">\(M(D) = (M_1
 <h2>Mise en application de la DP via notre POC</h2>
 <p><br></p>
 <p>Application Shiny</p>
+</section></section>
+<section>
+<section id="annexe" class="title-slide slide level1 center" data-background-image="background.svg" data-background-size="contain">
+<h1>Annexe</h1>
+
+</section>
+<section id="la-z-cdp-concentrated-dp-1" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>La <span class="math inline">\(z\)</span>-CDP (Concentrated DP)</h2>
+<p>Un mécanisme est <span class="math inline">\(\rho\)</span>-<span class="math inline">\(z\)</span>CDP si, pour toute paire de bases adjacentes <span class="math inline">\(D \sim D'\)</span> et pour tout <span class="math inline">\(\alpha &gt; 1\)</span> :</p>
+<p><span class="math display">\[
+\mathbb{E}\left[e^{(\alpha - 1)\mathcal{L}_{D, D'}}\right] \leq e^{(\alpha - 1)\rho \alpha}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\alpha = 2\)</span> correspond à une majoration de la moyenne arithmétique de <span class="math inline">\(e^{\mathcal{L}_{D, D'}}\)</span></li>
+<li><span class="math inline">\(\alpha = 3\)</span> à la moyenne quadratique, ect</li>
+<li>Plus <span class="math inline">\(\alpha\)</span> augmente, plus on rajoute du poids aux événements les plus <strong>mauvais</strong></li>
+</ul>
 
 </section></section>
     </div>
