@@ -245,11 +245,22 @@ $$
 
 ---
 
+## Propriété générale
+
+<br>
+
+- Si un mécanisme $M$ vérifie une des formes de DP, alors $f(M)$ également → stable au **post-processing** (arrondi, ect)
+
+- En cas d'application sur des cellules disjointes
+
+---
+
+
 ## Revenons à la sensibilité
 
 <br>
 
-- Problème pour les **totaux** : la contribution d’un individu peut être énorme  
+- Problème pour les **totaux** et les **moyennes** : la contribution d’un individu peut être énorme  
 
 . . .
 
@@ -269,13 +280,14 @@ $$
 
 - Reste à choisir intelligemment ces bornes ...
 
----
 
-## Cas des comptages
+# Cas des comptages
+
+---
 
 <br>
 
-![](images/cas_pratique_dp.png){fig-align="center"}
+![](images/cas_pratique_dp.png){}
 
 ---
 
@@ -349,6 +361,9 @@ $$
 → Résolution du système matriciel de taille égale au nombre de requêtes + 1 (contrainte de budget)
 
 
+# Cas des quantiles
+
+
 ---
 
 ## Cas des quantiles
@@ -381,11 +396,11 @@ $$
 
 ---
 
-## Le mécanisme exponentiel appliqué au quantile
+## Application au quantile
 
 <br>
 
-- On définit une liste de candidats $S = [s_1, ..., s_n]$ susceptible de correspondre à $q_\alpha$ et $\varepsilon$ choisit.
+- On définit une liste de candidats $S = [s_1, ..., s_n]$ susceptible de correspondre à $q_\alpha$ et $\varepsilon$.
 
 . . .
 
@@ -401,6 +416,63 @@ $$
 
 <br>
 
+```{python}
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+np.random.seed(123) 
+
+data = sns.load_dataset("penguins")["body_mass_g"]
+sorted_data = np.sort(data)
+cdf = np.arange(1, len(data) + 1) / len(data)
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 6))
+
+# Graphique en haut à droite
+sns.histplot(data, stat="percent", bins=40, color='lightcoral', ax=ax1)
+ax1.set_title("Histogramme (%)")
+ax1.set_xlabel("body_mass_g")
+ax1.grid(True)
+
+ax2.plot(sorted_data, cdf)
+ax2.set_title("Fonction de répartition empirique (CDF)")
+ax2.set_xlabel("body_mass_g")
+ax2.set_ylabel("Probabilité cumulative")
+ax2.grid(True)
+
+plt.tight_layout()
+plt.show()
+```
+
+- Candidats = [3000, 3100, ..., 6000]
+
+---
+
+<br>
+
+```{=html}
+<iframe src="images/animation.html" 
+        style="width:100%; max-width:950px; height:56.25vw; border:none; display:block; margin:0 auto;">
+</iframe>
+
+```
+
+---
+
+## Problématique
+
+<br>
+
+- Choix des candidats qui se résume une nouvelle fois à priori au choix $[L, U]$
+
+. . .
+
+- Mécanisme $\varepsilon$-DP et non $\rho$-CDP → on utilise une formule de conversion spécifique à ce mécanisme
+
+
+# Récapitulatif / Résumé
+
 ---
 
 ## Forces de la DP
@@ -411,7 +483,7 @@ $$
 
 . . .
 
-- Indépendance vis-à-vis de l’attaquant  
+- Pas d'hypothèse sur l’attaquant  
 
 . . .
 
@@ -448,5 +520,3 @@ $$
 <br>
 
 Application Shiny
-
----

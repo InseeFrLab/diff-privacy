@@ -355,7 +355,7 @@ Alors, leur composition est : <span class="math inline">\(\left(\sum_{i=1}^{k} \
 <h2>Revenons à la sensibilité</h2>
 <p><br></p>
 <ul>
-<li>Problème pour les <strong>totaux</strong> : la contribution d’un individu peut être énorme</li>
+<li>Problème pour les <strong>totaux</strong> et les <strong>moyennes</strong> : la contribution d’un individu peut être énorme</li>
 </ul>
 <div class="fragment">
 <ul>
@@ -379,11 +379,16 @@ Alors, leur composition est : <span class="math inline">\(\left(\sum_{i=1}^{k} \
 </ul>
 </div>
 </section>
-<section id="cas-des-comptages" class="slide level2" data-background-image="background.svg" data-background-size="contain">
-<h2>Cas des comptages</h2>
+<section>
+<section id="cas-des-comptages" class="title-slide slide level1 center" data-background-image="background.svg" data-background-size="contain">
+<h1>Cas des comptages</h1>
+
+</section>
+<section class="slide level2">
+
 <p><br></p>
 
-<img data-src="images/cas_pratique_dp.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<img data-src="images/cas_pratique_dp.png" class="r-stretch"></section>
 <section id="estimation-composite" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Estimation composite</h2>
 <p><br></p>
@@ -440,8 +445,13 @@ Alors, leur composition est : <span class="math inline">\(\left(\sum_{i=1}^{k} \
 <div class="fragment">
 <p>→ Résolution du système matriciel de taille égale au nombre de requêtes + 1 (contrainte de budget)</p>
 </div>
+</section></section>
+<section>
+<section id="cas-des-quantiles" class="title-slide slide level1 center" data-background-image="background.svg" data-background-size="contain">
+<h1>Cas des quantiles</h1>
+
 </section>
-<section id="cas-des-quantiles" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<section id="cas-des-quantiles-1" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Cas des quantiles</h2>
 <p><br></p>
 <ul>
@@ -455,14 +465,64 @@ Alors, leur composition est : <span class="math inline">\(\left(\sum_{i=1}^{k} \
 </section>
 <section id="le-mécanisme-exponentiel-varepsilon-dp" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Le mécanisme exponentiel <span class="math inline">\(\varepsilon\)</span>-DP</h2>
-<p>Étant donné un ensemble de sorties <span class="math inline">\(S\)</span> et une fonction de score <span class="math inline">\(u : \mathbb{D} \times S \to \mathbb{R}\)</span>, la probabilité de choisir une sortie <span class="math inline">\(s \in \mathcal{O}\)</span> est proportionnelle à :</p>
+<p><br></p>
+<p>Étant donné un ensemble de sorties <span class="math inline">\(S\)</span> et une fonction de score <span class="math inline">\(u : \mathbb{D} \times S \to \mathbb{R}\)</span>,</p>
 <p><span class="math display">\[
 \Pr[M_E(D, u, \varepsilon) = s] \propto \exp\left(\frac{\varepsilon u(D, s)}{2 \Delta u}\right),
 \]</span></p>
 <p>où la sensibilité est définie par :</p>
 <p><span class="math display">\[
-\Delta u = \max_{\substack{D \sim D'}} \max_{s \in \mathcal{S}} |u(D, s) - u(D', s)|.
+\Delta u = \max_{\substack{D \sim D'}} \max_{s \in S} |u(D, s) - u(D', s)|.
 \]</span></p>
+</section>
+<section id="application-au-quantile" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>Application au quantile</h2>
+<p><br></p>
+<ul>
+<li>On définit une liste de candidats <span class="math inline">\(S = [s_1, ..., s_n]\)</span> susceptible de correspondre à <span class="math inline">\(q_\alpha\)</span> et <span class="math inline">\(\varepsilon\)</span>.</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>On applique une fonction de score sur les candidats</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>On tire un candidat <span class="math inline">\(s\)</span> parmi <span class="math inline">\(S\)</span> en respectant les probabilités définis vis à vis du mécanisme.</li>
+</ul>
+</div>
+</section>
+<section id="exemple" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>Exemple</h2>
+<p><br></p>
+
+<img data-src="slides_files/figure-revealjs/cell-2-output-1.png" class="r-stretch"><ul>
+<li>Candidats = [3000, 3100, …, 6000]</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<p><br></p>
+<iframe src="images/animation.html" style="width:100%; max-width:950px; height:56.25vw; border:none; display:block; margin:0 auto;">
+</iframe>
+
+</section>
+<section id="problématique" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>Problématique</h2>
+<p><br></p>
+<ul>
+<li>Choix des candidats qui se résume une nouvelle fois à priori au choix <span class="math inline">\([L, U]\)</span></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Mécanisme <span class="math inline">\(\varepsilon\)</span>-DP et non <span class="math inline">\(\rho\)</span>-CDP → on utilise une formule de conversion spécifique à ce mécanisme</li>
+</ul>
+</div>
+</section></section>
+<section>
+<section id="récapitulatif-résumé" class="title-slide slide level1 center" data-background-image="background.svg" data-background-size="contain">
+<h1>Récapitulatif / Résumé</h1>
+
 </section>
 <section id="forces-de-la-dp" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Forces de la DP</h2>
@@ -472,7 +532,7 @@ Alors, leur composition est : <span class="math inline">\(\left(\sum_{i=1}^{k} \
 </ul>
 <div class="fragment">
 <ul>
-<li>Indépendance vis-à-vis de l’attaquant</li>
+<li>Pas d’hypothèse sur l’attaquant</li>
 </ul>
 </div>
 <div class="fragment">
@@ -512,11 +572,8 @@ Alors, leur composition est : <span class="math inline">\(\left(\sum_{i=1}^{k} \
 <h2>Mise en application de la DP via notre POC</h2>
 <p><br></p>
 <p>Application Shiny</p>
-</section>
-<section class="slide level2">
 
-
-</section>
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
