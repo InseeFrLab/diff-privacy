@@ -16,23 +16,7 @@ editor:
   render-on-save: true
 ---
 
-## Qu'est-ce que la confidentialité différentielle (DP) ?
-
-<br>
-
-- Approche perturbatrice (vs suppressive)  
-
-. . .
-
-- Ne fait **aucune hypothèse** sur les connaissances de l’attaquant
-
-. . . 
-
-- Cadre mathématique définissant un **budget de confidentialité**
-
----
-
-## Le principe
+## Qu'est-ce que la *Differential Privacy* (*DP*) ?
 
 <br>
 
@@ -48,6 +32,22 @@ editor:
 
 ---
 
+## Caractéristiques
+
+<br>
+
+- Approche perturbatrice (vs suppressive)  
+
+. . .
+
+- Ne fait **aucune hypothèse** sur les connaissances de l’attaquant
+
+. . . 
+
+- Cadre mathématique formel qui quantifie la **perte de confidentialité**
+
+---
+
 ## Concepts clés
 
 - **Adjacence** : $D \sim D'$, les dataset $D$ et $D'$ différent d'un individu :
@@ -58,7 +58,7 @@ editor:
 
 - **Sensibilité** $\Delta_i f = \max_{D \sim D'} \|f(D) - f(D')\|_i$  → impact maximal d’un individu
   - Comptage : $\Delta_i = 1$ 
-  - Somme / moyenne / quantile: dépendante de la variable d'étude
+  - Somme / moyenne / quantile : dépendante de la variable d'étude
 
 ---
 
@@ -66,7 +66,8 @@ editor:
 
 <br>
 
-- **Mécanisme** : algorithme appliqué sur $D$ qui renvoie un résultat aléatoire. La propriété DP est associée à l'algorithme
+- **Mécanisme** : algorithme aléatoire $M : D \mapsto M(D)$, qui associe à un **dataset** en entrée $D$ une **variable aléatoire** de sortie $s = M(\mathcal{D})$. 
+La propriété DP est associée à l'algorithme
 
 ---
 
@@ -74,7 +75,7 @@ editor:
 
 <br>
 
-Un mécanisme $M$ est dit $\varepsilon$-DP si pour tout $D \sim D'$ et toute ensemble de sortie $S$ :
+Un mécanisme $M$ est dit $\varepsilon$-DP si pour tout $D \sim D'$ et tout ensemble de sorties $S$ :
 
 $$
 \mathbb{P}(M(D) \in S) \leq e^{\varepsilon} \mathbb{P}(M(D') \in S)
@@ -89,21 +90,21 @@ $$
 
 ---
 
-## Perte de confidentialité (Privacy Loss)
+## Perte de confidentialité (*Privacy Loss*)
 
 <br>
 
 $$
 \mathcal{L}_{D, D'}(s) = \ln\left(\frac{\mathbb{P}(M(D) = s)}{\mathbb{P}(M(D') = s)}\right)
 $$
-→ Variable aléatoire dont l'aléatoire provient de $M(D)$
+→ On considère la variable aléatoire $\mathcal{L}_{D, D'}(s)$ obtenue en tirant $s$ selon la loi de $M(D)$
 
 . . .
 
 $M$ est $\varepsilon$-DP si pour toute sortie $s$ :
 
 $$
-\left| \mathcal{L}_{D, D'}(s) \right| \leq \varepsilon
+\mathcal{L}_{D, D'}(s) \leq \varepsilon
 $$
 
 ---
@@ -114,11 +115,11 @@ $$
 
 ::: {.columns}
 ::: {.column width="50%"}
-![Densité de probabilité entre $D$ et $D'$ avec un bruit d'écart type $\sigma = \frac{\sqrt{2}}{\ln(3)}$](images/courbe_densite_laplace.png)
+![Densité de probabilité des sorties $M(D)$ et $M(D')$ avec un bruit d'écart type $\sigma = \frac{\sqrt{2}}{\ln(3)}$](images/courbe_densite_laplace.png)
 :::
 
 ::: {.column width="50%"}
-![Perte de confidentialité comprise entre $e^{\varepsilon}$ et $e^{-\varepsilon}$](images/courbe_risque_laplace.png)
+![Perte de confidentialité inférieur à $\varepsilon = \ln(3)$](images/courbe_risque_laplace.png)
 :::
 :::
 
@@ -130,7 +131,7 @@ $$
 
 ::: {.columns}
 ::: {.column width="50%"}
-![Densité de probabilité entre $D$ et $D'$ avec un bruit d'écart type $\sigma = \frac{\sqrt{2}}{\ln(3)}$](images/courbe_densite_gauss.png)
+![Densité de probabilité des sorties $M(D)$ et $M(D')$ avec un bruit d'écart type $\sigma = \frac{\sqrt{2}}{\ln(3)}$](images/courbe_densite_gauss.png)
 :::
 
 ::: {.column width="50%"}
@@ -160,7 +161,7 @@ $$
 
 ---
 
-## Répéter $k$ fois un mécanisme DP ?
+## Composer plusieurs fois un mécanisme DP ?
 
 <br>
 
