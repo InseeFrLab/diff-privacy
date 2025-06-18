@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.7.31">
 
   <meta name="author" content="S. Benoliel, J. Jamme, G. Ferey">
-  <meta name="dcterms.date" content="2025-06-17">
+  <meta name="dcterms.date" content="2025-06-18">
   <title>La confidentialité différentielle</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -29,7 +29,27 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-  </style>
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
   <link rel="stylesheet" href="slides_files/libs/revealjs/dist/theme/quarto-7230c0af59ab1606bc2ed49e76979e8e.css">
   <link rel="stylesheet" href="_extensions/InseeFrLab/onyxia/logo.css">
   <link href="slides_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -143,7 +163,7 @@ S. Benoliel, J. Jamme, G. Ferey
 </div>
 </div>
 
-  <p class="date">2025-06-17</p>
+  <p class="date">2025-06-18</p>
 </section>
 <section id="quest-ce-que-la-confidentialité-différentielle-dp" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Qu’est-ce que la confidentialité différentielle (DP) ?</h2>
@@ -166,7 +186,7 @@ S. Benoliel, J. Jamme, G. Ferey
 <h2>Le principe</h2>
 <p><br></p>
 <ul>
-<li>But : protéger un jeu de données <span class="math inline">\(D\)</span> tout en récupérant une sortie <span class="math inline">\(S\)</span> produite à partir de <span class="math inline">\(D\)</span></li>
+<li>But : protéger un jeu de données <span class="math inline">\(D\)</span> tout en récupérant une sortie <span class="math inline">\(S\)</span></li>
 </ul>
 <div class="fragment">
 <ul>
@@ -175,7 +195,7 @@ S. Benoliel, J. Jamme, G. Ferey
 </div>
 <div class="fragment">
 <ul>
-<li>Si un individu a un fort impact sur la sortie <span class="math inline">\(S\)</span> → on ajoute davantage de bruit</li>
+<li>Si un individu peut avoir un fort impact sur la sortie <span class="math inline">\(S\)</span> → on ajoute davantage de bruit</li>
 </ul>
 </div>
 </section>
@@ -202,35 +222,36 @@ S. Benoliel, J. Jamme, G. Ferey
 <h2>Concepts clés</h2>
 <p><br></p>
 <ul>
-<li><strong>Mécanisme</strong> : algorithme appliqué sur <span class="math inline">\(D\)</span> qui renvoie un résultat aléatoire. La propriété DP est associée à l’aglorithme</li>
+<li><strong>Mécanisme</strong> : algorithme appliqué sur <span class="math inline">\(D\)</span> qui renvoie un résultat aléatoire. La propriété DP est associée à l’algorithme</li>
 </ul>
 </section>
-<section id="la-pure-dp-varepsilon-dp" class="slide level2" data-background-image="background.svg" data-background-size="contain">
-<h2>La Pure DP (<span class="math inline">\(\varepsilon\)</span>-DP)</h2>
+<section id="la-pure-dp-varepsilon-dp-1" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>La Pure DP (<span class="math inline">\(\varepsilon\)</span>-DP) <sup>1</sup></h2>
 <p><br></p>
-<p>Un mécanisme <span class="math inline">\(M\)</span> est dit <span class="math inline">\(\varepsilon\)</span>-DP si pour tout <span class="math inline">\(D \sim D'\)</span> et toute sortie <span class="math inline">\(S\)</span> :</p>
+<p>Un mécanisme <span class="math inline">\(M\)</span> est dit <span class="math inline">\(\varepsilon\)</span>-DP si pour tout <span class="math inline">\(D \sim D'\)</span> et toute ensemble de sortie <span class="math inline">\(S\)</span> :</p>
 <p><span class="math display">\[
 \mathbb{P}(M(D) \in S) \leq e^{\varepsilon} \mathbb{P}(M(D') \in S)
 \]</span></p>
 <div class="fragment">
-<p>Interprétation :</p>
 <ul>
 <li><span class="math inline">\(\varepsilon\)</span> contrôle le <strong>gain d’information</strong> de l’attaquant<br>
 </li>
 <li>Plus <span class="math inline">\(\varepsilon\)</span> est petit, plus la confidentialité est forte</li>
 </ul>
 </div>
-</section>
+<aside><ol class="aside-footnotes"><li id="fn1"><p><span class="citation" data-cites="dwork_algorithmic_2013">(<a href="#/références" role="doc-biblioref" onclick="">Dwork et Roth 2013</a>)</span> The Algorithmic Foundations of Differential Privacy. Foundations and Trends in Theoretical Computer Science</p></li></ol></aside></section>
 <section id="perte-de-confidentialité-privacy-loss" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Perte de confidentialité (Privacy Loss)</h2>
 <p><br></p>
 <p><span class="math display">\[
 \mathcal{L}_{D, D'}(s) = \ln\left(\frac{\mathbb{P}(M(D) = s)}{\mathbb{P}(M(D') = s)}\right)
-\]</span> Il s’agit de la variable aléatoire dont l’aléatoire provient de <span class="math inline">\(M(D)\)</span></p>
+\]</span> → Variable aléatoire dont l’aléatoire provient de <span class="math inline">\(M(D)\)</span></p>
+<div class="fragment">
 <p><span class="math inline">\(M\)</span> est <span class="math inline">\(\varepsilon\)</span>-DP si pour toute sortie <span class="math inline">\(s\)</span> :</p>
 <p><span class="math display">\[
 \left| \mathcal{L}_{D, D'}(s) \right| \leq \varepsilon
 \]</span></p>
+</div>
 </section>
 <section id="mécanisme-varepsilon-dp-bruit-de-laplace" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Mécanisme <span class="math inline">\(\varepsilon\)</span>-DP : bruit de Laplace</h2>
@@ -301,7 +322,7 @@ S. Benoliel, J. Jamme, G. Ferey
 <section id="théorème-de-composition" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Théorème de composition</h2>
 <p><br></p>
-<p>Soit une séquence de <span class="math inline">\(k\)</span> mécanismes <span class="math inline">\(M_1, \dots, M_k\)</span>, choisis de manière <strong>adaptative</strong>, chacun vérifiant <span class="math inline">\((\varepsilon, \delta)\)</span>-DP.<br>
+<p>Soit une séquence de <span class="math inline">\(k\)</span> mécanismes <span class="math inline">\(M_1, \dots, M_k\)</span>, choisis de manière <strong>adaptative</strong><sup>1</sup>, chacun vérifiant <span class="math inline">\((\varepsilon, \delta)\)</span>-DP.<br>
 Alors, leur composition est : <span class="math inline">\(\left(\sum_{i=1}^{k} \varepsilon_i, \sum_{i=1}^{k} \delta_i\right)\)</span> - DP.</p>
 <div class="fragment">
 <p><br></p>
@@ -310,7 +331,7 @@ Alors, leur composition est : <span class="math inline">\(\left(\sum_{i=1}^{k} \
 \left( k\varepsilon(e^{\varepsilon} - 1) + \varepsilon\sqrt{2k \ln(1/\delta')} \ ,\ k\delta + \delta' \right)\text{-DP}.
 \]</span></p>
 </div>
-</section>
+<aside><ol class="aside-footnotes"><li id="fn2"><p><span class="citation" data-cites="dwork_boosting_2010">(<a href="#/références" role="doc-biblioref" onclick="">Dwork, Rothblum, et Vadhan 2010</a>)</span> Boosting and Differential Privacy</p></li></ol></aside></section>
 <section class="slide level2">
 
 
@@ -332,17 +353,17 @@ Alors, leur composition est : <span class="math inline">\(\left(\sum_{i=1}^{k} \
 </ul>
 </div>
 </section>
-<section id="la-z-cdp-concentrated-dp" class="slide level2" data-background-image="background.svg" data-background-size="contain">
-<h2>La <span class="math inline">\(z\)</span>-CDP (Concentrated DP)</h2>
+<section id="la-z-cdp-concentrated-dp-3" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>La <span class="math inline">\(z\)</span>-CDP (Concentrated DP) <sup>1</sup></h2>
 <p>Un mécanisme est <span class="math inline">\(\rho\)</span>-<span class="math inline">\(z\)</span>CDP si, pour toute paire de bases adjacentes <span class="math inline">\(D \sim D'\)</span> et pour tout <span class="math inline">\(\alpha &gt; 1\)</span> :</p>
 <p><span class="math display">\[
 \mathbb{E}\left[e^{(\alpha - 1)\mathcal{L}_{D, D'}}\right] \leq e^{(\alpha - 1)\rho \alpha}
 \]</span></p>
 <ul>
 <li><span class="math inline">\(\rho\)</span> mesure la <strong>concentration</strong> de la privacy loss autour de son espérance</li>
-<li>Permet des <strong>compositions plus précises</strong> → Composition adaptative en <span class="math inline">\(k\rho\)</span></li>
+<li>Permet des <strong>compositions plus précises</strong> → Composition adaptative en <span class="math inline">\(\sum_{i=1}^{k} \rho_i\)</span></li>
 </ul>
-</section>
+<aside><ol class="aside-footnotes"><li id="fn3"><p><span class="citation" data-cites="bun_concentrated_2016">(<a href="#/références" role="doc-biblioref" onclick="">Bun et Steinke 2016</a>)</span>, Concentrated Differential Privacy: Simplifications, Extensions, and Lower Bounds</p></li></ol></aside></section>
 <section class="slide level2">
 
 
@@ -356,7 +377,7 @@ Alors, leur composition est : <span class="math inline">\(\left(\sum_{i=1}^{k} \
 <h2>Propriété générale</h2>
 <p><br></p>
 <ul>
-<li>Si un mécanisme <span class="math inline">\(M\)</span> vérifie une des formes de DP, alors <span class="math inline">\(f(M)\)</span> également → stable au <strong>post-processing</strong> (arrondi, ect)</li>
+<li>Si un mécanisme <span class="math inline">\(M\)</span> vérifie une des formes de DP, alors <span class="math inline">\(f(M)\)</span> également → stable au <strong>post-processing</strong></li>
 </ul>
 <div class="fragment">
 <ul>
@@ -373,7 +394,8 @@ La composition parallèle définie par : <span class="math inline">\(M(D) = (M_1
 </ul>
 <div class="fragment">
 <ul>
-<li>Fixer un seuil (max du jeu de données) peut révéler … le max ! → La sensibilité n’est pas protégé par la DP et peut être inféré à partir de quelques requêtes</li>
+<li><p>Fixer un seuil (max du jeu de données) peut révéler … le max !</p>
+<p>→ La sensibilité n’est pas protégé par la DP et peut être inféré à partir de quelques requêtes</p></li>
 </ul>
 </div>
 <div class="fragment">
@@ -416,34 +438,27 @@ La composition parallèle définie par : <span class="math inline">\(M(D) = (M_1
 <section id="estimation-composite" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Estimation composite</h2>
 <p><br></p>
-<p>Plusieurs moyens pour estimer une cellule :</p>
-<ul>
-<li>Avantage : <strong>réduction de variance</strong><br>
-</li>
-<li>Inconvénient : risque d’estimations trop précises si mal gérées</li>
-</ul>
+<p>Plusieurs moyens pour estimer une cellule</p>
+<p>→ <strong>réduction de variance</strong></p>
 <div class="fragment">
 <p><span class="math display">\[
 \hat{T}_{\text{comp}} = \sum_{k=1}^{n} w_k \hat{T}_k
 \]</span></p>
-<p>où les <span class="math inline">\(\hat{T}_k\)</span> sont des estimateurs non biaisés, indépendants, de variance <span class="math inline">\(\sigma_k^2\)</span>.</p>
-</div>
-</section>
-<section id="pondération-optimale" class="slide level2" data-background-image="background.svg" data-background-size="contain">
-<h2>Pondération optimale</h2>
-<p><br></p>
-<p>On cherche à minimiser la variance de <span class="math inline">\(\hat{T}_{\text{comp}}\)</span>, soit : <span class="math display">\[
-\mathrm{Var}[\hat{T}_{\text{comp}}] = \sum_{k=1}^{n} w_k^2 \sigma_k^2
-\]</span></p>
-<p>sous la contrainte : <span class="math display">\[
+<p>où les <span class="math inline">\(\hat{T}_k\)</span> sont des estimateurs non biaisés, indépendants, de variance <span class="math inline">\(\sigma_k^2\)</span> et</p>
+<p><span class="math display">\[
 \sum w_k = 1 \quad \text{et} \quad w_k \geq 0
 \]</span></p>
+</div>
 </section>
 <section id="variance-minimale" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Variance minimale :</h2>
 <p><br></p>
 <p><span class="math display">\[
 \mathrm{Var}[\hat{T}_{\text{comp}}] = \sum_{k=1}^{n} w_k^2 \sigma_k^2 = \frac{1}{\sum_{j=1}^{n} 1 / \sigma_j^2}
+\]</span></p>
+<p><br></p>
+<p><span class="math display">\[
+w_k = \frac{1/ \sigma_k^2}{\sum_{j=1}^{n} 1 / \sigma_j^2}
 \]</span></p>
 </section>
 <section id="exemple-destimation-composite" class="slide level2" data-background-image="background.svg" data-background-size="contain">
@@ -463,11 +478,8 @@ La composition parallèle définie par : <span class="math inline">\(M(D) = (M_1
 </div>
 <div class="fragment">
 <ul>
-<li>On a un système d’équations <strong>linéaires</strong> en les inverses des variances.</li>
+<li>On a un système d’équations <strong>linéaires</strong> en les inverses des variances qu’on résout matriciellement</li>
 </ul>
-</div>
-<div class="fragment">
-<p>→ Résolution du système matriciel de taille égale au nombre de requêtes + 1 (contrainte de budget)</p>
 </div>
 </section></section>
 <section>
@@ -591,19 +603,72 @@ La composition parallèle définie par : <span class="math inline">\(M(D) = (M_1
 <li>Contraintes fortes dans certains cas</li>
 </ul>
 </div>
+</section></section>
+<section>
+<section id="début-du-poc" class="title-slide slide level1 center" data-background-image="background.svg" data-background-size="contain">
+<h1>Début du POC</h1>
+
 </section>
-<section id="mise-en-application-de-la-dp-via-notre-poc" class="slide level2" data-background-image="background.svg" data-background-size="contain">
-<h2>Mise en application de la DP via notre POC</h2>
-<p><br></p>
-<p>Application Shiny</p>
+<section id="références" class="slide level2 smaller scrollable" data-background-image="background.svg" data-background-size="contain">
+<h2>Références</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-bun_concentrated_2016" class="csl-entry" role="listitem">
+Bun, Mark, et Thomas Steinke. 2016. <span>«&nbsp;Concentrated <span>Differential</span> <span>Privacy</span>: <span>Simplifications</span>, <span>Extensions</span>, and <span>Lower</span> <span>Bounds</span>&nbsp;»</span>. arXiv. <a href="http://arxiv.org/abs/1605.02065">http://arxiv.org/abs/1605.02065</a>.
+</div>
+<div id="ref-canonne_discrete_2022" class="csl-entry" role="listitem">
+Canonne, Clément L., Gautam Kamath, et Thomas Steinke. 2022. <span>«&nbsp;The <span>Discrete</span> <span>Gaussian</span> for <span>Differential</span> <span>Privacy</span>&nbsp;»</span>. <em>Journal of Privacy and Confidentiality</em> 12 (1). <a href="http://arxiv.org/abs/2004.00010">http://arxiv.org/abs/2004.00010</a>.
+</div>
+<div id="ref-desfontaines-blog" class="csl-entry" role="listitem">
+Desfontaines, Damien. s.&nbsp;d. <span>«&nbsp;Blog of Damien Desfontaines&nbsp;»</span>. <a href="https://desfontain.es/blog/">https://desfontain.es/blog/</a>.
+</div>
+<div id="ref-dwork_algorithmic_2013" class="csl-entry" role="listitem">
+Dwork, Cynthia, et Aaron Roth. 2013. <span>«&nbsp;The <span>Algorithmic</span> <span>Foundations</span> of <span>Differential</span> <span>Privacy</span>&nbsp;»</span>. <em>Foundations and Trends® in Theoretical Computer Science</em> 9 (3-4): 211‑407.
+</div>
+<div id="ref-dwork_boosting_2010" class="csl-entry" role="listitem">
+Dwork, Cynthia, Guy N. Rothblum, et Salil Vadhan. 2010. <span>«&nbsp;Boosting and Differential Privacy&nbsp;»</span>, 51‑60.
+</div>
+</div>
 </section></section>
 <section>
 <section id="annexe" class="title-slide slide level1 center" data-background-image="background.svg" data-background-size="contain">
 <h1>Annexe</h1>
 
 </section>
-<section id="la-z-cdp-concentrated-dp-1" class="slide level2" data-background-image="background.svg" data-background-size="contain">
-<h2>La <span class="math inline">\(z\)</span>-CDP (Concentrated DP)</h2>
+<section id="perte-de-confidentialité-privacy-loss-1" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>Perte de confidentialité (Privacy Loss)</h2>
+<p><br></p>
+<p><span class="math display">\[
+\mathcal{L}_{D, D'}(s) = \ln\left(\frac{\mathbb{P}(M(D) = s)}{\mathbb{P}(M(D') = s)}\right) =
+    \ln \left(\frac{ \frac{\mathbb{P}[\mathcal{D} = D \mid M(D) = s]}{\mathbb{P}[\mathcal{D} = D' \mid M(D') = s]} } {\frac{\mathbb{P}[\mathcal{D} = D]}{\mathbb{P}[\mathcal{D} = D']} } \right)
+\]</span> Il s’agit de la variable aléatoire dont l’aléatoire provient de <span class="math inline">\(M(D)\)</span>.</p>
+</section>
+<section id="lapproximate-dp-varepsilon-delta-1" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>L’approximate DP <span class="math inline">\((\varepsilon, \delta)\)</span></h2>
+<p>Forme relaxée de la pure DP :</p>
+<p><span class="math display">\[
+\mathbb{P}(M(D) \in S) \leq e^{\varepsilon} \mathbb{P}(M(D') \in S) + \delta
+\]</span></p>
+<div class="fragment">
+<ul>
+<li>En réalité l’<span class="math inline">\((\varepsilon, \delta)\)</span> équivaut à :<sup>1</sup></li>
+</ul>
+<p><span class="math display">\[
+\mathbb{P}(\mathcal{L}_{D, D'} &gt; \varepsilon) - e^{\varepsilon}\mathbb{P}(-\mathcal{L}_{D', D} &gt; \varepsilon) \leq  \delta
+\]</span></p>
+<p><span class="math display">\[
+\mathbb{E}(  max\{0, 1-e^{\varepsilon - \mathcal{L}_{D, D'}}\}) \leq  \delta
+\]</span></p>
+<p><span class="math display">\[
+\int_{\varepsilon}^{\infty} e^{\varepsilon - z}\mathbb{P}(\mathcal{L}_{D, D'} &gt; z) \, dz \leq  \delta
+\]</span></p>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn4"><p><span class="citation" data-cites="canonne_discrete_2022">(<a href="#/références" role="doc-biblioref" onclick="">Canonne, Kamath, et Steinke 2022</a>)</span>, The Discrete Gaussian for Differential Privacy</p></li></ol></aside></section>
+<section class="slide level2">
+
+
+<img data-src="images/courbe_risque_gauss_2.png" class="r-stretch"></section>
+<section id="la-z-cdp-concentrated-dp-5" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>La <span class="math inline">\(z\)</span>-CDP (Concentrated DP) <sup>1</sup></h2>
 <p>Un mécanisme est <span class="math inline">\(\rho\)</span>-<span class="math inline">\(z\)</span>CDP si, pour toute paire de bases adjacentes <span class="math inline">\(D \sim D'\)</span> et pour tout <span class="math inline">\(\alpha &gt; 1\)</span> :</p>
 <p><span class="math display">\[
 \mathbb{E}\left[e^{(\alpha - 1)\mathcal{L}_{D, D'}}\right] \leq e^{(\alpha - 1)\rho \alpha}
@@ -613,8 +678,31 @@ La composition parallèle définie par : <span class="math inline">\(M(D) = (M_1
 <li><span class="math inline">\(\alpha = 3\)</span> à la moyenne quadratique, ect</li>
 <li>Plus <span class="math inline">\(\alpha\)</span> augmente, plus on rajoute du poids aux événements les plus <strong>mauvais</strong></li>
 </ul>
+<aside><ol class="aside-footnotes"><li id="fn5"><p>Interpétation tirée du blog de <span class="citation" data-cites="desfontaines-blog">(<a href="#/références" role="doc-biblioref" onclick="">Desfontaines, s.&nbsp;d.</a>)</span></p></li></ol></aside></section>
+<section class="slide level2">
 
-</section></section>
+<p><br></p>
+
+<img data-src="images/cas_pratique_dp.png" class="r-stretch"></section>
+<section class="slide level2">
+
+<p><span class="math display">\[
+\begin{aligned}
+\frac{1}{\sigma^2_{\text{estimation}, (V_1, V_2)}} &amp;= \frac{1}{\sigma^2_{\text{requête}, (V_1, V_2)}} \\
+\frac{1}{\sigma^2_{\text{estimation}, V_1}} &amp;= \frac{1}{m_2 \sigma^2_{\text{requête}, (V_1, V_2)}} + \frac{1}{\sigma^2_{\text{requête}, V_1}} \\
+\frac{1}{\sigma^2_{\text{estimation}, V_2}} &amp;= \frac{1}{m_1 \sigma^2_{\text{requête}, (V_1, V_2)}} + \frac{1}{\sigma^2_{\text{requête}, V_2}} \\
+\frac{1}{\sigma^2_{\text{estimation}, Total}} &amp;= \frac{1}{m_2 \sigma^2_{\text{estimation}, V_2}} + \frac{1}{m_1 \sigma^2_{\text{requête}, V_1}} + \frac{1}{\sigma^2_{\text{requête}, Total}}
+\end{aligned}
+\]</span></p>
+</section>
+<section id="système-matriciel-équivalent" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>Système matriciel équivalent</h2>
+<p><br></p>
+<p>Le système devient <span class="math inline">\(Ax = b\)</span> avec :</p>
+
+
+<img data-src="images/equation.png" class="r-stretch"></section></section>
+
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">

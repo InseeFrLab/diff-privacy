@@ -4,6 +4,7 @@ subtitle: |
   **[Appliquée via un outil de requêtage]{.orange}**
 author: S. Benoliel, J. Jamme, G. Ferey
 date: today
+bibliography: references.bib
 slide-number: true
 lang: fr
 chalkboard: # press the B key to toggle chalkboard
@@ -35,7 +36,7 @@ editor:
 
 <br>
 
-- But : protéger un jeu de données $D$ tout en récupérant une sortie $S$ produite à partir de $D$
+- But : protéger un jeu de données $D$ tout en récupérant une sortie $S$
 
 . . .
 
@@ -43,7 +44,7 @@ editor:
 
 . . .
 
-- Si un individu a un fort impact sur la sortie $S$ → on ajoute davantage de bruit
+- Si un individu peut avoir un fort impact sur la sortie $S$ → on ajoute davantage de bruit
 
 ---
 
@@ -65,15 +66,15 @@ editor:
 
 <br>
 
-- **Mécanisme** : algorithme appliqué sur $D$ qui renvoie un résultat aléatoire. La propriété DP est associée à l'aglorithme
+- **Mécanisme** : algorithme appliqué sur $D$ qui renvoie un résultat aléatoire. La propriété DP est associée à l'algorithme
 
 ---
 
-## La Pure DP ($\varepsilon$-DP)
+## La Pure DP ($\varepsilon$-DP) [^1]
 
 <br>
 
-Un mécanisme $M$ est dit $\varepsilon$-DP si pour tout $D \sim D'$ et toute sortie $S$ :
+Un mécanisme $M$ est dit $\varepsilon$-DP si pour tout $D \sim D'$ et toute ensemble de sortie $S$ :
 
 $$
 \mathbb{P}(M(D) \in S) \leq e^{\varepsilon} \mathbb{P}(M(D') \in S)
@@ -81,10 +82,10 @@ $$
 
 . . .
 
-Interprétation :
-
 - $\varepsilon$ contrôle le **gain d'information** de l'attaquant  
 - Plus $\varepsilon$ est petit, plus la confidentialité est forte 
+
+[^1]: [@dwork_algorithmic_2013] The Algorithmic Foundations of Differential Privacy. Foundations and Trends in Theoretical Computer Science
 
 ---
 
@@ -95,7 +96,9 @@ Interprétation :
 $$
 \mathcal{L}_{D, D'}(s) = \ln\left(\frac{\mathbb{P}(M(D) = s)}{\mathbb{P}(M(D') = s)}\right)
 $$
-Il s'agit de la variable aléatoire dont l'aléatoire provient de $M(D)$
+→ Variable aléatoire dont l'aléatoire provient de $M(D)$
+
+. . .
 
 $M$ est $\varepsilon$-DP si pour toute sortie $s$ :
 
@@ -121,7 +124,7 @@ $$
 
 ---
 
-## Mécanisme $(\varepsilon, \delta)$-DP : bruit gaussien
+## Mécanisme $(\varepsilon, \delta)$-DP : bruit gaussien 
 
 <br>
 
@@ -181,8 +184,10 @@ A quel point ? → Besoin de **composer** les garanties
 
 <br>
 
-Soit une séquence de $k$ mécanismes $M_1, \dots, M_k$, choisis de manière **adaptative**, chacun vérifiant $(\varepsilon, \delta)$-DP.  
+Soit une séquence de $k$ mécanismes $M_1, \dots, M_k$, choisis de manière **adaptative**[^2], chacun vérifiant $(\varepsilon, \delta)$-DP.  
 Alors, leur composition est : $\left(\sum_{i=1}^{k} \varepsilon_i, \sum_{i=1}^{k} \delta_i\right)$ - DP.
+
+[^2]: [@dwork_boosting_2010] Boosting and Differential Privacy
 
 . . .
 
@@ -259,7 +264,7 @@ plt.show()
 
 ---
 
-## La $z$-CDP (Concentrated DP)
+## La $z$-CDP (Concentrated DP) [^3]
 
 Un mécanisme est $\rho$-$z$CDP si, pour toute paire de bases adjacentes $D \sim D'$ et pour tout $\alpha > 1$ :
 
@@ -268,7 +273,9 @@ $$
 $$
 
 - $\rho$ mesure la **concentration** de la privacy loss autour de son espérance
-- Permet des **compositions plus précises** → Composition adaptative en $k\rho$
+- Permet des **compositions plus précises** → Composition adaptative en $\sum_{i=1}^{k} \rho_i$
+
+[^3]: [@bun_concentrated_2016], Concentrated Differential Privacy:  Simplifications, Extensions, and Lower Bounds
 
 ---
 
@@ -337,7 +344,7 @@ plt.show()
 
 <br>
 
-- Si un mécanisme $M$ vérifie une des formes de DP, alors $f(M)$ également → stable au **post-processing** (arrondi, ect)
+- Si un mécanisme $M$ vérifie une des formes de DP, alors $f(M)$ également → stable au **post-processing**
 
 . . .
 
@@ -356,6 +363,7 @@ La composition parallèle définie par : $M(D) = (M_1(D_1), \dots, M_k(D_k))$ sa
 . . .
 
 - Fixer un seuil (max du jeu de données) peut révéler … le max !
+
   → La sensibilité n'est pas protégé par la DP et peut être inféré à partir de quelques requêtes 
 
 . . .
@@ -395,10 +403,9 @@ La composition parallèle définie par : $M(D) = (M_1(D_1), \dots, M_k(D_k))$ sa
 
 <br>
 
-Plusieurs moyens pour estimer une cellule :
+Plusieurs moyens pour estimer une cellule 
 
-- Avantage : **réduction de variance**  
-- Inconvénient : risque d’estimations trop précises si mal gérées
+  → **réduction de variance**
 
 . . .
 
@@ -406,20 +413,8 @@ $$
 \hat{T}_{\text{comp}} = \sum_{k=1}^{n} w_k \hat{T}_k
 $$
 
-où les $\hat{T}_k$ sont des estimateurs non biaisés, indépendants, de variance $\sigma_k^2$.  
+où les $\hat{T}_k$ sont des estimateurs non biaisés, indépendants, de variance $\sigma_k^2$ et
 
----
-
-## Pondération optimale
-
-<br>
-
-On cherche à minimiser la variance de $\hat{T}_{\text{comp}}$, soit :
-$$
-\mathrm{Var}[\hat{T}_{\text{comp}}] = \sum_{k=1}^{n} w_k^2 \sigma_k^2
-$$
-
-sous la contrainte :
 $$
 \sum w_k = 1 \quad \text{et} \quad w_k \geq 0
 $$
@@ -432,6 +427,12 @@ $$
 
 $$
 \mathrm{Var}[\hat{T}_{\text{comp}}] = \sum_{k=1}^{n} w_k^2 \sigma_k^2 = \frac{1}{\sum_{j=1}^{n} 1 / \sigma_j^2} 
+$$
+
+<br>
+
+$$
+w_k = \frac{1/ \sigma_k^2}{\sum_{j=1}^{n} 1 / \sigma_j^2} 
 $$
 
 ---
@@ -454,11 +455,7 @@ $$
 
 . . .
 
-- On a un système d'équations **linéaires** en les inverses des variances.
-
-. . .
-
-→ Résolution du système matriciel de taille égale au nombre de requêtes + 1 (contrainte de budget)
+- On a un système d'équations **linéaires** en les inverses des variances qu'on résout matriciellement
 
 
 # Cas des quantiles
@@ -613,19 +610,67 @@ plt.show()
 
 - Contraintes fortes dans certains cas
 
+
+# Début du POC
+
 ---
 
-## Mise en application de la DP via notre POC
+## Références
 
-<br>
+::: {#refs}
+:::
 
-Application Shiny
 
 # Annexe
 
 ---
 
-## La $z$-CDP (Concentrated DP)
+## Perte de confidentialité (Privacy Loss)
+
+<br>
+
+$$
+\mathcal{L}_{D, D'}(s) = \ln\left(\frac{\mathbb{P}(M(D) = s)}{\mathbb{P}(M(D') = s)}\right) =
+    \ln \left(\frac{ \frac{\mathbb{P}[\mathcal{D} = D \mid M(D) = s]}{\mathbb{P}[\mathcal{D} = D' \mid M(D') = s]} } {\frac{\mathbb{P}[\mathcal{D} = D]}{\mathbb{P}[\mathcal{D} = D']} } \right) 
+$$
+Il s'agit de la variable aléatoire dont l'aléatoire provient de $M(D)$.
+
+---
+
+## L'approximate DP $(\varepsilon, \delta)$
+
+Forme relaxée de la pure DP :
+
+$$
+\mathbb{P}(M(D) \in S) \leq e^{\varepsilon} \mathbb{P}(M(D') \in S) + \delta
+$$
+
+. . .
+
+- En réalité l'$(\varepsilon, \delta)$ équivaut à :[^4]
+
+$$
+\mathbb{P}(\mathcal{L}_{D, D'} > \varepsilon) - e^{\varepsilon}\mathbb{P}(-\mathcal{L}_{D', D} > \varepsilon) \leq  \delta
+$$
+
+$$
+\mathbb{E}(  max\{0, 1-e^{\varepsilon - \mathcal{L}_{D, D'}}\}) \leq  \delta
+$$
+
+
+$$
+\int_{\varepsilon}^{\infty} e^{\varepsilon - z}\mathbb{P}(\mathcal{L}_{D, D'} > z) \, dz \leq  \delta
+$$
+
+[^4]: [@canonne_discrete_2022], The Discrete Gaussian for Differential Privacy
+
+---
+
+![](images/courbe_risque_gauss_2.png)
+
+---
+
+## La $z$-CDP (Concentrated DP) [^5]
 
 Un mécanisme est $\rho$-$z$CDP si, pour toute paire de bases adjacentes $D \sim D'$ et pour tout $\alpha > 1$ :
 
@@ -636,3 +681,32 @@ $$
 - $\alpha = 2$ correspond à une majoration de la moyenne arithmétique de $e^{\mathcal{L}_{D, D'}}$
 - $\alpha = 3$ à la moyenne quadratique, ect
 - Plus $\alpha$ augmente, plus on rajoute du poids aux événements les plus **mauvais**
+
+[^5]: Interpétation tirée du blog de [@desfontaines-blog]
+
+---
+
+<br>
+
+![](images/cas_pratique_dp.png)
+
+---
+
+$$
+\begin{aligned}
+\frac{1}{\sigma^2_{\text{estimation}, (V_1, V_2)}} &= \frac{1}{\sigma^2_{\text{requête}, (V_1, V_2)}} \\
+\frac{1}{\sigma^2_{\text{estimation}, V_1}} &= \frac{1}{m_2 \sigma^2_{\text{requête}, (V_1, V_2)}} + \frac{1}{\sigma^2_{\text{requête}, V_1}} \\
+\frac{1}{\sigma^2_{\text{estimation}, V_2}} &= \frac{1}{m_1 \sigma^2_{\text{requête}, (V_1, V_2)}} + \frac{1}{\sigma^2_{\text{requête}, V_2}} \\
+\frac{1}{\sigma^2_{\text{estimation}, Total}} &= \frac{1}{m_2 \sigma^2_{\text{estimation}, V_2}} + \frac{1}{m_1 \sigma^2_{\text{requête}, V_1}} + \frac{1}{\sigma^2_{\text{requête}, Total}} 
+\end{aligned}
+$$
+
+---
+
+## Système matriciel équivalent
+
+<br>
+
+Le système devient $Ax = b$ avec :
+
+![](images/equation.png)
