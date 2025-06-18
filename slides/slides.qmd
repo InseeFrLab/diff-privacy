@@ -66,12 +66,12 @@ editor:
 
 <br>
 
-- **Mécanisme** : algorithme aléatoire $M : D \mapsto M(D)$, qui associe à un **dataset** en entrée $D$ une **variable aléatoire** de sortie $s = M(\mathcal{D})$. 
+- **Mécanisme** : algorithme aléatoire $M : D \mapsto M(D)$, qui associe à un **dataset** en entrée $D$ une **variable aléatoire** de sortie $s = M(D)$. 
 La propriété DP est associée à l'algorithme
 
 ---
 
-## La Pure DP ($\varepsilon$-DP) [^1]
+## La *Pure DP* ($\varepsilon$-*DP*) [^1]
 
 <br>
 
@@ -101,7 +101,7 @@ $$
 
 . . .
 
-$M$ est $\varepsilon$-DP si pour toute sortie $s$ :
+$M$ est $\varepsilon$-*DP* si pour toute sortie $s$ :
 
 $$
 \mathcal{L}_{D, D'}(s) \leq \varepsilon
@@ -109,29 +109,29 @@ $$
 
 ---
 
-## Mécanisme $\varepsilon$-DP : bruit de Laplace
+## Mécanisme $\varepsilon$-*DP* : bruit de Laplace
 
 <br>
 
 ::: {.columns}
 ::: {.column width="50%"}
-![Densité de probabilité des sorties $M(D)$ et $M(D')$ avec un bruit d'écart type $\sigma = \frac{\sqrt{2}}{\ln(3)}$](images/courbe_densite_laplace.png)
+![Densité de probabilité des sorties $M(D)$ et $M(D')$ avec un bruit d'écart type $\sigma = \sqrt{2}$](images/courbe_densite_laplace.png)
 :::
 
 ::: {.column width="50%"}
-![Perte de confidentialité inférieur à $\varepsilon = \ln(3)$](images/courbe_risque_laplace.png)
+![Perte de confidentialité inférieur à $\varepsilon = 1$](images/courbe_risque_laplace.png)
 :::
 :::
 
 ---
 
-## Mécanisme $(\varepsilon, \delta)$-DP : bruit gaussien 
+## Mécanisme $(\varepsilon, \delta)$-*DP* : bruit gaussien 
 
 <br>
 
 ::: {.columns}
 ::: {.column width="50%"}
-![Densité de probabilité des sorties $M(D)$ et $M(D')$ avec un bruit d'écart type $\sigma = \frac{\sqrt{2}}{\ln(3)}$](images/courbe_densite_gauss.png)
+![Densité de probabilité des sorties $M(D)$ et $M(D')$ avec un bruit d'écart type $\sigma = \sqrt{2}$](images/courbe_densite_gauss.png)
 :::
 
 ::: {.column width="50%"}
@@ -141,9 +141,9 @@ $$
 
 ---
 
-## L'approximate DP $(\varepsilon, \delta)$
+## L'*approximate DP* $(\varepsilon, \delta)$
 
-Forme relaxée de la pure DP :
+Forme relaxée de la *pure DP* :
 
 $$
 \mathbb{P}(M(D) \in S) \leq e^{\varepsilon} \mathbb{P}(M(D') \in S) + \delta
@@ -161,7 +161,7 @@ $$
 
 ---
 
-## Composer plusieurs fois un mécanisme DP ?
+## Composer plusieurs fois un mécanisme *DP* ?
 
 <br>
 
@@ -265,7 +265,7 @@ plt.show()
 
 ---
 
-## La $z$-CDP (Concentrated DP) [^3]
+## La $z$-*CDP* (*zero Concentrated DP*) [^3]
 
 Un mécanisme est $\rho$-$z$CDP si, pour toute paire de bases adjacentes $D \sim D'$ et pour tout $\alpha > 1$ :
 
@@ -273,7 +273,7 @@ $$
 \mathbb{E}\left[e^{(\alpha - 1)\mathcal{L}_{D, D'}}\right] \leq e^{(\alpha - 1)\rho \alpha}
 $$
 
-- $\rho$ mesure la **concentration** de la privacy loss autour de son espérance
+- $\rho$ mesure la **concentration** de la *privacy loss* autour de son espérance
 - Permet des **compositions plus précises** → Composition adaptative en $\sum_{i=1}^{k} \rho_i$
 
 [^3]: [@bun_concentrated_2016], Concentrated Differential Privacy:  Simplifications, Extensions, and Lower Bounds
@@ -345,7 +345,7 @@ plt.show()
 
 <br>
 
-- Si un mécanisme $M$ vérifie une des formes de DP, alors $f(M)$ également → stable au **post-processing**
+- Si un mécanisme $M$ vérifie une des formes de DP, alors $f(M)$ également → stable au ***post-processing***
 
 . . .
 
@@ -387,7 +387,7 @@ La composition parallèle définie par : $M(D) = (M_1(D_1), \dots, M_k(D_k))$ sa
 
 . . .
 
-- D'autres solutions sont évoquées dans la littérature : **Propose Test Release**, **Sample and Aggregate**, ect
+- D'autres solutions sont évoquées dans la littérature : *Propose Test Release*, *Sample and Aggregate*, ect
 
 
 # Cas des comptages
@@ -489,7 +489,7 @@ $$
 où la sensibilité est définie par :
 
 $$
-\Delta u = \max_{\substack{D \sim D'}} \max_{s \in S} |u(D, s) - u(D', s)|.
+\Delta u = \max_{\substack{D \sim D'}} \max_{s \in S} |u(D, s) - u(D', s)|
 $$
 
 ---
@@ -502,7 +502,7 @@ $$
 
 . . .
 
-- On applique une fonction de score sur les candidats
+- On applique une fonction de score sur les candidats.
 
 . . .
 
@@ -566,7 +566,7 @@ plt.show()
 
 . . .
 
-- Mécanisme $\varepsilon$-DP et non $\rho$-CDP → on utilise une formule de conversion spécifique à ce mécanisme
+- Mécanisme $\varepsilon$-*DP* et non $\rho$-*CDP* → on utilise une formule de conversion spécifique à ce mécanisme
 
 
 # Récapitulatif / Résumé
@@ -626,7 +626,7 @@ plt.show()
 
 ---
 
-## Perte de confidentialité (Privacy Loss)
+## Perte de confidentialité (*Privacy Loss*)
 
 <br>
 
@@ -634,13 +634,13 @@ $$
 \mathcal{L}_{D, D'}(s) = \ln\left(\frac{\mathbb{P}(M(D) = s)}{\mathbb{P}(M(D') = s)}\right) =
     \ln \left(\frac{ \frac{\mathbb{P}[\mathcal{D} = D \mid M(D) = s]}{\mathbb{P}[\mathcal{D} = D' \mid M(D') = s]} } {\frac{\mathbb{P}[\mathcal{D} = D]}{\mathbb{P}[\mathcal{D} = D']} } \right) 
 $$
-Il s'agit de la variable aléatoire dont l'aléatoire provient de $M(D)$.
+→ On considère la variable aléatoire $\mathcal{L}_{D, D'}(s)$ obtenue en tirant $s$ selon la loi de $M(D)$
 
 ---
 
-## L'approximate DP $(\varepsilon, \delta)$
+## L'*approximate DP* $(\varepsilon, \delta)$
 
-Forme relaxée de la pure DP :
+Forme relaxée de la *pure DP* :
 
 $$
 \mathbb{P}(M(D) \in S) \leq e^{\varepsilon} \mathbb{P}(M(D') \in S) + \delta
@@ -671,7 +671,7 @@ $$
 
 ---
 
-## La $z$-CDP (Concentrated DP) [^5]
+## La $z$-*CDP* (*Concentrated DP*) [^5]
 
 Un mécanisme est $\rho$-$z$CDP si, pour toute paire de bases adjacentes $D \sim D'$ et pour tout $\alpha > 1$ :
 
@@ -694,12 +694,19 @@ $$
 ---
 
 $$
-\begin{aligned}
-\frac{1}{\sigma^2_{\text{estimation}, (V_1, V_2)}} &= \frac{1}{\sigma^2_{\text{requête}, (V_1, V_2)}} \\
-\frac{1}{\sigma^2_{\text{estimation}, V_1}} &= \frac{1}{m_2 \sigma^2_{\text{requête}, (V_1, V_2)}} + \frac{1}{\sigma^2_{\text{requête}, V_1}} \\
-\frac{1}{\sigma^2_{\text{estimation}, V_2}} &= \frac{1}{m_1 \sigma^2_{\text{requête}, (V_1, V_2)}} + \frac{1}{\sigma^2_{\text{requête}, V_2}} \\
-\frac{1}{\sigma^2_{\text{estimation}, Total}} &= \frac{1}{m_2 \sigma^2_{\text{estimation}, V_2}} + \frac{1}{m_1 \sigma^2_{\text{requête}, V_1}} + \frac{1}{\sigma^2_{\text{requête}, Total}} 
-\end{aligned}
+\frac{1}{\sigma^2_{\text{estimation, (Emploi, Sexe) }}} = \frac{1}{\sigma^2_{\text{requête, (Emploi, Sexe)}}}
+$$
+
+$$
+\frac{1}{\sigma^2_{\text{estimation, Emploi}}} = \frac{1}{m_{\text{Sexe}} \sigma^2_{\text{requête, (Emploi, Sexe)}}} + \frac{1}{\sigma^2_{\text{requête, Emploi}}}
+$$
+
+$$
+\frac{1}{\sigma^2_{\text{estimation, Sexe}}} = \frac{1}{m_{\text{Emploi}} \sigma^2_{\text{requête, (Emploi, Sexe)}}} + \frac{1}{\sigma^2_{\text{requête, Sexe}}} 
+$$
+
+$$
+\frac{1}{\sigma^2_{\text{estimation, Total}}} = \frac{1}{m_{\text{Sexe}} \sigma^2_{\text{estimation, Sexe}}} + \frac{1}{m_{\text{Emploi}} \sigma^2_{\text{requête, Emploi}}} + \frac{1}{\sigma^2_{\text{requête}, Total}} 
 $$
 
 ---
@@ -709,5 +716,7 @@ $$
 <br>
 
 Le système devient $Ax = b$ avec :
+
+<br>
 
 ![](images/equation.png)
