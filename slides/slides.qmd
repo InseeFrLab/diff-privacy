@@ -40,7 +40,7 @@ editor:
 
 . . .
 
-- Ne fait **aucune hypothèse** sur les connaissances de l’attaquant
+- L'information de **chaque individu** est protégée **sans faire d'hypothèse** sur l'attaquant (moyens, objectifs, connaissances préalables, etc.)
 
 . . . 
 
@@ -86,11 +86,11 @@ $$
 - $\varepsilon$ contrôle le **gain d'information** de l'attaquant  
 - Plus $\varepsilon$ est petit, plus la confidentialité est forte 
 
-[^1]: [@dwork_algorithmic_2013] The Algorithmic Foundations of Differential Privacy. Foundations and Trends in Theoretical Computer Science
+[^1]: [@dwork2006calibrating] Calibrating noise to sensitivity in private data analysis. In Theory of Cryptography Conference
 
 ---
 
-## Perte de confidentialité (*Privacy Loss*)
+## Perte de confidentialité (*Privacy Loss*) [^7]
 
 <br>
 
@@ -106,6 +106,8 @@ $M$ est $\varepsilon$-*DP* si pour toute sortie $s$ :
 $$
 \mathcal{L}_{D, D'}(s) \leq \varepsilon
 $$
+
+[^7]: [@dwork_algorithmic_2013] The Algorithmic Foundations of Differential Privacy. Foundations and Trends in Theoretical Computer Science
 
 ---
 
@@ -141,7 +143,7 @@ $$
 
 ---
 
-## L'*approximate DP* $(\varepsilon, \delta)$
+## L'*approximate DP* $(\varepsilon, \delta)$ [^6]
 
 Forme relaxée de la *pure DP* :
 
@@ -158,10 +160,11 @@ $$
 \mathbb{P}(\mathcal{L}_{D, D'} > \varepsilon) \leq  \delta
 $$
 
+[^6]: [@dwork2006our] Our Data, Ourselves: Privacy via Distributed Noise Generation
 
 ---
 
-## Composer plusieurs fois un mécanisme *DP* ?
+## Composer des mécanismes *DP* ?
 
 <br>
 
@@ -383,11 +386,7 @@ La composition parallèle définie par : $M(D) = (M_1(D_1), \dots, M_k(D_k))$ sa
 
 . . .
 
-- Reste à choisir intelligemment ces bornes ...
-
-. . .
-
-- D'autres solutions sont évoquées dans la littérature : *Propose Test Release*, *Sample and Aggregate*, ect
+- D'autres solutions sont évoquées dans la littérature : *Propose Test Release*, *Sample and Aggregate*, ect.
 
 
 # Cas des comptages
@@ -417,7 +416,7 @@ $$
 où les $\hat{T}_k$ sont des estimateurs non biaisés, indépendants, de variance $\sigma_k^2$ et
 
 $$
-\sum w_k = 1 \quad \text{et} \quad w_k \geq 0
+\sum w_k = 1
 $$
 
 ---
@@ -448,15 +447,11 @@ $$
 
 <br>
 
-- Permet d'être **plus précis** en dépensant le même budget de confidentialité
+- Permet d'être **plus précis** en dépensant le même budget de confidentialité ou **plus économe** en budget, à précision attendue égale...
 
 . . .
 
-- On peut jouer sur la variance de nos requêtes pour atteindre la **précision désirée**
-
-. . .
-
-- On a un système d'équations **linéaires** en les inverses des variances qu'on résout matriciellement
+- On a un système d'équations **linéaires** en les inverses des variances
 
 
 # Cas des quantiles
@@ -489,7 +484,7 @@ $$
 où la sensibilité est définie par :
 
 $$
-\Delta u = \max_{\substack{D \sim D'}} \max_{s \in S} |u(D, s) - u(D', s)|
+\Delta u = \sup_{\substack{D \sim D'}} \sup_{s \in S} |u(D, s) - u(D', s)|
 $$
 
 ---
@@ -562,11 +557,11 @@ plt.show()
 
 <br>
 
-- Choix des candidats qui se résume une nouvelle fois à priori au choix $[L, U]$
+- Le choix des candidats est lié aux bornes $[L, U]$ qui sont décisives dans la performance de cet algorithme
 
 . . .
 
-- Mécanisme $\varepsilon$-*DP* et non $\rho$-*CDP* → on utilise une formule de conversion spécifique à ce mécanisme
+- Mécanisme $\varepsilon$-*DP* qui peut aussi être considéré dans un cadre $\rho$-*CDP* (cf théorème de conversion)
 
 
 # Récapitulatif / Résumé
@@ -601,7 +596,7 @@ plt.show()
 
 <br>
 
-- Complexité théorique importante  
+- Mise en pratique complexe  
 
 . . .
 
@@ -706,7 +701,12 @@ $$
 $$
 
 $$
-\frac{1}{\sigma^2_{\text{estimation, Total}}} = \frac{1}{m_{\text{Sexe}} \sigma^2_{\text{estimation, Sexe}}} + \frac{1}{m_{\text{Emploi}} \sigma^2_{\text{requête, Emploi}}} + \frac{1}{\sigma^2_{\text{requête}, Total}} 
+\begin{aligned}
+\frac{1}{\sigma^2_{\text{estimation, Total}}} &=
+\frac{1}{m_{\text{Sexe}} \, \sigma^2_{\text{estimation, Sexe}}} +
+\frac{1}{m_{\text{Emploi}} \, \sigma^2_{\text{requête, Emploi}}} \\
+&\quad + \frac{1}{\sigma^2_{\text{requête, Total}}}
+\end{aligned}
 $$
 
 ---
@@ -715,7 +715,9 @@ $$
 
 <br>
 
-Le système devient $Ax = b$ avec :
+- En posant $\rho = \frac{1}{2\sigma^2}$ (formule pour le bruit gaussien)
+
+- Le système devient $Ax = b$ sous la contrainte $x \geq 0$ :
 
 <br>
 

@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.7.31">
 
   <meta name="author" content="S. Benoliel, J. Jamme, G. Ferey">
-  <meta name="dcterms.date" content="2025-06-18">
+  <meta name="dcterms.date" content="2025-06-19">
   <title>La confidentialité différentielle</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -163,7 +163,7 @@ S. Benoliel, J. Jamme, G. Ferey
 </div>
 </div>
 
-  <p class="date">2025-06-18</p>
+  <p class="date">2025-06-19</p>
 </section>
 <section id="quest-ce-que-la-differential-privacy-dp" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Qu’est-ce que la <em>Differential Privacy</em> (<em>DP</em>) ?</h2>
@@ -190,7 +190,7 @@ S. Benoliel, J. Jamme, G. Ferey
 </ul>
 <div class="fragment">
 <ul>
-<li>Ne fait <strong>aucune hypothèse</strong> sur les connaissances de l’attaquant</li>
+<li>L’information de <strong>chaque individu</strong> est protégée <strong>sans faire d’hypothèse</strong> sur l’attaquant (moyens, objectifs, connaissances préalables, etc.)</li>
 </ul>
 </div>
 <div class="fragment">
@@ -239,9 +239,9 @@ S. Benoliel, J. Jamme, G. Ferey
 <li>Plus <span class="math inline">\(\varepsilon\)</span> est petit, plus la confidentialité est forte</li>
 </ul>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn1"><p><span class="citation" data-cites="dwork_algorithmic_2013">(<a href="#/références" role="doc-biblioref" onclick="">Dwork et Roth 2013</a>)</span> The Algorithmic Foundations of Differential Privacy. Foundations and Trends in Theoretical Computer Science</p></li></ol></aside></section>
-<section id="perte-de-confidentialité-privacy-loss" class="slide level2" data-background-image="background.svg" data-background-size="contain">
-<h2>Perte de confidentialité (<em>Privacy Loss</em>)</h2>
+<aside><ol class="aside-footnotes"><li id="fn1"><p><span class="citation" data-cites="dwork2006calibrating">(<a href="#/références" role="doc-biblioref" onclick="">Dwork, McSherry, et al. 2006</a>)</span> Calibrating noise to sensitivity in private data analysis. In Theory of Cryptography Conference</p></li></ol></aside></section>
+<section id="perte-de-confidentialité-privacy-loss-7" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>Perte de confidentialité (<em>Privacy Loss</em>) <sup>1</sup></h2>
 <p><br></p>
 <p><span class="math display">\[
 \mathcal{L}_{D, D'}(s) = \ln\left(\frac{\mathbb{P}(M(D) = s)}{\mathbb{P}(M(D') = s)}\right)
@@ -252,7 +252,7 @@ S. Benoliel, J. Jamme, G. Ferey
 \mathcal{L}_{D, D'}(s) \leq \varepsilon
 \]</span></p>
 </div>
-</section>
+<aside><ol class="aside-footnotes"><li id="fn2"><p><span class="citation" data-cites="dwork_algorithmic_2013">(<a href="#/références" role="doc-biblioref" onclick="">Dwork et Roth 2013</a>)</span> The Algorithmic Foundations of Differential Privacy. Foundations and Trends in Theoretical Computer Science</p></li></ol></aside></section>
 <section id="mécanisme-varepsilon-dp-bruit-de-laplace" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Mécanisme <span class="math inline">\(\varepsilon\)</span>-<em>DP</em> : bruit de Laplace</h2>
 <p><br></p>
@@ -261,14 +261,14 @@ S. Benoliel, J. Jamme, G. Ferey
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images/courbe_densite_laplace.png"></p>
-<figcaption>Densité de probabilité des sorties <span class="math inline">\(M(D)\)</span> et <span class="math inline">\(M(D')\)</span> avec un bruit d’écart type <span class="math inline">\(\sigma = \frac{\sqrt{2}}{\ln(3)}\)</span></figcaption>
+<figcaption>Densité de probabilité des sorties <span class="math inline">\(M(D)\)</span> et <span class="math inline">\(M(D')\)</span> avec un bruit d’écart type <span class="math inline">\(\sigma = \sqrt{2}\)</span></figcaption>
 </figure>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images/courbe_risque_laplace.png"></p>
-<figcaption>Perte de confidentialité inférieur à <span class="math inline">\(\varepsilon = \ln(3)\)</span></figcaption>
+<figcaption>Perte de confidentialité inférieur à <span class="math inline">\(\varepsilon = 1\)</span></figcaption>
 </figure>
 </div>
 </div></div>
@@ -281,7 +281,7 @@ S. Benoliel, J. Jamme, G. Ferey
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images/courbe_densite_gauss.png"></p>
-<figcaption>Densité de probabilité des sorties <span class="math inline">\(M(D)\)</span> et <span class="math inline">\(M(D')\)</span> avec un bruit d’écart type <span class="math inline">\(\sigma = \frac{\sqrt{2}}{\ln(3)}\)</span></figcaption>
+<figcaption>Densité de probabilité des sorties <span class="math inline">\(M(D)\)</span> et <span class="math inline">\(M(D')\)</span> avec un bruit d’écart type <span class="math inline">\(\sigma = \sqrt{2}\)</span></figcaption>
 </figure>
 </div>
 </div><div class="column" style="width:50%;">
@@ -293,8 +293,8 @@ S. Benoliel, J. Jamme, G. Ferey
 </div>
 </div></div>
 </section>
-<section id="lapproximate-dp-varepsilon-delta" class="slide level2" data-background-image="background.svg" data-background-size="contain">
-<h2>L’<em>approximate DP</em> <span class="math inline">\((\varepsilon, \delta)\)</span></h2>
+<section id="lapproximate-dp-varepsilon-delta-6" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>L’<em>approximate DP</em> <span class="math inline">\((\varepsilon, \delta)\)</span> <sup>1</sup></h2>
 <p>Forme relaxée de la <em>pure DP</em> :</p>
 <p><span class="math display">\[
 \mathbb{P}(M(D) \in S) \leq e^{\varepsilon} \mathbb{P}(M(D') \in S) + \delta
@@ -305,9 +305,9 @@ S. Benoliel, J. Jamme, G. Ferey
 \mathbb{P}(\mathcal{L}_{D, D'} &gt; \varepsilon) \leq  \delta
 \]</span></p>
 </div>
-</section>
-<section id="composer-plusieurs-fois-un-mécanisme-dp" class="slide level2" data-background-image="background.svg" data-background-size="contain">
-<h2>Composer plusieurs fois un mécanisme <em>DP</em> ?</h2>
+<aside><ol class="aside-footnotes"><li id="fn3"><p><span class="citation" data-cites="dwork2006our">(<a href="#/références" role="doc-biblioref" onclick="">Dwork, Kenthapadi, et al. 2006</a>)</span> Our Data, Ourselves: Privacy via Distributed Noise Generation</p></li></ol></aside></section>
+<section id="composer-des-mécanismes-dp" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>Composer des mécanismes <em>DP</em> ?</h2>
 <p><br></p>
 <p>Exemple : publier plusieurs statistiques sur un même jeu de données <span class="math inline">\(D\)</span></p>
 <div class="fragment">
@@ -331,7 +331,7 @@ Alors, leur composition est : <span class="math inline">\(\left(\sum_{i=1}^{k} \
 \left( k\varepsilon(e^{\varepsilon} - 1) + \varepsilon\sqrt{2k \ln(1/\delta')} \ ,\ k\delta + \delta' \right)\text{-DP}.
 \]</span></p>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn2"><p><span class="citation" data-cites="dwork_boosting_2010">(<a href="#/références" role="doc-biblioref" onclick="">Dwork, Rothblum, et Vadhan 2010</a>)</span> Boosting and Differential Privacy</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn4"><p><span class="citation" data-cites="dwork_boosting_2010">(<a href="#/références" role="doc-biblioref" onclick="">Dwork, Rothblum, et Vadhan 2010</a>)</span> Boosting and Differential Privacy</p></li></ol></aside></section>
 <section class="slide level2">
 
 
@@ -363,7 +363,7 @@ Alors, leur composition est : <span class="math inline">\(\left(\sum_{i=1}^{k} \
 <li><span class="math inline">\(\rho\)</span> mesure la <strong>concentration</strong> de la <em>privacy loss</em> autour de son espérance</li>
 <li>Permet des <strong>compositions plus précises</strong> → Composition adaptative en <span class="math inline">\(\sum_{i=1}^{k} \rho_i\)</span></li>
 </ul>
-<aside><ol class="aside-footnotes"><li id="fn3"><p><span class="citation" data-cites="bun_concentrated_2016">(<a href="#/références" role="doc-biblioref" onclick="">Bun et Steinke 2016</a>)</span>, Concentrated Differential Privacy: Simplifications, Extensions, and Lower Bounds</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn5"><p><span class="citation" data-cites="bun_concentrated_2016">(<a href="#/références" role="doc-biblioref" onclick="">Bun et Steinke 2016</a>)</span>, Concentrated Differential Privacy: Simplifications, Extensions, and Lower Bounds</p></li></ol></aside></section>
 <section class="slide level2">
 
 
@@ -416,12 +416,7 @@ La composition parallèle définie par : <span class="math inline">\(M(D) = (M_1
 </ul>
 <div class="fragment">
 <ul>
-<li>Reste à choisir intelligemment ces bornes …</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li>D’autres solutions sont évoquées dans la littérature : <em>Propose Test Release</em>, <em>Sample and Aggregate</em>, ect</li>
+<li>D’autres solutions sont évoquées dans la littérature : <em>Propose Test Release</em>, <em>Sample and Aggregate</em>, ect.</li>
 </ul>
 </div>
 </section>
@@ -446,7 +441,7 @@ La composition parallèle définie par : <span class="math inline">\(M(D) = (M_1
 \]</span></p>
 <p>où les <span class="math inline">\(\hat{T}_k\)</span> sont des estimateurs non biaisés, indépendants, de variance <span class="math inline">\(\sigma_k^2\)</span> et</p>
 <p><span class="math display">\[
-\sum w_k = 1 \quad \text{et} \quad w_k \geq 0
+\sum w_k = 1
 \]</span></p>
 </div>
 </section>
@@ -469,16 +464,11 @@ w_k = \frac{1/ \sigma_k^2}{\sum_{j=1}^{n} 1 / \sigma_j^2}
 <h2>Utilisation en pratique</h2>
 <p><br></p>
 <ul>
-<li>Permet d’être <strong>plus précis</strong> en dépensant le même budget de confidentialité</li>
+<li>Permet d’être <strong>plus précis</strong> en dépensant le même budget de confidentialité ou <strong>plus économe</strong> en budget, à précision attendue égale…</li>
 </ul>
 <div class="fragment">
 <ul>
-<li>On peut jouer sur la variance de nos requêtes pour atteindre la <strong>précision désirée</strong></li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li>On a un système d’équations <strong>linéaires</strong> en les inverses des variances qu’on résout matriciellement</li>
+<li>On a un système d’équations <strong>linéaires</strong> en les inverses des variances</li>
 </ul>
 </div>
 </section></section>
@@ -508,7 +498,7 @@ w_k = \frac{1/ \sigma_k^2}{\sum_{j=1}^{n} 1 / \sigma_j^2}
 \]</span></p>
 <p>où la sensibilité est définie par :</p>
 <p><span class="math display">\[
-\Delta u = \max_{\substack{D \sim D'}} \max_{s \in S} |u(D, s) - u(D', s)|
+\Delta u = \sup_{\substack{D \sim D'}} \sup_{s \in S} |u(D, s) - u(D', s)|
 \]</span></p>
 </section>
 <section id="application-au-quantile" class="slide level2" data-background-image="background.svg" data-background-size="contain">
@@ -547,11 +537,11 @@ w_k = \frac{1/ \sigma_k^2}{\sum_{j=1}^{n} 1 / \sigma_j^2}
 <h2>Problématique</h2>
 <p><br></p>
 <ul>
-<li>Choix des candidats qui se résume une nouvelle fois à priori au choix <span class="math inline">\([L, U]\)</span></li>
+<li>Le choix des candidats est lié aux bornes <span class="math inline">\([L, U]\)</span> qui sont décisives dans la performance de cet algorithme</li>
 </ul>
 <div class="fragment">
 <ul>
-<li>Mécanisme <span class="math inline">\(\varepsilon\)</span>-<em>DP</em> et non <span class="math inline">\(\rho\)</span>-<em>CDP</em> → on utilise une formule de conversion spécifique à ce mécanisme</li>
+<li>Mécanisme <span class="math inline">\(\varepsilon\)</span>-<em>DP</em> qui peut aussi être considéré dans un cadre <span class="math inline">\(\rho\)</span>-<em>CDP</em> (cf théorème de conversion)</li>
 </ul>
 </div>
 </section></section>
@@ -591,7 +581,7 @@ w_k = \frac{1/ \sigma_k^2}{\sum_{j=1}^{n} 1 / \sigma_j^2}
 <h2>Faiblesses</h2>
 <p><br></p>
 <ul>
-<li>Complexité théorique importante</li>
+<li>Mise en pratique complexe</li>
 </ul>
 <div class="fragment">
 <ul>
@@ -621,6 +611,12 @@ Canonne, Clément L., Gautam Kamath, et Thomas Steinke. 2022. <span>«&nbsp;The 
 <div id="ref-desfontaines-blog" class="csl-entry" role="listitem">
 Desfontaines, Damien. s.&nbsp;d. <span>«&nbsp;Blog of Damien Desfontaines&nbsp;»</span>. <a href="https://desfontain.es/blog/">https://desfontain.es/blog/</a>.
 </div>
+<div id="ref-dwork2006our" class="csl-entry" role="listitem">
+Dwork, Cynthia, Krishnaram Kenthapadi, Frank McSherry, Ilya Mironov, et Moni Naor. 2006. <span>«&nbsp;Our Data, Ourselves: Privacy via Distributed Noise Generation&nbsp;»</span>. In <em>Annual International Conference on the Theory and Applications of Cryptographic Techniques (EUROCRYPT)</em>, 4004:486‑503. Lecture Notes in Computer Science. Springer.
+</div>
+<div id="ref-dwork2006calibrating" class="csl-entry" role="listitem">
+Dwork, Cynthia, Frank McSherry, Kobbi Nissim, et Adam Smith. 2006. <span>«&nbsp;Calibrating Noise to Sensitivity in Private Data Analysis&nbsp;»</span>. In <em>Theory of Cryptography Conference (TCC)</em>, 3876:265‑84. Lecture Notes in Computer Science. Springer.
+</div>
 <div id="ref-dwork_algorithmic_2013" class="csl-entry" role="listitem">
 Dwork, Cynthia, et Aaron Roth. 2013. <span>«&nbsp;The <span>Algorithmic</span> <span>Foundations</span> of <span>Differential</span> <span>Privacy</span>&nbsp;»</span>. <em>Foundations and Trends® in Theoretical Computer Science</em> 9 (3-4): 211‑407.
 </div>
@@ -634,7 +630,7 @@ Dwork, Cynthia, Guy N. Rothblum, et Salil Vadhan. 2010. <span>«&nbsp;Boosting a
 <h1>Annexe</h1>
 
 </section>
-<section id="perte-de-confidentialité-privacy-loss-1" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<section id="perte-de-confidentialité-privacy-loss" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Perte de confidentialité (<em>Privacy Loss</em>)</h2>
 <p><br></p>
 <p><span class="math display">\[
@@ -642,7 +638,7 @@ Dwork, Cynthia, Guy N. Rothblum, et Salil Vadhan. 2010. <span>«&nbsp;Boosting a
     \ln \left(\frac{ \frac{\mathbb{P}[\mathcal{D} = D \mid M(D) = s]}{\mathbb{P}[\mathcal{D} = D' \mid M(D') = s]} } {\frac{\mathbb{P}[\mathcal{D} = D]}{\mathbb{P}[\mathcal{D} = D']} } \right)
 \]</span> → On considère la variable aléatoire <span class="math inline">\(\mathcal{L}_{D, D'}(s)\)</span> obtenue en tirant <span class="math inline">\(s\)</span> selon la loi de <span class="math inline">\(M(D)\)</span></p>
 </section>
-<section id="lapproximate-dp-varepsilon-delta-1" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<section id="lapproximate-dp-varepsilon-delta" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>L’<em>approximate DP</em> <span class="math inline">\((\varepsilon, \delta)\)</span></h2>
 <p>Forme relaxée de la <em>pure DP</em> :</p>
 <p><span class="math display">\[
@@ -662,7 +658,7 @@ Dwork, Cynthia, Guy N. Rothblum, et Salil Vadhan. 2010. <span>«&nbsp;Boosting a
 \int_{\varepsilon}^{\infty} e^{\varepsilon - z}\mathbb{P}(\mathcal{L}_{D, D'} &gt; z) \, dz \leq  \delta
 \]</span></p>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn4"><p><span class="citation" data-cites="canonne_discrete_2022">(<a href="#/références" role="doc-biblioref" onclick="">Canonne, Kamath, et Steinke 2022</a>)</span>, The Discrete Gaussian for Differential Privacy</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn6"><p><span class="citation" data-cites="canonne_discrete_2022">(<a href="#/références" role="doc-biblioref" onclick="">Canonne, Kamath, et Steinke 2022</a>)</span>, The Discrete Gaussian for Differential Privacy</p></li></ol></aside></section>
 <section class="slide level2">
 
 
@@ -678,7 +674,7 @@ Dwork, Cynthia, Guy N. Rothblum, et Salil Vadhan. 2010. <span>«&nbsp;Boosting a
 <li><span class="math inline">\(\alpha = 3\)</span> à la moyenne quadratique, ect</li>
 <li>Plus <span class="math inline">\(\alpha\)</span> augmente, plus on rajoute du poids aux événements les plus <strong>mauvais</strong></li>
 </ul>
-<aside><ol class="aside-footnotes"><li id="fn5"><p>Interpétation tirée du blog de <span class="citation" data-cites="desfontaines-blog">(<a href="#/références" role="doc-biblioref" onclick="">Desfontaines, s.&nbsp;d.</a>)</span></p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn7"><p>Interpétation tirée du blog de <span class="citation" data-cites="desfontaines-blog">(<a href="#/références" role="doc-biblioref" onclick="">Desfontaines, s.&nbsp;d.</a>)</span></p></li></ol></aside></section>
 <section class="slide level2">
 
 <p><br></p>
@@ -696,20 +692,25 @@ Dwork, Cynthia, Guy N. Rothblum, et Salil Vadhan. 2010. <span>«&nbsp;Boosting a
 \frac{1}{\sigma^2_{\text{estimation, Sexe}}} = \frac{1}{m_{\text{Emploi}} \sigma^2_{\text{requête, (Emploi, Sexe)}}} + \frac{1}{\sigma^2_{\text{requête, Sexe}}}
 \]</span></p>
 <p><span class="math display">\[
-\frac{1}{\sigma^2_{\text{estimation, Total}}} = \frac{1}{m_{\text{Sexe}} \sigma^2_{\text{estimation, Sexe}}} + \frac{1}{m_{\text{Emploi}} \sigma^2_{\text{requête, Emploi}}} + \frac{1}{\sigma^2_{\text{requête}, Total}}
+\begin{aligned}
+\frac{1}{\sigma^2_{\text{estimation, Total}}} &amp;=
+\frac{1}{m_{\text{Sexe}} \, \sigma^2_{\text{estimation, Sexe}}} +
+\frac{1}{m_{\text{Emploi}} \, \sigma^2_{\text{requête, Emploi}}} \\
+&amp;\quad + \frac{1}{\sigma^2_{\text{requête, Total}}}
+\end{aligned}
 \]</span></p>
 </section>
 <section id="système-matriciel-équivalent" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Système matriciel équivalent</h2>
 <p><br></p>
-<p>Le système devient <span class="math inline">\(Ax = b\)</span> avec :</p>
+<ul>
+<li><p>En posant <span class="math inline">\(\rho = \frac{1}{2\sigma^2}\)</span> (formule pour le bruit gaussien)</p></li>
+<li><p>Le système devient <span class="math inline">\(Ax = b\)</span> sous la contrainte <span class="math inline">\(x \geq 0\)</span> :</p></li>
+</ul>
 <p><br></p>
 
-<img data-src="images/equation.png" class="r-stretch"></section>
-<section class="slide level2">
 
-
-</section></section>
+<img data-src="images/equation.png" class="r-stretch"></section></section>
 
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
