@@ -5,6 +5,7 @@ end
 
 function Header(el)
     copyResource('background.svg')
+    copyResource('favicon-32x32.png')
     if not el.attributes['background-image'] then
         el.attributes['background-image'] = 'background.svg'
         el.attributes['background-size'] = 'contain'

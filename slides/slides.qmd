@@ -1,7 +1,7 @@
 ---
 title: La confidentialité différentielle
 subtitle: |
-  **Appliquée via un outil de requêtage**
+  **[Appliquée via un outil de requêtage]{.orange}**
 author: S. Benoliel, J. Jamme, G. Ferey
 date: today
 bibliography: references.bib
