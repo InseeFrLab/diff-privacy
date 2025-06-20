@@ -40,7 +40,7 @@ editor:
 
 . . .
 
-- L'information de **chaque individu** est protégée **sans faire d'hypothèse** sur l'attaquant (moyens, objectifs, connaissances préalables, etc.)
+- L'information de **chaque individu** est protégée **sans faire d'hypothèse supplémentaires** sur les connaissances préalables qu'à l'attaquant.
 
 . . . 
 
@@ -50,11 +50,19 @@ editor:
 
 ## Concepts clés
 
+<br>
+
 - **Adjacence** : $D \sim D'$, les dataset $D$ et $D'$ différent d'un individu :
   - Ajout ou suppression d'un individu pour retrouver l'autre dataset
   - Modification d'un individu du dataset
 
-. . .
+---
+
+## Concepts clés
+
+<br>
+
+On note $f$ une fonction quelconque appliquée sur $D$ (comptage, moyenne d'une variable, ect.)
 
 - **Sensibilité** $\Delta_i f = \max_{D \sim D'} \|f(D) - f(D')\|_i$  → impact maximal d’un individu
   - Comptage : $\Delta_i = 1$ 
@@ -66,8 +74,9 @@ editor:
 
 <br>
 
-- **Mécanisme** : algorithme aléatoire $M : D \mapsto M(D)$, qui associe à un **dataset** en entrée $D$ une **variable aléatoire** de sortie $s = M(D)$. 
-La propriété DP est associée à l'algorithme
+- **Mécanisme** : algorithme aléatoire $M : D \mapsto M(D)$, qui associe à un **dataset** en entrée $D$ une **variable aléatoire** de sortie $s = M(D)$. \
+La propriété DP est associée au mécanisme. \
+Exemple : $M(D) = f(D) + \mathcal{N}(0, \sigma^2)$
 
 ---
 
@@ -93,16 +102,16 @@ $$
 ## Perte de confidentialité (*Privacy Loss*) [^7]
 
 $$
-\mathcal{L}_{D, D'}(s) = \ln\left(\frac{\mathbb{P}(M(D) = s)}{\mathbb{P}(M(D') = s)}\right)
+\mathcal{L}_{D, D'}^{(s)} = \ln\left(\frac{\mathbb{P}(M(D) = s)}{\mathbb{P}(M(D') = s)}\right)
 $$
-→ On considère la variable aléatoire $\mathcal{L}_{D, D'}(s)$ obtenue en tirant $s$ selon la loi de $M(D)$
+→ On considère la variable aléatoire $\mathcal{L}_{D, D'}^{(s)}$ obtenue en observant $s$ selon la loi de $M(D)$
 
 . . .
 
 $M$ est $\varepsilon$-*DP* ssi pour toute sortie $s$ et $D \sim D'$ :
 
 $$
-\mathcal{L}_{D, D'}(s) \leq \varepsilon
+\mathcal{L}_{D, D'}^{(s)} \leq \varepsilon
 $$
 
 [^7]: [@dwork_algorithmic_2013] The Algorithmic Foundations of Differential Privacy. Foundations and Trends in Theoretical Computer Science
@@ -342,11 +351,11 @@ plt.show()
 
 ---
 
-## Propriété générale
+## Propriétés générales
 
 <br>
 
-- Si un mécanisme $M$ vérifie une des formes de DP, alors $f(M)$ également → stable au ***post-processing***
+- Si un mécanisme $M$ vérifie une des formes de DP et $f$ une fonction quelconque, alors $f(M)$ également → stable au ***post-processing***
 
 . . .
 
@@ -366,7 +375,7 @@ La composition parallèle définie par : $M(D) = (M_1(D_1), \dots, M_k(D_k))$ sa
 
 - Fixer un seuil (max du jeu de données) peut révéler … le max !
 
-  → La sensibilité n'est pas protégé par la DP et peut être inféré à partir de quelques requêtes 
+  → La sensibilité n'est pas protégée par la DP et peut être inférée à partir de quelques requêtes 
 
 . . .
 
@@ -499,7 +508,7 @@ $$
 
 . . .
 
-- On tire un candidat $s$ parmi $S$ en respectant les probabilités définis vis à vis du mécanisme.
+- On tire un candidat $s$ parmi $S$ en respectant les probabilités définies par le mécanisme.
 
 ---
 
@@ -624,10 +633,10 @@ plt.show()
 <br>
 
 $$
-\mathcal{L}_{D, D'}(s) = \ln\left(\frac{\mathbb{P}(M(D) = s)}{\mathbb{P}(M(D') = s)}\right) =
+\mathcal{L}_{D, D'}^{(s)}  = \ln\left(\frac{\mathbb{P}(M(D) = s)}{\mathbb{P}(M(D') = s)}\right) =
     \ln \left(\frac{ \frac{\mathbb{P}[\mathcal{D} = D \mid M(D) = s]}{\mathbb{P}[\mathcal{D} = D' \mid M(D') = s]} } {\frac{\mathbb{P}[\mathcal{D} = D]}{\mathbb{P}[\mathcal{D} = D']} } \right) 
 $$
-→ On considère la variable aléatoire $\mathcal{L}_{D, D'}(s)$ obtenue en tirant $s$ selon la loi de $M(D)$
+→ On considère la variable aléatoire $\mathcal{L}_{D, D'}^{(s)}$ obtenue en observant $s$ selon la loi de $M(D)$
 
 ---
 

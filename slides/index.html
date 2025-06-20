@@ -190,7 +190,7 @@ S. Benoliel, J. Jamme, G. Ferey
 </ul>
 <div class="fragment">
 <ul>
-<li>L’information de <strong>chaque individu</strong> est protégée <strong>sans faire d’hypothèse</strong> sur l’attaquant (moyens, objectifs, connaissances préalables, etc.)</li>
+<li>L’information de <strong>chaque individu</strong> est protégée <strong>sans faire d’hypothèse supplémentaires</strong> sur les connaissances préalables qu’à l’attaquant.</li>
 </ul>
 </div>
 <div class="fragment">
@@ -201,6 +201,7 @@ S. Benoliel, J. Jamme, G. Ferey
 </section>
 <section id="concepts-clés" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Concepts clés</h2>
+<p><br></p>
 <ul>
 <li><strong>Adjacence</strong> : <span class="math inline">\(D \sim D'\)</span>, les dataset <span class="math inline">\(D\)</span> et <span class="math inline">\(D'\)</span> différent d’un individu :
 <ul>
@@ -208,7 +209,11 @@ S. Benoliel, J. Jamme, G. Ferey
 <li>Modification d’un individu du dataset</li>
 </ul></li>
 </ul>
-<div class="fragment">
+</section>
+<section id="concepts-clés-1" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>Concepts clés</h2>
+<p><br></p>
+<p>On note <span class="math inline">\(f\)</span> une fonction quelconque appliquée sur <span class="math inline">\(D\)</span> (comptage, moyenne d’une variable, ect.)</p>
 <ul>
 <li><strong>Sensibilité</strong> <span class="math inline">\(\Delta_i f = \max_{D \sim D'} \|f(D) - f(D')\|_i\)</span> → impact maximal d’un individu
 <ul>
@@ -216,13 +221,14 @@ S. Benoliel, J. Jamme, G. Ferey
 <li>Total / moyenne / quantile : dépendante de la variable d’étude</li>
 </ul></li>
 </ul>
-</div>
 </section>
-<section id="concepts-clés-1" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<section id="concepts-clés-2" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Concepts clés</h2>
 <p><br></p>
 <ul>
-<li><strong>Mécanisme</strong> : algorithme aléatoire <span class="math inline">\(M : D \mapsto M(D)\)</span>, qui associe à un <strong>dataset</strong> en entrée <span class="math inline">\(D\)</span> une <strong>variable aléatoire</strong> de sortie <span class="math inline">\(s = M(D)\)</span>. La propriété DP est associée à l’algorithme</li>
+<li><strong>Mécanisme</strong> : algorithme aléatoire <span class="math inline">\(M : D \mapsto M(D)\)</span>, qui associe à un <strong>dataset</strong> en entrée <span class="math inline">\(D\)</span> une <strong>variable aléatoire</strong> de sortie <span class="math inline">\(s = M(D)\)</span>.<br>
+La propriété DP est associée au mécanisme.<br>
+Exemple : <span class="math inline">\(M(D) = f(D) + \mathcal{N}(0, \sigma^2)\)</span></li>
 </ul>
 </section>
 <section id="la-pure-dp-varepsilon-dp-1" class="slide level2" data-background-image="background.svg" data-background-size="contain">
@@ -243,12 +249,12 @@ S. Benoliel, J. Jamme, G. Ferey
 <section id="perte-de-confidentialité-privacy-loss-7" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Perte de confidentialité (<em>Privacy Loss</em>) <sup>1</sup></h2>
 <p><span class="math display">\[
-\mathcal{L}_{D, D'}(s) = \ln\left(\frac{\mathbb{P}(M(D) = s)}{\mathbb{P}(M(D') = s)}\right)
-\]</span> → On considère la variable aléatoire <span class="math inline">\(\mathcal{L}_{D, D'}(s)\)</span> obtenue en tirant <span class="math inline">\(s\)</span> selon la loi de <span class="math inline">\(M(D)\)</span></p>
+\mathcal{L}_{D, D'}^{(s)} = \ln\left(\frac{\mathbb{P}(M(D) = s)}{\mathbb{P}(M(D') = s)}\right)
+\]</span> → On considère la variable aléatoire <span class="math inline">\(\mathcal{L}_{D, D'}^{(s)}\)</span> obtenue en observant <span class="math inline">\(s\)</span> selon la loi de <span class="math inline">\(M(D)\)</span></p>
 <div class="fragment">
 <p><span class="math inline">\(M\)</span> est <span class="math inline">\(\varepsilon\)</span>-<em>DP</em> ssi pour toute sortie <span class="math inline">\(s\)</span> et <span class="math inline">\(D \sim D'\)</span> :</p>
 <p><span class="math display">\[
-\mathcal{L}_{D, D'}(s) \leq \varepsilon
+\mathcal{L}_{D, D'}^{(s)} \leq \varepsilon
 \]</span></p>
 </div>
 <aside><ol class="aside-footnotes"><li id="fn2"><p><span class="citation" data-cites="dwork_algorithmic_2013">(<a href="#/références" role="doc-biblioref" onclick="">Dwork et Roth 2013</a>)</span> The Algorithmic Foundations of Differential Privacy. Foundations and Trends in Theoretical Computer Science</p></li></ol></aside></section>
@@ -372,11 +378,11 @@ Alors, leur composition est : <span class="math inline">\(\left(\sum_{i=1}^{k} \
 <p><br></p>
 
 <img data-src="images/conversion_dp.png" class="r-stretch"></section>
-<section id="propriété-générale" class="slide level2" data-background-image="background.svg" data-background-size="contain">
-<h2>Propriété générale</h2>
+<section id="propriétés-générales" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>Propriétés générales</h2>
 <p><br></p>
 <ul>
-<li>Si un mécanisme <span class="math inline">\(M\)</span> vérifie une des formes de DP, alors <span class="math inline">\(f(M)\)</span> également → stable au <strong><em>post-processing</em></strong></li>
+<li>Si un mécanisme <span class="math inline">\(M\)</span> vérifie une des formes de DP et <span class="math inline">\(f\)</span> une fonction quelconque, alors <span class="math inline">\(f(M)\)</span> également → stable au <strong><em>post-processing</em></strong></li>
 </ul>
 <div class="fragment">
 <ul>
@@ -394,7 +400,7 @@ La composition parallèle définie par : <span class="math inline">\(M(D) = (M_1
 <div class="fragment">
 <ul>
 <li><p>Fixer un seuil (max du jeu de données) peut révéler … le max !</p>
-<p>→ La sensibilité n’est pas protégé par la DP et peut être inféré à partir de quelques requêtes</p></li>
+<p>→ La sensibilité n’est pas protégée par la DP et peut être inférée à partir de quelques requêtes</p></li>
 </ul>
 </div>
 <div class="fragment">
@@ -513,7 +519,7 @@ w_k = \frac{1/ \sigma_k^2}{\sum_{j=1}^{n} 1 / \sigma_j^2}
 </div>
 <div class="fragment">
 <ul>
-<li>On tire un candidat <span class="math inline">\(s\)</span> parmi <span class="math inline">\(S\)</span> en respectant les probabilités définis vis à vis du mécanisme.</li>
+<li>On tire un candidat <span class="math inline">\(s\)</span> parmi <span class="math inline">\(S\)</span> en respectant les probabilités définies par le mécanisme.</li>
 </ul>
 </div>
 </section>
@@ -633,9 +639,9 @@ Dwork, Cynthia, Guy N. Rothblum, et Salil Vadhan. 2010. <span>«&nbsp;Boosting a
 <h2>Perte de confidentialité (<em>Privacy Loss</em>)</h2>
 <p><br></p>
 <p><span class="math display">\[
-\mathcal{L}_{D, D'}(s) = \ln\left(\frac{\mathbb{P}(M(D) = s)}{\mathbb{P}(M(D') = s)}\right) =
+\mathcal{L}_{D, D'}^{(s)}  = \ln\left(\frac{\mathbb{P}(M(D) = s)}{\mathbb{P}(M(D') = s)}\right) =
     \ln \left(\frac{ \frac{\mathbb{P}[\mathcal{D} = D \mid M(D) = s]}{\mathbb{P}[\mathcal{D} = D' \mid M(D') = s]} } {\frac{\mathbb{P}[\mathcal{D} = D]}{\mathbb{P}[\mathcal{D} = D']} } \right)
-\]</span> → On considère la variable aléatoire <span class="math inline">\(\mathcal{L}_{D, D'}(s)\)</span> obtenue en tirant <span class="math inline">\(s\)</span> selon la loi de <span class="math inline">\(M(D)\)</span></p>
+\]</span> → On considère la variable aléatoire <span class="math inline">\(\mathcal{L}_{D, D'}^{(s)}\)</span> obtenue en observant <span class="math inline">\(s\)</span> selon la loi de <span class="math inline">\(M(D)\)</span></p>
 </section>
 <section id="lapproximate-dp-varepsilon-delta" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>L’<em>approximate DP</em> <span class="math inline">\((\varepsilon, \delta)\)</span></h2>
