@@ -165,20 +165,20 @@ S. Benoliel, J. Jamme, G. Ferey
 
   <p class="date">2025-06-20</p>
 </section>
-<section id="quest-ce-que-la-differential-privacy-dp" class="slide level2" data-background-image="background.svg" data-background-size="contain">
-<h2>Qu’est-ce que la <em>Differential Privacy</em> (<em>DP</em>) ?</h2>
+<section id="quest-ce-que-la-confidentialité-différentielle-dp-differential-privacy" class="slide level2" data-background-image="background.svg" data-background-size="contain">
+<h2>Qu’est-ce que la confidentialité différentielle (<em>DP</em>, <em>Differential Privacy</em>) ?</h2>
 <p><br></p>
 <ul>
-<li>But : protéger un jeu de données <span class="math inline">\(D\)</span> tout en récupérant une sortie <span class="math inline">\(S\)</span></li>
+<li>But : protéger les informations individuelles d’un jeu de données tout en produisant une information statistique</li>
 </ul>
 <div class="fragment">
 <ul>
-<li>Mécanisme DP : rendre quasi <strong>indistinguable</strong> les sorties obtenues avec ou sans un individu <span class="math inline">\(i\)</span></li>
+<li>Mécanisme DP : rendre quasi <strong>indistinguable</strong> le résultat obtenu si on changeait un individu des données</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>Si un individu peut avoir un fort impact sur la sortie <span class="math inline">\(S\)</span> → on ajoute davantage de bruit</li>
+<li>Si un individu peut avoir un fort impact sur le résultat → on ajoute davantage de bruit</li>
 </ul>
 </div>
 </section>
@@ -213,7 +213,7 @@ S. Benoliel, J. Jamme, G. Ferey
 <li><strong>Sensibilité</strong> <span class="math inline">\(\Delta_i f = \max_{D \sim D'} \|f(D) - f(D')\|_i\)</span> → impact maximal d’un individu
 <ul>
 <li>Comptage : <span class="math inline">\(\Delta_i = 1\)</span></li>
-<li>Somme / moyenne / quantile : dépendante de la variable d’étude</li>
+<li>Total / moyenne / quantile : dépendante de la variable d’étude</li>
 </ul></li>
 </ul>
 </div>
@@ -242,12 +242,11 @@ S. Benoliel, J. Jamme, G. Ferey
 <aside><ol class="aside-footnotes"><li id="fn1"><p><span class="citation" data-cites="dwork2006calibrating">(<a href="#/références" role="doc-biblioref" onclick="">Dwork, McSherry, et al. 2006</a>)</span> Calibrating noise to sensitivity in private data analysis. In Theory of Cryptography Conference</p></li></ol></aside></section>
 <section id="perte-de-confidentialité-privacy-loss-7" class="slide level2" data-background-image="background.svg" data-background-size="contain">
 <h2>Perte de confidentialité (<em>Privacy Loss</em>) <sup>1</sup></h2>
-<p><br></p>
 <p><span class="math display">\[
 \mathcal{L}_{D, D'}(s) = \ln\left(\frac{\mathbb{P}(M(D) = s)}{\mathbb{P}(M(D') = s)}\right)
 \]</span> → On considère la variable aléatoire <span class="math inline">\(\mathcal{L}_{D, D'}(s)\)</span> obtenue en tirant <span class="math inline">\(s\)</span> selon la loi de <span class="math inline">\(M(D)\)</span></p>
 <div class="fragment">
-<p><span class="math inline">\(M\)</span> est <span class="math inline">\(\varepsilon\)</span>-<em>DP</em> si pour toute sortie <span class="math inline">\(s\)</span> :</p>
+<p><span class="math inline">\(M\)</span> est <span class="math inline">\(\varepsilon\)</span>-<em>DP</em> ssi pour toute sortie <span class="math inline">\(s\)</span> et <span class="math inline">\(D \sim D'\)</span> :</p>
 <p><span class="math display">\[
 \mathcal{L}_{D, D'}(s) \leq \varepsilon
 \]</span></p>
@@ -312,11 +311,11 @@ S. Benoliel, J. Jamme, G. Ferey
 <p>Exemple : publier plusieurs statistiques sur un même jeu de données <span class="math inline">\(D\)</span></p>
 <div class="fragment">
 <p><br></p>
-<p>Répétitions → accumulation du budget</p>
+<p>On révèle de plus en plus d’information sur nos données …</p>
 </div>
 <div class="fragment">
 <p><br></p>
-<p>A quel point ? → Besoin de <strong>composer</strong> les garanties</p>
+<p>A quel point ?</p>
 </div>
 </section>
 <section id="théorème-de-composition" class="slide level2" data-background-image="background.svg" data-background-size="contain">

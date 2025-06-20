@@ -58,7 +58,7 @@ editor:
 
 - **Sensibilité** $\Delta_i f = \max_{D \sim D'} \|f(D) - f(D')\|_i$  → impact maximal d’un individu
   - Comptage : $\Delta_i = 1$ 
-  - Somme / moyenne / quantile : dépendante de la variable d'étude
+  - Total / moyenne / quantile : dépendante de la variable d'étude
 
 ---
 
@@ -99,7 +99,7 @@ $$
 
 . . .
 
-$M$ est $\varepsilon$-*DP* ssi pour toute sortie $s$ :
+$M$ est $\varepsilon$-*DP* ssi pour toute sortie $s$ et $D \sim D'$ :
 
 $$
 \mathcal{L}_{D, D'}(s) \leq \varepsilon
@@ -172,13 +172,13 @@ Exemple : publier plusieurs statistiques sur un même jeu de données $D$
 
 <br>
 
-Répétitions → accumulation du budget 
+On révèle de plus en plus d'information sur nos données ...
 
 . . .
 
 <br>
 
-A quel point ? → Besoin de **composer** les garanties
+A quel point ?
 
 ---
 
