@@ -16,19 +16,19 @@ editor:
   render-on-save: true
 ---
 
-## Qu'est-ce que la *Differential Privacy* (*DP*) ?
+## Qu'est-ce que la confidentialité différentielle (*DP*, *Differential Privacy*) ?
 
 <br>
 
-- But : protéger un jeu de données $D$ tout en récupérant une sortie $S$
+- But : protéger les informations individuelles d'un jeu de données tout en produisant une information statistique
 
 . . .
 
-- Mécanisme DP : rendre quasi **indistinguable** les sorties obtenues avec ou sans un individu $i$  
+- Mécanisme DP : rendre quasi **indistinguable** le résultat obtenu si on changeait un individu des données
 
 . . .
 
-- Si un individu peut avoir un fort impact sur la sortie $S$ → on ajoute davantage de bruit
+- Si un individu peut avoir un fort impact sur le résultat → on ajoute davantage de bruit
 
 ---
 
@@ -92,8 +92,6 @@ $$
 
 ## Perte de confidentialité (*Privacy Loss*) [^7]
 
-<br>
-
 $$
 \mathcal{L}_{D, D'}(s) = \ln\left(\frac{\mathbb{P}(M(D) = s)}{\mathbb{P}(M(D') = s)}\right)
 $$
@@ -101,7 +99,7 @@ $$
 
 . . .
 
-$M$ est $\varepsilon$-*DP* si pour toute sortie $s$ :
+$M$ est $\varepsilon$-*DP* ssi pour toute sortie $s$ :
 
 $$
 \mathcal{L}_{D, D'}(s) \leq \varepsilon
