@@ -26,10 +26,6 @@ editor:
 
 - Mécanisme DP : rendre quasi **indistinguable** le résultat obtenu si on changeait un individu des données
 
-. . .
-
-- Si un individu peut avoir un fort impact sur le résultat → on ajoute davantage de bruit
-
 ---
 
 ## Caractéristiques
@@ -40,7 +36,7 @@ editor:
 
 . . .
 
-- L'information de **chaque individu** est protégée **sans faire d'hypothèse supplémentaires** sur les connaissances préalables qu'à l'attaquant.
+- L'information de **chaque individu** est protégée **sans faire d'hypothèse supplémentaires** sur les connaissances préalables qu'à l'attaquant
 
 . . . 
 
@@ -181,7 +177,7 @@ Exemple : publier plusieurs statistiques sur un même jeu de données $D$
 
 <br>
 
-On révèle de plus en plus d'information sur nos données ...
+On révèle de plus en plus d'information sur nos données...
 
 . . .
 
@@ -369,23 +365,9 @@ La composition parallèle définie par : $M(D) = (M_1(D_1), \dots, M_k(D_k))$ sa
 
 <br>
 
-- Problème pour les **totaux** et les **moyennes** : la contribution d’un individu peut être énorme  
+- Problème pour les **totaux** et les **moyennes** : la contribution d’un individu peut être énorme
 
 . . .
-
-- Fixer un seuil (max du jeu de données) peut révéler … le max !
-
-  → La sensibilité n'est pas protégée par la DP et peut être inférée à partir de quelques requêtes 
-
-. . .
-
-- A mitiger dans notre cadre
-
----
-
-## Solution : borner les valeurs dans un intervalle donné
-
-<br>
 
 - On ramène les valeurs dans un intervalle : $[L, U]$  
   - Ajout de biais
@@ -393,8 +375,9 @@ La composition parallèle définie par : $M(D) = (M_1(D_1), \dots, M_k(D_k))$ sa
 
 . . .
 
-- D'autres solutions sont évoquées dans la littérature : *Propose Test Release*, *Sample and Aggregate*, ect.
+- Fixer U = max du jeu de données, peut révéler … le max !
 
+  → La sensibilité n'est pas protégée par la DP et peut être inférée à partir de quelques requêtes 
 
 # Cas des comptages
 
@@ -555,7 +538,6 @@ plt.show()
 <iframe src="images/animation.html" 
         style="width:100%; max-width:950px; height:56.25vw; border:none; display:block; margin:0 auto;">
 </iframe>
-
 ```
 
 ---
@@ -570,6 +552,7 @@ plt.show()
 
 - Mécanisme $\varepsilon$-*DP* qui peut aussi être considéré dans un cadre $\rho$-*CDP* (cf théorème de conversion)
 
+# Début du POC
 
 # Récapitulatif / Résumé
 
@@ -612,9 +595,6 @@ plt.show()
 . . .
 
 - Contraintes fortes dans certains cas
-
-
-# Début du POC
 
 ---
 
