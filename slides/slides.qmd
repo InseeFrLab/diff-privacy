@@ -265,7 +265,6 @@ eps_tot_gauss = xs * eps_gauss
 # Gaussien Composition Avancée
 eps_tot_gauss_av = eps_gauss_av * np.sqrt(2 * xs * np.log(1 / delta_gauss_av)) + xs * eps_gauss_av * (np.exp(eps_gauss_av) - 1)
 
-
 rho = 1 / (2 * sigmas**2)
     # Gaussien zCDP 
 eps_tot_gauss_zcdp = (xs * rho) + 2 * np.sqrt((xs * rho) * np.log(1 / delta_tot))
@@ -375,7 +374,7 @@ $$
 
 - On a un système d'équations **linéaires** en les inverses des variances
 
-# Cas des Totaux et des moyennes
+# Cas des totaux et des moyennes
 
 ## Revenons à la sensibilité
 
