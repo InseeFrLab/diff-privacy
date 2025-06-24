@@ -377,6 +377,8 @@ $$
 
 ---
 
+# Cas des Totaux et des moyennes
+
 ## Revenons à la sensibilité
 
 - Problème pour les **totaux** et les **moyennes** : la contribution d’un individu peut être énorme
