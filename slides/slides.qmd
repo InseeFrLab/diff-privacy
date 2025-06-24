@@ -229,7 +229,7 @@ $$
 $$
 
 - $\rho$ mesure la **concentration** de la *privacy loss* autour de son espérance
-- Permet des **compositions plus précises** → Composition adaptative en $\sum_{i=1}^{k} \rho_i$
+- Permet des **compositions plus précises** → Composition adaptative en $k\rho$
 
 [^3]: [@bun_concentrated_2016], Concentrated Differential Privacy:  Simplifications, Extensions, and Lower Bounds
 
@@ -374,8 +374,6 @@ $$
 . . .
 
 - On a un système d'équations **linéaires** en les inverses des variances
-
----
 
 # Cas des Totaux et des moyennes
 
