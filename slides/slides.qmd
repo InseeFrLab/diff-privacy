@@ -60,8 +60,8 @@ editor:
 
 On note $f$ une fonction quelconque appliquée sur $D$ (comptage, moyenne d'une variable, ect.)
 
-- **Sensibilité** $\Delta_i f = \max_{D \sim D'} \|f(D) - f(D')\|_i$  → impact maximal d’un individu
-  - Comptage : $\Delta_i = 1$ 
+- **Sensibilité** $\Delta f = \max_{D \sim D'} \|f(D) - f(D')\|$  → impact maximal d’un individu
+  - Comptage : $\Delta = 1$ 
   - Total / moyenne / quantile : dépendante de la variable d'étude
 
 ---
@@ -192,7 +192,7 @@ A quel point ?
 <br>
 
 Soit une séquence de $k$ mécanismes $M_1, \dots, M_k$, choisis de manière **adaptative**[^2], chacun vérifiant $(\varepsilon, \delta)$-DP.  
-Alors, leur composition est : $\left(\sum_{i=1}^{k} \varepsilon_i, \sum_{i=1}^{k} \delta_i\right)$ - DP.
+Alors, leur composition est : $\left(k\varepsilon, k\delta\right) \text{-DP}$
 
 [^2]: [@dwork_boosting_2010] Boosting and Differential Privacy
 
@@ -203,55 +203,8 @@ Alors, leur composition est : $\left(\sum_{i=1}^{k} \varepsilon_i, \sum_{i=1}^{k
 De plus, il existe également une autre formule de composition dite **"avancée"** : pour tout $\delta' > 0$, 
 
 $$
-\left( k\varepsilon(e^{\varepsilon} - 1) + \varepsilon\sqrt{2k \ln(1/\delta')} \ ,\ k\delta + \delta' \right)\text{-DP}.
+\left( k\varepsilon(e^{\varepsilon} - 1) + \varepsilon\sqrt{2k \ln(1/\delta')} \ ,\ k\delta + \delta' \right)\text{-DP}
 $$
-
----
-
-```{python}
-import numpy as np
-import matplotlib.pyplot as plt
-from scipy.stats import norm, laplace
-
-# Paramètres
-xs = np.linspace(0.01, 100, 1000)
-sigmas = 25.5
-delta_tot = 1e-5
-delta_gauss = delta_tot / xs 
-delta_gauss_av = delta_tot / (xs + 1)
-
-colors = {
-    "laplace": "#2ca02c",       # vert
-    "laplace_av": "#004c99",   # bleu foncé
-    "gauss": "#ff9933",         # orange
-    "gauss_av": "#cc0000",     # rouge
-    "gauss_zcdp": "#9900cc",    # violet
-}
-
-# Création des graphiques côte à côte
-fig, axs = plt.subplots(1, 1, figsize=(10, 6))
-
-eps_gauss = np.sqrt(2 * np.log(1.25 / delta_gauss)) / sigmas
-eps_gauss_av = np.sqrt(2 * np.log(1.25 / delta_gauss_av)) / sigmas
-# Gaussien
-eps_tot_gauss = xs * eps_gauss
-# Gaussien Composition Avancée
-eps_tot_gauss_av = eps_gauss_av * np.sqrt(2 * xs * np.log(1 / delta_gauss_av)) + xs * eps_gauss_av * (np.exp(eps_gauss_av) - 1)
-
-axs.plot(xs, eps_tot_gauss, label="Gaussien", color=colors["gauss"])
-axs.plot(xs, eps_tot_gauss_av, label="Gaussien+Comp. Av.", color=colors["gauss_av"])
-axs.set_xlabel('Nombre de requêtes')
-axs.set_ylabel(r'$\varepsilon$ total')
-axs.set_ylim(0, 15.0)
-axs.set_title(rf'$\sigma={sigmas}$ et $\delta=10^{{{int(np.log10(delta_tot))}}}$')
-axs.legend()
-axs.grid(True, linestyle='--', linewidth=0.5)
-
-
-# Affichage
-plt.tight_layout()
-plt.show()
-```
 
 ---
 
@@ -260,10 +213,6 @@ plt.show()
 <br>
 
 - Deux paramètres à gérer : $\varepsilon$, $\delta$  
-
-. . .
-
-- Accumulation rapide du budget  
 
 . . .
 
@@ -355,8 +304,8 @@ plt.show()
 
 . . .
 
-- Soient $k$ mécanismes $M_1, \dots, M_k$, $\varepsilon_i$-DP, et une partition **disjointe** des données $D_1, \dots, D_k$.  
-La composition parallèle définie par : $M(D) = (M_1(D_1), \dots, M_k(D_k))$ satisfait alors $\left(\max_{i} \varepsilon_i\right)$-DP
+- Soient $k$ mécanismes $M_1, \dots, M_k$, $\varepsilon$-DP, et une partition **disjointe** des données $D_1, \dots, D_k$.  
+La composition parallèle définie par : $M(D) = (M_1(D_1), \dots, M_k(D_k))$ satisfait alors $\varepsilon$-DP
 
 # Cas des comptages
 
@@ -365,6 +314,10 @@ La composition parallèle définie par : $M(D) = (M_1(D_1), \dots, M_k(D_k))$ sa
 <br>
 
 ![](images/cas_pratique_dp.png)
+
+. . .
+
+- $\text{nb}_{\text{hommes}} = 20 \quad \text{Vs} \quad \text{nb}_{\text{hommes}} = 12+14+17$
 
 ---
 
@@ -395,7 +348,7 @@ $$
 <br>
 
 $$
-\mathrm{Var}[\hat{T}_{\text{comp}}] = \sum_{k=1}^{n} w_k^2 \sigma_k^2 = \frac{1}{\sum_{j=1}^{n} 1 / \sigma_j^2} 
+\mathbb{Var}[\hat{T}_{\text{comp}}] = \sum_{k=1}^{n} w_k^2 \sigma_k^2 = \frac{1}{\sum_{j=1}^{n} 1 / \sigma_j^2} 
 $$
 
 <br>
@@ -425,8 +378,6 @@ $$
 ---
 
 ## Revenons à la sensibilité
-
-<br>
 
 - Problème pour les **totaux** et les **moyennes** : la contribution d’un individu peut être énorme
 
@@ -467,7 +418,7 @@ $$
 Étant donné un ensemble de sorties $S$ et une fonction de score $u : \mathbb{D} \times S \to \mathbb{R}$,
 
 $$
-\Pr[M_E(D, u, \varepsilon) = s] \propto \exp\left(\frac{\varepsilon u(D, s)}{2 \Delta u}\right),
+\mathbb{P}[M_E(D, u, \varepsilon) = s] \propto \exp\left(\frac{\varepsilon u(D, s)}{2 \Delta u}\right),
 $$
 
 où la sensibilité est définie par :
