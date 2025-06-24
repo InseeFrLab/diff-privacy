@@ -358,27 +358,6 @@ plt.show()
 - Soient $k$ mécanismes $M_1, \dots, M_k$, $\varepsilon_i$-DP, et une partition **disjointe** des données $D_1, \dots, D_k$.  
 La composition parallèle définie par : $M(D) = (M_1(D_1), \dots, M_k(D_k))$ satisfait alors $\left(\max_{i} \varepsilon_i\right)$-DP
 
----
-
-
-## Revenons à la sensibilité
-
-<br>
-
-- Problème pour les **totaux** et les **moyennes** : la contribution d’un individu peut être énorme
-
-. . .
-
-- On ramène les valeurs dans un intervalle : $[L, U]$  
-  - Ajout de biais
-  - Mais réduit la variance du bruit injecté
-
-. . .
-
-- Fixer U = max du jeu de données, peut révéler … le max !
-
-  → La sensibilité n'est pas protégée par la DP et peut être inférée à partir de quelques requêtes 
-
 # Cas des comptages
 
 ---
@@ -442,6 +421,26 @@ $$
 . . .
 
 - On a un système d'équations **linéaires** en les inverses des variances
+
+---
+
+## Revenons à la sensibilité
+
+<br>
+
+- Problème pour les **totaux** et les **moyennes** : la contribution d’un individu peut être énorme
+
+. . .
+
+- Solution ? : on ramène les valeurs dans un intervalle : $[L, U]$  
+  - Ajout de biais
+  - Mais réduit la variance du bruit injecté
+
+. . .
+
+- Fixer U = max du jeu de données, peut révéler … le max !
+
+  → La sensibilité n'est pas protégée par la DP et peut être inférée à partir de quelques requêtes 
 
 
 # Cas des quantiles
