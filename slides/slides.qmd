@@ -504,47 +504,65 @@ plt.show()
 
 # Début du POC
 
-# Récapitulatif / Résumé
+# Conclusion
 
 ---
 
-## Forces de la DP
+## Contraintes
 
 <br>
 
-- Cadre rigoureux avec garanties formelles  
+🎲 Méthode **perturbatrice** (acceptabilité)
 
 . . .
 
-- Pas d'hypothèse sur l’attaquant  
+<div style="margin-top: 40px;"></div>
+
+🛠️ **Mise en pratique** complexe (peu d'outils)
 
 . . .
 
-- Transparence du mécanisme et des choix effectués
+<div style="margin-top: 40px;"></div>
 
-. . .
-
-- Stable au post-traitement  
-
-. . .
-
-- Prise en compte du risque en cas de répétitions de processus DP
+🧩 **Garantie abstraite** de confidentialité
 
 ---
 
-## Faiblesses
+## Atouts
 
 <br>
 
-- Mise en pratique complexe  
+🔒 Cadre rigoureux offrant des **garanties formelles**
 
 . . .
 
-- Choix du budget délicat  
+<div style="margin-top: 40px;"></div>
+
+📏 **Quantification** de l'impact sur la confidentialité
 
 . . .
 
-- Contraintes fortes dans certains cas
+<div style="margin-top: 40px;"></div>
+
+🗝️ **Gouvernance et arbitrage** simplifiés
+
+. . .
+
+<div style="margin-top: 40px;"></div>
+
+🔎 **Transparence** complète (paramètres et résultats)
+
+. . .
+
+<div style="margin-top: 40px;"></div>
+
+🏭 Stable au post-traitement (et pré-traitement)
+
+. . .
+
+<div style="margin-top: 40px;"></div>
+
+🌍 Méthode déjà éprouvée (US Census, Eurostat)
 
 ---
 
