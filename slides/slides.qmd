@@ -561,7 +561,7 @@ plt.show()
 
 <div style="margin-top: 40px;"></div>
 
-🌍 Méthode déjà éprouvée (US Census, Eurostat)
+🌍 Méthode déjà éprouvée (US Census, INS Suisse)
 
 ---
 
