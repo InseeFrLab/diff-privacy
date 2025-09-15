@@ -1,0 +1,146 @@
+---
+title: La confidentialité différentielle
+subtitle: |
+  **[Appliquée via un outil de requêtage]{.orange}**
+author: S. Benoliel
+date: today
+bibliography: references.bib
+slide-number: true
+lang: fr
+chalkboard: # press the B key to toggle chalkboard
+  theme: whiteboard
+format:
+  onyxia-revealjs:
+    output-file: index.html
+editor:
+  render-on-save: true
+---
+
+## Pourquoi le besoin de nouvelles méthodes de protection
+
+<br>
+
+- Devoir loi 19** et RGPD de la stat publique de protéger données auxquelles elles référent
+
+- Actuellement méthode suppressive -> dominante en terme d'utilisation
+
+- Trop contraignante (exemple concret)
+
+
+## La confidentialité différentielle
+
+<br>
+
+- Opportunité d'un nouveau cadre
+
+- Principe : rendre quasi **indistinguable** le résultat obtenu si on changeait un individu des données
+
+
+
+# Présentation de l'outil
+
+???
+
+Plan de présentation :
+-- 
+- Rappel du mécanisme à ajout de bruit (rapide)
+- Focus et explication plus en profondeur des quantiles
+--
+- Mise en application sur un dataset, en tant que chargé d'études
+- Explication des poids de priorité
+- Gain lié au lien entre les requêtes
+
+Questions à préparer :
+- Lomas -->> Réunion préparée avec des statisticiens Suisses ayant participé au projet. A la suite de cette réunion, choix de laisser cette fonctionnalité avancée de suivi avancée de budget de coté
+- Pris contact aves des chargés d'études -->> Coeur du projet de prendre en compte cette aspect, mais surtout d'abord objectif d'appliquer concrètement la CD, on est à un stade de POC
+- Exemple d'application concret -->> En toute honnêteté, c'est un véritable manque. Justifications : manque de temps et difficulté à prendre un exemple d'étude qui pourrait être représentative (dépendance de la taille de l'échantillon) + choix du budget
+- Complexité des mécanismes pour le total compensé par un gain ? -->> savoir argumenter
+- Défendre le choix de débruiter via les mcg
+- Etre capable de montrer sur un exemple précis le risque de brèche de confidentialité Insee
+- Métriques divulgable par l'Insee au final ?
+- Hypothèse MCG a revoir
+
+# Limites de la confidentialité différentielle
+
+---
+
+## Contraintes
+
+<br>
+
+🎲 Méthode **perturbatrice** (acceptabilité)
+
+. . .
+
+<div style="margin-top: 40px;"></div>
+
+🛠️ **Mise en pratique** complexe (peu d'outils)
+
+. . .
+
+<div style="margin-top: 40px;"></div>
+
+🧩 **Garantie abstraite** de confidentialité
+
+---
+
+## Atouts
+
+<br>
+
+🔒 Cadre rigoureux offrant des **garanties formelles**
+
+. . .
+
+<div style="margin-top: 40px;"></div>
+
+📏 **Quantification** de l'impact sur la confidentialité
+
+. . .
+
+<div style="margin-top: 40px;"></div>
+
+🗝️ **Gouvernance et arbitrage** simplifiés
+
+. . .
+
+<div style="margin-top: 40px;"></div>
+
+🔎 **Transparence** complète (paramètres et résultats)
+
+. . .
+
+<div style="margin-top: 40px;"></div>
+
+🏭 Stable au post-traitement (et pré-traitement)
+
+. . .
+
+<div style="margin-top: 40px;"></div>
+
+🌍 Méthode déjà éprouvée (US Census, INS Suisse)
+
+---
+
+## Et après ?
+
+<br>
+
+- Besoin d'approfondissement méthodologique (choix des bornes *L* et *U*, ajout de nouveaux indicateurs, ...)
+
+<br>
+
+- Choix d'un budget de confidentialité raisonnable
+
+<br>
+
+. . .
+
+- Convaincre de l'utilité de cette méthode
+
+# Merci pour votre attention !
+
+## Références
+
+::: {#refs}
+:::
