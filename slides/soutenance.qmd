@@ -2,9 +2,8 @@
 title: La confidentialité différentielle
 subtitle: |
   **[Appliquée via un outil de requêtage]{.orange}**
-author: S. Benoliel
+author: Stuart BENOLIEL
 date: today
-bibliography: references.bib
 slide-number: true
 lang: fr
 chalkboard: # press the B key to toggle chalkboard
@@ -16,131 +15,96 @@ editor:
   render-on-save: true
 ---
 
-## Pourquoi le besoin de nouvelles méthodes de protection
+## Pourquoi de nouvelles méthodes de protection ?
+
+- Obligation légale : [Loi de 1951]{.orange} et [RGPD (2018)]{.orange} imposent à la statistique publique de protéger les données individuelles
+
+. . .
+
+- Les méthodes traditionnelles sont insuffisantes : agrégation ou blanchiment des cellules, mais...
+
+. . .
+
+- [Complexité]{.orange} des règles de diffusion sur certaines sources (Fidéli, ...)
+
+. . .
+
+- Adaptées seulement à une diffusion [centralisée unique]{.orange}
+
+
+## La confidentialité différentielle : un nouveau paradigme
 
 <br>
 
-- Devoir loi 19** et RGPD de la stat publique de protéger données auxquelles elles référent
+- Un cadre [mathématique rigoureux]{.orange} offrant des [garanties formelles]{.orange} de protection, indépendantes des connaissances de l’attaquant
 
-- Actuellement méthode suppressive -> dominante en terme d'utilisation
+. . .
 
-- Trop contraignante (exemple concret)
+- [Quantification]{.orange} de la perte de confidentialité
+
+. . .
+
+- Adaptée à une diffusion [décentralisée multiple]{.orange}
 
 
-## La confidentialité différentielle
+##  La confidentialité différentielle : un nouveau paradigme
 
 <br>
 
-- Opportunité d'un nouveau cadre
+- Un cadre [mathématique rigoureux]{.orange} **(et contraignant)** offrant des [garanties formelles]{.orange} de protection, indépendante des connaissances de l’attaquant
 
-- Principe : rendre quasi **indistinguable** le résultat obtenu si on changeait un individu des données
+<!-- spacer -->
+
+- [Quantification]{.orange} **abstraite** de la perte de confidentialité
+
+<!-- spacer -->
+
+- Adaptée à une diffusion [décentralisée multiple]{.orange} **mais nécessite gouvernance et arbitrage**
+
+# Présentation de l’outil
+
+## Et maintenant ?
+
+<br>
+
+- Nécessité d’un [cadre de diffusion clair]{.orange} : quel budget ? qui arbitre ?
+
+. . .
+
+- Besoin d'[approfondissements méthodologiques]{.orange} (choix des bornes *L* et *U*, ajout de nouveaux indicateurs, ...)
+
+. . .
+
+- [Formation et sensibilisation]{.orange} des utilisateurs
+
+# Merci pour votre attention !
 
 
-
-# Présentation de l'outil
-
-???
-
+::: {.notes}
 Plan de présentation :
--- 
-- Rappel du mécanisme à ajout de bruit (rapide)
-- Focus et explication plus en profondeur des quantiles
---
-- Mise en application sur un dataset, en tant que chargé d'études
-- Explication des poids de priorité
-- Gain lié au lien entre les requêtes
+- Rappel du mécanisme d’ajout de bruit
+- Focus sur les quantiles et leur protection via le mécanisme exponentiel
+- Mise en application sur un dataset réel
+- Introduction des poids de priorité
+- Illustration du gain via la dépendance entre requêtes
 
 Questions à préparer :
+- Fonctionnalité de suivi avancé de budget mise de côté après échanges avec Lomas (statisticiens suisses)
+- Retours de chargés d’étude : demande de simplicité et d’utilisabilité
+- Exemple concret difficile à figer (choix du budget, dépendance à la taille d’échantillon)
+- Argumenter la complexité vs le gain pour les totaux
+- Justifier le choix des MCG pour le débruitage
+- Montrer un exemple de brèche possible (attaque d’inférence) avec méthode suppressive
+- Quelles métriques seraient publiables par l’Insee au final ?
+- Revoir certaines hypothèses techniques sur les mécanismes (MCG,  etc.)
+
 - Lomas -->> Réunion préparée avec des statisticiens Suisses ayant participé au projet. A la suite de cette réunion, choix de laisser cette fonctionnalité avancée de suivi avancée de budget de coté
 - Pris contact aves des chargés d'études -->> Coeur du projet de prendre en compte cette aspect, mais surtout d'abord objectif d'appliquer concrètement la CD, on est à un stade de POC
 - Exemple d'application concret -->> En toute honnêteté, c'est un véritable manque. Justifications : manque de temps et difficulté à prendre un exemple d'étude qui pourrait être représentative (dépendance de la taille de l'échantillon) + choix du budget
 - Complexité des mécanismes pour le total compensé par un gain ? -->> savoir argumenter
-- Défendre le choix de débruiter via les mcg
-- Etre capable de montrer sur un exemple précis le risque de brèche de confidentialité Insee
-- Métriques divulgable par l'Insee au final ?
-- Hypothèse MCG a revoir
-
-# Limites de la confidentialité différentielle
-
----
-
-## Contraintes
-
-<br>
-
-🎲 Méthode **perturbatrice** (acceptabilité)
-
-. . .
-
-<div style="margin-top: 40px;"></div>
-
-🛠️ **Mise en pratique** complexe (peu d'outils)
-
-. . .
-
-<div style="margin-top: 40px;"></div>
-
-🧩 **Garantie abstraite** de confidentialité
-
----
-
-## Atouts
-
-<br>
-
-🔒 Cadre rigoureux offrant des **garanties formelles**
-
-. . .
-
-<div style="margin-top: 40px;"></div>
-
-📏 **Quantification** de l'impact sur la confidentialité
-
-. . .
-
-<div style="margin-top: 40px;"></div>
-
-🗝️ **Gouvernance et arbitrage** simplifiés
-
-. . .
-
-<div style="margin-top: 40px;"></div>
-
-🔎 **Transparence** complète (paramètres et résultats)
-
-. . .
-
-<div style="margin-top: 40px;"></div>
-
-🏭 Stable au post-traitement (et pré-traitement)
-
-. . .
-
-<div style="margin-top: 40px;"></div>
-
-🌍 Méthode déjà éprouvée (US Census, INS Suisse)
-
----
-
-## Et après ?
-
-<br>
-
-- Besoin d'approfondissement méthodologique (choix des bornes *L* et *U*, ajout de nouveaux indicateurs, ...)
-
-<br>
-
-- Choix d'un budget de confidentialité raisonnable
-
-<br>
-
-. . .
-
-- Convaincre de l'utilité de cette méthode
-
-# Merci pour votre attention !
-
-## Références
-
-::: {#refs}
+- Défendre le choix de débruiter
+- Montrer un exemple de brèche possible (attaque d’inférence) avec méthode suppressive
+- Quelles métriques seraient publiables par l’Insee au final ?
+- Revoir certaines hypothèses techniques sur les mécanismes (MCG,  etc.)
+- Explication de la composition parallèle
 :::

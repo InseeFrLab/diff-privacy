@@ -7,7 +7,7 @@ $font-family-sans-serif: $work-sans !default;
 $presentation-font-size-root: 36px !default;
 
 // Colors
-$orange: rgb(255, 86, 44);
+$orange: rgb(122, 87, 255);
 $black: rgb(44, 50, 63);
 $white: rgb(241, 240, 235);
 $green: rgb(186, 255, 41);
@@ -28,3 +28,7 @@ $dark-bg-code-color: $green !default;
 .orange {
     color: $orange;
 }
+
+/* 
+$orange: rgb(255, 86, 44);
+*/
