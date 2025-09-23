@@ -6,7 +6,7 @@ author: Stuart BENOLIEL
 date: today
 slide-number: true
 lang: fr
-chalkboard: # press the B key to toggle chalkboard
+chalkboard: # press the B key to toggle chalkboard / quarto render slides/soutenance.qmd
   theme: whiteboard
 format:
   onyxia-revealjs:
@@ -71,40 +71,10 @@ editor:
 
 . . .
 
-- Besoin d'[approfondissements méthodologiques]{.orange} (choix des bornes *L* et *U*, ajout de nouveaux indicateurs, ...)
+- Besoin d'[approfondissements méthodologiques]{.orange} (choix des bornes *L* et *U*, ajout de nouvelles statistiques, ...)
 
 . . .
 
 - [Formation et sensibilisation]{.orange} des utilisateurs
 
 # Merci pour votre attention !
-
-
-::: {.notes}
-Plan de présentation :
-- Rappel du mécanisme d’ajout de bruit
-- Focus sur les quantiles et leur protection via le mécanisme exponentiel
-- Mise en application sur un dataset réel
-- Introduction des poids de priorité
-- Illustration du gain via la dépendance entre requêtes
-
-Questions à préparer :
-- Fonctionnalité de suivi avancé de budget mise de côté après échanges avec Lomas (statisticiens suisses)
-- Retours de chargés d’étude : demande de simplicité et d’utilisabilité
-- Exemple concret difficile à figer (choix du budget, dépendance à la taille d’échantillon)
-- Argumenter la complexité vs le gain pour les totaux
-- Justifier le choix des MCG pour le débruitage
-- Montrer un exemple de brèche possible (attaque d’inférence) avec méthode suppressive
-- Quelles métriques seraient publiables par l’Insee au final ?
-- Revoir certaines hypothèses techniques sur les mécanismes (MCG,  etc.)
-
-- Lomas -->> Réunion préparée avec des statisticiens Suisses ayant participé au projet. A la suite de cette réunion, choix de laisser cette fonctionnalité avancée de suivi avancée de budget de coté
-- Pris contact aves des chargés d'études -->> Coeur du projet de prendre en compte cette aspect, mais surtout d'abord objectif d'appliquer concrètement la CD, on est à un stade de POC
-- Exemple d'application concret -->> En toute honnêteté, c'est un véritable manque. Justifications : manque de temps et difficulté à prendre un exemple d'étude qui pourrait être représentative (dépendance de la taille de l'échantillon) + choix du budget
-- Complexité des mécanismes pour le total compensé par un gain ? -->> savoir argumenter
-- Défendre le choix de débruiter
-- Montrer un exemple de brèche possible (attaque d’inférence) avec méthode suppressive
-- Quelles métriques seraient publiables par l’Insee au final ?
-- Revoir certaines hypothèses techniques sur les mécanismes (MCG,  etc.)
-- Explication de la composition parallèle
-:::
